@@ -20,10 +20,10 @@ module.exports = router;
 //Rota para Cadastro de nova loja no banco
 
 router.post('/store-register', async (req, res) => {
-  const {id_loja, nome_loja} = req.body;
+  const {store_id, store_name} = req.body;
 
-  try{ const newStore = await insertStore(id_loja, nome_loja); 
-    res.status(201).json({message: 'Store Successfully Registered!', loja: newStore});
+  try{ const newStore = await insertStore(store_id, store_name); 
+    res.status(201).json({message: 'Store Successfully Registered!', STORE: newStore});
   }catch (err){
     res.status(500).json({message: 'Error! Something Went Wrong!', err: err.message});
   }

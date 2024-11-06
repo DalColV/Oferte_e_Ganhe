@@ -25,10 +25,10 @@ module.exports = router;
 //Route to insert a new profile in database
 
 router.post('/profile-management/new-profile', async (req, res) => {
-    const {id_perfil, nome_perfil, id_acesso} = req.body;
+    const {profile_id, profile_name, access_id} = req.body;
 
-    try{ const newProfile = await insertProfile(id_perfil, nome_perfil, id_acesso);
-        res.status(201).json({message: 'Profile Successfully Registered!', PERFIS: newProfile});
+    try{ const newProfile = await insertProfile(profile_id, profile_name, access_id);
+        res.status(201).json({message: 'Profile Successfully Registered!', PROFILE: newProfile});
 
     }catch (error){
         res.status(500).json({message: 'Error! Something Went Wrong!', err: error.message})

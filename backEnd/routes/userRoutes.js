@@ -1,18 +1,18 @@
 const express = require('express');
 const path = require('path');
 const router = express.Router();
-const { insertUser } = require('../services/user-services');
+const { insertUser, editUser } = require('../services/user-services');
 
 //GET
 
-// Rota de cadastro de usuários
+// Rota pag de cadastro de usuários
 router.get('/view-register', (req, res) => {
     res.sendFile(path.join(__dirname, '../../frontEnd/public/login-and-register/view-register.html'));
 });
 
 module.exports = router;
 
-// Rota de login de usuários
+// Rota pag de login de usuários
 router.get('/view-login', (req, res) => {
     res.sendFile(path.join(__dirname, '../../frontEnd/public/login-and-register/view-login.html'));
 
@@ -20,7 +20,7 @@ router.get('/view-login', (req, res) => {
 
 module.exports = router;
 
-// Rota de Recuperar Senha
+// Rota pag de Recuperar Senha
 
 router.get('/view-recover-password', (req, res) => {
     res.sendFile(path.join(__dirname, '../../frontEnd/public/recover-password/view-recover-password.html'));
@@ -29,7 +29,7 @@ router.get('/view-recover-password', (req, res) => {
 
 module.exports = router;
 
-//Rota resetar Senha
+//Rota pag resetar Senha
 
 router.get('/view-reset-password', (req, res) => {
     res.sendFile(path.join(__dirname, '../../frontEnd/public/recover-password/view-reset-password.html'));
@@ -57,4 +57,22 @@ router.post('/register', async (req, res) => {
 
 module.exports = router;
 
+//PUT 
 
+// Rota para editar um usuário
+
+router.put('/edit-register/:matricula', async (req, res) => {
+    const { matricula } = req.params;
+    const { nome_usuario, id_loja, id_perfil, email, senha } = req.body;
+
+    try{ const updateUser = await editUser(matricula, nome_usuario, id_loja, id_perfil, email, senha);
+        if(updateUser){
+            res.status(200).json({message: 'User Updated Successfully!', usuario: updateUser});
+
+        }else { res.status(404).json({message: 'User Not Founded' });
+    }  
+    }catch(error){ res.status(500).json({message: 'Something Went Wrong!', error: error.message});
+}
+})
+
+module.exports = router;

@@ -26,43 +26,15 @@ router.get('/talon/view-receipt', (req, res) => {
 
 // POST
 
-//ROUTE TO CREATE A NEW TALON
-
-router.post('/talon/new-talon', async (req, res) => {
- const {id_talao, remessa, id_estoque, qtde_taloes, status_talao} = req.body;
-
- try{
-    const newTalon = await talonServices.createNewTalon(id_talao, remessa, id_estoque, qtde_taloes, status_talao);
-    res.status(201).json({message: 'Talon Successfully Created!', talao: newTalon});
- }catch (error){
-    res.status(500).json({message: 'Error! Something went wrong, try again!', err: error.message});
-
-}
-})
-
 
 //ROUTE TO SEND TALON
 
 router.post('/talon/send-talon', async (req, res) => {
-    const {id_envio_talao, id_talao, id_loja, qtde_enviada, data_envio, data_evento} = req.body;
+    const {inventory_id, talon_quantity, send_date, order_date, talon_status, receive_date, user_id} = req.body;
    
     try{
-       const sendTalon = await talonServices.sendTalon(id_envio_talao, id_talao, id_loja, qtde_enviada, data_envio, data_evento);
-       res.status(201).json({message: 'Talon Successfully Created!', envio: sendTalon});
-    }catch (error){
-       res.status(500).json({message: 'Error! Something went wrong, try again!', err: error.message});
-   
-   }
-   })
-
-   //ROUTE TO RECEIPT TALON
-
-   router.post('/talon/receipt-talon', async (req, res) => {
-    const {id_recebimento_talao, id_talao, id_loja, qtde_recebida, data_recebimento} = req.body;
-   
-    try{
-       const receiptTalon = await talonServices.receiptTalon(id_recebimento_talao, id_talao, id_loja, qtde_recebida, data_recebimento);
-       res.status(201).json({message: 'Talon Successfully Created!', recebimento: receiptTalon});
+       const sendTalon = await talonServices.sendTalon(inventory_id, talon_quantity, send_date, order_date, talon_status, receive_date, user_id);
+       res.status(201).json({message: 'Talon Successfully Sent!', TALON_LOGS: sendTalon});
     }catch (error){
        res.status(500).json({message: 'Error! Something went wrong, try again!', err: error.message});
    
@@ -70,10 +42,25 @@ router.post('/talon/send-talon', async (req, res) => {
    })
 
 
-   
-   
 module.exports = router;
 
+// PUT
 
+//Route to EDIT a Talon
+
+
+router.put('/edit-talon/:talon_id', async (req, res) => {
+   const {talon_id} = req.params;
+   const {talon_quantity, send_date, order_date, talon_status, receive_date, user_id} = req.body;
+
+   try{const updateTalon = await editTalon(inventory_id, talon_quantity, send_date, order_date, talon_status, receive_date, user_id, talon_id);
+      if(updateTalon){
+         res.status(200).json({message: "Talon Updated Successfully!", TALON_LOGS: updateTalon});
+      }else{ res.status(404).json({message: 'Talon not founded!'});
+   }
+   } catch (error) {
+   res.status(500).json({ message: 'Something Went Wrong!', error: error.message });
+   }
+});
 
 

@@ -15,11 +15,11 @@ module.exports = router;
 // ROUTE TO INSERT THE QUANTITIES IN INVENTORY
 
 router.post('/inventory', async (req, res) => {
-    const {id_estoque, id_loja, qtde_minima_taloes, qtde_recomendada_taloes, qtde_atual_taloes} = req.body;
+    const {inventory_id, store_id, min_quantity, recommended_quantity, current_quantity} = req.body;
    
     try{
-       const newInventory = await setInventory(id_estoque, id_loja, qtde_minima_taloes, qtde_recomendada_taloes, qtde_atual_taloes);
-       res.status(201).json({message: 'Done!', inventory: newInventory});
+       const newInventory = await setInventory(inventory_id, store_id, min_quantity, recommended_quantity, current_quantity);
+       res.status(201).json({message: 'Done!', INVENTORY: newInventory});
     }catch (error){
        res.status(500).json({message: 'Error! Something went wrong, try again!', err: error.message});
    
