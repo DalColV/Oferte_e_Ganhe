@@ -1,7 +1,7 @@
 const express = require('express');
 const path = require('path');
 const router = express.Router();
-const { insertUser, editUser } = require('../services/user-services');
+const { insertUser, editUser, deleteUser} = require('../services/user-services');
 
 //GET
 
@@ -68,7 +68,7 @@ router.put('/register-edit/:registration', async (req, res) => {
     try { 
         const updateUser = await editUser(registration, username, store_id, profile_id, email, password);
         
-        console.log("updateUser:", updateUser); // Log para verificar o valor de updateUer
+        console.log("updateUser:", updateUser); 
 
         if (updateUser) {
             res.status(200).json({ message: 'User Updated Successfully!', user: updateUser });
@@ -80,3 +80,26 @@ router.put('/register-edit/:registration', async (req, res) => {
     }
 });
 
+module.exports = router;
+
+
+//DELETE
+
+//Route to Delete an User
+
+router.delete('/register-delete/:registration', async (req, res) => {
+    const { registration } = req.params;
+
+    try {
+        const deletedUser = await deleteUser(registration);
+        if (deletedUser) {
+            res.status(200).json({ message: 'User Deleted Successfully!', users: deletedUser});
+        } else {
+            res.status(404).json({ message: 'User Not Found!.' });
+        }
+    } catch (erro) {
+        res.status(500).json({ message: 'Something Went Wrong!', error: erro.message });
+    }
+});
+
+module.exports = router;

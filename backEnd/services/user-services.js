@@ -21,9 +21,7 @@ async function insertUser(matricula, nome_usuario, id_loja, id_perfil, email, se
     }
 }
 
-module.exports = { insertUser };
-
-//Function to edit a user
+//Function to edit an user
 
 async function editUser(registration, username, store_id, profile_id, email, password) {
     const query = `
@@ -50,5 +48,23 @@ async function editUser(registration, username, store_id, profile_id, email, pas
     }
 }
 
-module.exports = { editUser };
+//Function to Delete an User
+
+async function deleteUser(registration) {
+    const query = `
+        DELETE FROM users
+        WHERE registration = $1
+        RETURNING *;
+    `;
+
+    try {
+        const result = await pool.query(query, [registration]);
+        return result.rows[0]; 
+    } catch (error) {
+        console.error('Something Wetn Wrong!', error);
+        throw error;
+    }
+}
+
+module.exports = { insertUser, editUser, deleteUser};
 
