@@ -25,25 +25,30 @@ module.exports = { insertUser };
 
 //Function to edit a user
 
-async function editUser(matricula, nome_usuario, id_loja, id_perfil, email, senha){
-    const query = 
-    `UPDATE usuario 
-    SET nome_usuario = $1,
-    id_loja = $2,
-    id_perfil = $3,
-    email = $4,
-    senha = $5
-    WHERE matricula = $6
-    RETURNING *;
+async function editUser(registration, username, store_id, profile_id, email, password) {
+    const query = `
+        UPDATE users 
+        SET username = $1,
+            store_id = $2,
+            profile_id = $3,
+            email = $4,
+            password = $5
+        WHERE registration = $6
+        RETURNING *;
     `;
-    const valores = [nome_usuario, id_loja, id_perfil, email, senha, matricula];
+    const valores = [username, store_id, profile_id, email, password, registration];
 
-        try{ const result = await pool.query(query, valores)
-            return result.rows[0];
-        }catch (error){ console.error('Somenthing Went Wrong When Editing User!', error);
-            throw error;
-        }
+    try { 
+        const result = await pool.query(query, valores);
+        
+        console.log("Result from database:", result.rows[0]); // Log para verificar o retorno do banco de dados
 
-} 
-    
+        return result.rows[0];
+    } catch (error) { 
+        console.error('Something Went Wrong When Editing User!', error);
+        throw error;
+    }
+}
+
 module.exports = { editUser };
+

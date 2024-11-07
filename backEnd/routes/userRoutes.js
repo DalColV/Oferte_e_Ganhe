@@ -61,18 +61,22 @@ module.exports = router;
 
 // Rota para editar um usuário
 
-router.put('/edit-register/:matricula', async (req, res) => {
-    const { matricula } = req.params;
-    const { nome_usuario, id_loja, id_perfil, email, senha } = req.body;
+router.put('/register-edit/:registration', async (req, res) => {
+    const { registration } = req.params;
+    const { username, store_id, profile_id, email, password } = req.body;
 
-    try{ const updateUser = await editUser(matricula, nome_usuario, id_loja, id_perfil, email, senha);
-        if(updateUser){
-            res.status(200).json({message: 'User Updated Successfully!', usuario: updateUser});
+    try { 
+        const updateUser = await editUser(registration, username, store_id, profile_id, email, password);
+        
+        console.log("updateUser:", updateUser); // Log para verificar o valor de updateUer
 
-        }else { res.status(404).json({message: 'User Not Founded' });
-    }  
-    }catch(error){ res.status(500).json({message: 'Something Went Wrong!', error: error.message});
-}
-})
+        if (updateUser) {
+            res.status(200).json({ message: 'User Updated Successfully!', user: updateUser });
+        } else { 
+            res.status(404).json({ message: 'User Not Found' });
+        }  
+    } catch (error) { 
+        res.status(500).json({ message: 'Something Went Wrong!', error: error.message });
+    }
+});
 
-module.exports = router;

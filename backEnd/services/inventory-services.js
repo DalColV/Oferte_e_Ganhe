@@ -1,5 +1,7 @@
 const pool = require('../config/database');
 
+//Function to post inventory
+
 async function setInventory(id_estoque, id_loja, qtde_minima_taloes, qtde_recomendada_taloes, qtde_atual_taloes){
     const query = `insert into ESTOQUE (id_estoque, id_loja, qtde_minima_taloes, qtde_recomendada_taloes, qtde_atual_taloes)
     values ($1, $2, $3, $4, $5)
@@ -16,4 +18,23 @@ async function setInventory(id_estoque, id_loja, qtde_minima_taloes, qtde_recome
     }
 }
 
-module.exports = {setInventory};
+//Function to Edit Inventory
+
+async function editInventory(inventory_id, store_id, min_quantity, recommended_quantity, current_quantity) {
+    const query = `
+    UPDATE inventory
+    SET store_id = $1, min_quantity = $2, recommended_quantity = $3, current_quantity = $4
+    WHERE inventory_id = $5
+    RETURNING*; 
+    `;
+    const values = [store_id, min_quantity, recommended_quantity, current_quantity,inventory_id];
+    
+        try {const result = await pool.query(query, values);
+            return result.rows[0]; 
+        } catch (erro) {
+            console.error('Somenthing Went Wrong!', erro);
+            throw erro;
+        }
+}
+
+module.exports = {setInventory, editInventory };

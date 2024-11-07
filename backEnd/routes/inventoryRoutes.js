@@ -1,7 +1,7 @@
 const express = require('express');
 const path = require('path');
 const router = express.Router();
-const { setInventory } = require('../services/inventory-services');
+const { setInventory, editInventory } = require('../services/inventory-services');
 
 router.get('/view-inventory', (req, res) => {
     res.sendFile(path.join(__dirname, '../../frontEnd/public/inventory/view-inventory-management.html'));
@@ -31,3 +31,23 @@ router.post('/inventory', async (req, res) => {
    
 module.exports = router;
 
+//PUT
+
+//ROUTE TO EDIT THE INVENTORY
+
+router.put('/inventory-edit/:inventory_id', async(req, res) => {
+    const inventory_id = parseInt(req.params.inventory_id);
+    const {store_id, min_quantity, recommended_quantity, current_quantity} = req.body;
+
+    try{const updateInventory = await editInventory(inventory_id, store_id, min_quantity, recommended_quantity, current_quantity);
+        if(updateInventory){
+            res.status(200).json({message: 'Inventory Updated Successfully', inventory: updateInventory});
+            
+        }else{ res.status(404).json({message: 'Inventory Not Found'})
+    }
+    }catch(error) {res.status(500).json({message: 'Something Went Wrong!', error: error.message});
+
+    }
+});
+
+module.exports = router;
