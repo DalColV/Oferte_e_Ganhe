@@ -1,6 +1,6 @@
 const express = require('express');
 const path = require('path');
-const { insertStore } = require('../services/store-services');
+const { insertStore, editStore } = require('../services/store-services');
 const router = express.Router();
 
 // Rota para registrar a loja
@@ -31,4 +31,23 @@ router.post('/store-register', async (req, res) => {
 
 module.exports = router;
 
+//PUT 
 
+// ROUTE TO EDIT A STORE
+
+router.put('/store-edit/:store_id', async (req, res) => {
+  const {store_id} = req.params;
+  const {store_name} = req.body;
+
+  try{ const updateStore = await editStore(store_id, store_name);
+    if(updateStore){
+      res.status(200).json({message: 'Store Updated Successfully!', store: updateStore});
+
+    } else{
+      res.status(404).json({message: 'Store Not Found!'});
+
+    }
+  }catch(error){
+    res.status(500).json({message: 'Something Went Wrong', error: error.message});
+  }
+});

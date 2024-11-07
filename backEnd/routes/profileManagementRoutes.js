@@ -1,6 +1,6 @@
 const express = require('express');
 const path = require('path');
-const { insertProfile } = require('../services/profile-services');
+const { insertProfile, editProfile } = require('../services/profile-services');
 const router = express.Router();
 
 //Rota para servir gestão de Perfis
@@ -36,3 +36,21 @@ router.post('/profile-management/new-profile', async (req, res) => {
 });
 
 module.exports = router;
+
+//PUT
+
+//Route to edit a profile
+
+router.put('/profile-edit/:profile_id', async (req, res) =>{
+    const {profile_id} = req.params;
+    const {profile_name, access_id} = req.body;
+
+    try{ const updateProfile = await editProfile(profile_id, profile_name, access_id);
+        if(updateProfile){
+        res.status(200).json({message: 'Profile Updated Successfully!', profile: updateProfile});
+
+    }else{res.status(404).json({message: 'Profile Not Found!'});}
+}catch(error){
+    res.status(500).json({message: 'Something Went Wrong!', error: error.message});
+}
+});

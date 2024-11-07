@@ -37,4 +37,23 @@ async function editInventory(inventory_id, store_id, min_quantity, recommended_q
         }
 }
 
-module.exports = {setInventory, editInventory };
+//Function to Delete an Inventory
+
+async function deleteInventory(inventory_id) {
+    const query = `
+    DELETE FROM inventory
+    WHERE inventory_id = $1
+    RETURNING*;
+    `;
+
+    try {
+        const resul = await pool.query(query, [inventory_id]);
+        return resul.rows[0]; 
+    } catch (error) {
+        console.error('Something Went Wrong!', error);
+        throw error;
+    }
+    
+}
+
+module.exports = {setInventory, editInventory, deleteInventory};
