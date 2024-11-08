@@ -1,14 +1,14 @@
 const pool = require('../config/database');
 
-// Função para inserir uma nova loja
+// Function to Create a new Store
 
-async function insertStore(id_loja, nome_loja = 'LOJA'){
-    const query = `insert into LOJA (id_loja, nome_loja)
+async function insertStore(store_id, store_name = 'store'){
+    const query = `insert into store (store_id, store_name)
     values ($1, $2)
     returning *; `
 
 
-const values = [id_loja, nome_loja];
+const values = [store_id, store_name];
 
     try { const result = await pool.query(query, values);
         return result.rows[0];
@@ -39,4 +39,23 @@ async function editStore(store_id, store_name) {
     }
 }
 
-module.exports = {insertStore, editStore};
+// Funciton to Delete a Store
+
+async function deleteStore(store_id) {
+    const query =  `
+    DELETE FROM store
+    WHERE store_id = $1
+    RETURNING*;
+    `;
+    
+    const values = [store_id];
+
+    try{ const result = await pool.query(query, values);
+        return result.rows[0];
+    }catch(error){
+        console.error('Something Went Wrong!', error);
+        throw error;
+    }
+}
+
+module.exports = {insertStore, editStore, deleteStore};

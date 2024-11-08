@@ -2,12 +2,12 @@ const pool = require('../config/database');
 
 //Function to post inventory
 
-async function setInventory(id_estoque, id_loja, qtde_minima_taloes, qtde_recomendada_taloes, qtde_atual_taloes){
-    const query = `insert into ESTOQUE (id_estoque, id_loja, qtde_minima_taloes, qtde_recomendada_taloes, qtde_atual_taloes)
+async function setInventory(inventory_id, store_id, min_quantity, recommended_quantity, current_quantity){
+    const query = `insert into inventory (inventory_id, store_id, min_quantity, recommended_quantity, current_quantity)
     values ($1, $2, $3, $4, $5)
     returning *;`
 
-    const values = [id_estoque, id_loja, qtde_minima_taloes, qtde_recomendada_taloes, qtde_atual_taloes];
+    const values = [inventory_id, store_id, min_quantity, recommended_quantity, current_quantity];
 
     try { const result = await pool.query(query, values);
         return result.rows[0];

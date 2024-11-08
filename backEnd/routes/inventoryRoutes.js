@@ -21,7 +21,7 @@ router.post('/inventory', async (req, res) => {
        const newInventory = await setInventory(inventory_id, store_id, min_quantity, recommended_quantity, current_quantity);
        res.status(201).json({message: 'Done!', INVENTORY: newInventory});
     }catch (error){
-       res.status(500).json({message: 'Error! Something went wrong, try again!', err: error.message});
+       res.status(500).json({message: 'Error! Something went wrong, try again!', error: error.message});
    
    }
    })
