@@ -5,7 +5,8 @@ const router = express.Router();
 // Rota para servir a Dashboard
 
 router.get('/dashboard', (req, res) => {
-    res.sendFile(path.join(__dirname, '../../frontEnd/public/dashboard/dashboard.html'));
+    res.sendFile(path.resolve(__dirname, '../../../frontEnd/public/dashboard/dashboard.html'));
+
 
 });
 

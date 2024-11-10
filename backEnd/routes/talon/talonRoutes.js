@@ -1,7 +1,7 @@
 const express = require('express');
 const path = require('path');
 const router = express.Router();
-const { insertTalon, deleteTalonLogs, editTalon } = require('../services/talon-services');
+const { insertTalon, deleteTalonLogs, editTalon } = require('../../services/talon-services');
 //const talonServices = require('../services/talon-services'); // Importa o módulo completo
 
 
@@ -11,13 +11,13 @@ const { insertTalon, deleteTalonLogs, editTalon } = require('../services/talon-s
 
 
 router.get('/talon/view-send', (req, res) => {
-    res.sendFile(path.join(__dirname, '../../frontEnd/public/talon/view-send-talon.html'));
+    res.sendFile(path.join(__dirname, '../../../frontEnd/public/talon/view-send-talon.html'));
 
 });
 
 
 router.get('/talon/view-receipt', (req, res) => {
-    res.sendFile(path.join(__dirname, '../../frontEnd/public/talon/view-receipt-talon.html'));
+    res.sendFile(path.join(__dirname, '../../../frontEnd/public/talon/view-receipt-talon.html'));
 
 });
 

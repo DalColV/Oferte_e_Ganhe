@@ -1,12 +1,12 @@
 const express = require('express');
 const path = require('path');
-const { insertProfile, editProfile, deleteProfile } = require('../services/profile-services');
+const { insertProfile, editProfile, deleteProfile } = require('../../services/profile-services');
 const router = express.Router();
 
 //Rota para servir gestão de Perfis
 
 router.get('/view-profile-management', (req, res) => {
-    res.sendFile(path.join(__dirname, '../../frontEnd/public/management/view-profile-management.html'));
+    res.sendFile(path.join(__dirname, '../../../frontEnd/public/management/view-profile-management.html'));
 
 });
 module.exports = router;
@@ -14,7 +14,7 @@ module.exports = router;
 //Rota para servir Criar novo perfil
 
 router.get('/view-profile-management/profile', (req, res) => {
-    res.sendFile(path.join(__dirname, '../../frontEnd/public/management/view-new-profile.html'));
+    res.sendFile(path.join(__dirname, '../../../frontEnd/public/management/view-new-profile.html'));
 
 });
 

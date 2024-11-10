@@ -66,5 +66,19 @@ async function deleteUser(registration) {
     }
 }
 
-module.exports = { insertUser, editUser, deleteUser};
+// Function to consult all users
+
+async function userConsult() {
+    const query =`select * from users;`;
+    
+    try{ const result = await pool.query(query);
+        return result.rows;
+
+    }catch(error){
+        console.error('Something Went Wrong', error);
+        throw error;
+    }
+}
+
+module.exports = { insertUser, editUser, deleteUser, userConsult};
 

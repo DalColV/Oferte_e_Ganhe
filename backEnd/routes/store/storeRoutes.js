@@ -1,16 +1,16 @@
 const express = require('express');
 const path = require('path');
-const { insertStore, editStore, deleteStore} = require('../services/store-services');
+const { insertStore, editStore, deleteStore} = require('../../services/store-services');
 const router = express.Router();
 
 // Rota para registrar a loja
 router.get('/store/view-store-register', (req, res) => {
-  res.sendFile(path.join(__dirname, '../../frontend/public/store/view-store-register.html'));
+  res.sendFile(path.join(__dirname, '../../../frontend/public/store/view-store-register.html'));
 });
 
 // Rota para listar lojas
 router.get('/store/view-store-list', (req, res) => {
-  res.sendFile(path.join(__dirname, '../../frontend/public/store/view-store-list.html'));
+  res.sendFile(path.join(__dirname, '../../../frontend/public/store/view-store-list.html'));
 });
 
 module.exports = router;
