@@ -2,21 +2,44 @@ const pool = require('../config/database');
 
 // Function to create a new talon_logs
 
-async function createNewTalon(inventory_id, shipment, talon_quantity, send_date, order_date, talon_status, receive_date, registration = 'talon_logs'){
-    const query = ` insert into talon_logs (inventory_id, shipment, talon_quantity, send_date, order_date, talon_status, receive_date, registration)
-    values ($1, $2, $3, $4, $5, $6, $7, $8)
-    returning *;`
+async function insertTalon(inventory_id, shipment, talon_quantity, send_date, order_date, talon_status, receive_date, registration) {
+    const query = `
+        INSERT INTO talon_logs (inventory_id, shipment, talon_quantity, send_date, order_date, talon_status, receive_date, registration)
+        VALUES ($1, $2::Varchar, $3, $4::Timestamp, $5::Timestamp, $6::JSONB, $7::Timestamp, $8)
+        RETURNING *;
+    `;
 
     const values = [inventory_id, shipment, talon_quantity, send_date, order_date, talon_status, receive_date, registration];
 
-    try{ const result = await pool.query(query, values);
+    try {
+        const result = await pool.query(query, values);
         return result.rows[0];
-    }catch (error){
-        console.error('Error! Something Went Wrong!', error);
+    } catch (error) {
+        console.error('Something Went Wrong!', error);
         throw error;
     }
+}
 
 
+//Function to Edit a Talon
+
+async function editTalon(talon_id, inventory_id, shipment, talon_quantity, send_date, order_date, talon_status, receive_date, registration) {
+    const query = `
+        UPDATE talon_logs
+        SET inventory_id = $1, shipment = $2, talon_quantity = $3, send_date = $4, order_date = $5, talon_status = $6, receive_date = $7, registration = $8
+        WHERE talon_id = $9
+        RETURNING *;
+    `;
+
+    const values = [inventory_id, shipment, talon_quantity, send_date, order_date, talon_status, receive_date, registration, talon_id];
+
+    try {
+        const result = await pool.query(query, values);
+        return result.rows[0]; 
+    } catch (error) {
+        console.error('Something Went Wrong!', error);
+        throw error;
+    }
 }
 
 // Function to delete a Talon
@@ -30,7 +53,7 @@ async function deleteTalonLogs(talon_id) {
 
     try {
         const result = await pool.query(query, [talon_id]);
-        return resul.rows[0]; 
+        return result.rows[0]; 
     } catch (erroR) {
         console.error('Something Went Wrong!', error);
         throw error;
@@ -40,4 +63,4 @@ async function deleteTalonLogs(talon_id) {
 }
  
 
-module.exports = {deleteTalonLogs, createNewTalon};
+module.exports = {insertTalon, deleteTalonLogs, editTalon};

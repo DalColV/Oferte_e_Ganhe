@@ -1,8 +1,8 @@
 const express = require('express');
 const path = require('path');
 const router = express.Router();
-//const { createNewTalon, sendTalon } = require('../services/talon-services');
-const talonServices = require('../services/talon-services'); // Importa o módulo completo
+const { insertTalon, deleteTalonLogs, editTalon } = require('../services/talon-services');
+//const talonServices = require('../services/talon-services'); // Importa o módulo completo
 
 
 
@@ -29,16 +29,16 @@ router.get('/talon/view-receipt', (req, res) => {
 //ROUTE TO TALON_LOGS
 
 router.post('/talon/send-talon', async (req, res) => {
-    const {inventory_id, talon_quantity, send_date, order_date, talon_status, receive_date, user_id} = req.body;
-   
-    try{
-       const sendTalon = await talonServices.createNewTalon(inventory_id, talon_quantity, send_date, order_date, talon_status, receive_date, user_id);
-       res.status(201).json({message: 'Talon Successfully Sent!', talon_logs: sendTalon});
-    }catch (error){
-       res.status(500).json({message: 'Error! Something went wrong, try again!', error: error.message});
-   
-   }
-   })
+    const { inventory_id, shipment, talon_quantity, send_date, order_date, talon_status, receive_date, registration } = req.body;
+
+    try {
+        const newTalon = await insertTalon(inventory_id, shipment, talon_quantity, send_date, order_date, talon_status, receive_date, registration);
+        res.status(201).json({ message: "Talon Created Successfully!", talon_logs: newTalon });
+    } catch (error) {
+        res.status(500).json({ message: 'Something Went Wrong!', error: error.message });
+    }
+});
+
 
 
 module.exports = router;
@@ -50,9 +50,9 @@ module.exports = router;
 
 router.put('/edit-talon/:talon_id', async (req, res) => {
    const {talon_id} = req.params;
-   const {talon_quantity, send_date, order_date, talon_status, receive_date, user_id} = req.body;
+   const {inventory_id, shipment, talon_quantity, send_date, order_date, talon_status, receive_date, registration} = req.body;
 
-   try{const updateTalon = await editTalon(inventory_id, talon_quantity, send_date, order_date, talon_status, receive_date, user_id, talon_id);
+   try{const updateTalon = await editTalon(talon_id, inventory_id, shipment, talon_quantity, send_date, order_date, talon_status, receive_date, registration);
       if(updateTalon){
          res.status(200).json({message: "Talon Updated Successfully!", talon_logs: updateTalon});
       }else{ res.status(404).json({message: 'Talon not founded!'});

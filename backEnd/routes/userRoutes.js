@@ -43,14 +43,14 @@ module.exports = router;
 // Rota para cadastro de um novo usuário no banco
 
 router.post('/register', async (req, res) => {
-    const {matricula, nome_usuario, id_loja, id_perfil, email, senha } = req.body;
+    const {registration , username, store_id, profile_id, email, password} = req.body;
 
     try{
-        const newUser = await insertUser(matricula, nome_usuario, id_loja, id_perfil, email, senha);
-        res.status(201).json({message: 'User Successfully registered!', usuario: newUser});
+        const newUser = await insertUser(registration , username, store_id, profile_id, email, password);
+        res.status(201).json({message: 'User Successfully registered!', users: newUser});
 
     }catch (error){
-         res.status(500).json({message: 'Error! Something went wrong, try again!', err: error.message});
+         res.status(500).json({message: 'Error! Something went wrong, try again!', error: error.message});
 
     }
 });

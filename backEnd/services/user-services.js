@@ -3,18 +3,18 @@ const pool = require('../config/database');
 
 // Function to insert a new user
 
-async function insertUser(matricula, nome_usuario, id_loja, id_perfil, email, senha = 'USUARIO') {
+async function insertUser(registration , username, store_id, profile_id, email, password = 'users') {
     const query = `
-        insert into USUARIO (matricula, nome_usuario, id_loja, id_perfil, email, senha)
+        insert into users (registration , username, store_id, profile_id, email, password)
         values ($1, $2, $3, $4, $5, $6)
         returning *;
     `;
 
-    const values = [matricula, nome_usuario, id_loja, id_perfil, email, senha];
+    const values = [registration , username, store_id, profile_id, email, password];
 
     try {
         const result = await pool.query(query, values);
-        return result.rows[0]; // Retorna o usuário inserido
+        return result.rows[0]; 
     } catch (error) {
         console.error('Err! Something Went Wrong!', error);
         throw error;
