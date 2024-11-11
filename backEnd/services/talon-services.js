@@ -20,6 +20,37 @@ async function insertTalon(inventory_id, shipment, talon_quantity, send_date, or
     }
 }
 
+// Function to consult all talons
+
+async function talonConsultAll() {
+    const query = `SELECT * FROM talon_logs;`;
+    
+    try {
+        const result = await pool.query(query);
+        return result.rows;
+    } catch (error) {
+        console.error('Something went wrong while fetching all users:', error);
+        throw error;
+    }
+}
+
+// Function to consult a talon by id
+
+async function talonConsultById(talon_id) {
+    const query = `SELECT * FROM talon_logs WHERE talon_id = $1;`;
+
+    try {
+        const result = await pool.query(query, [talon_id]);
+        return result.rows[0]; // Retorna o primeiro usuário encontrado (ou undefined se não houver resultado)
+    } catch (error) {
+        console.error('Something went wrong while fetching user by registration:', error);
+        throw error;
+    }
+}
+
+
+
+
 
 //Function to Edit a Talon
 
@@ -63,4 +94,4 @@ async function deleteTalonLogs(talon_id) {
 }
  
 
-module.exports = {insertTalon, deleteTalonLogs, editTalon};
+module.exports = {insertTalon, deleteTalonLogs, editTalon, talonConsultAll, talonConsultById};

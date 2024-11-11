@@ -1,7 +1,7 @@
 const express = require('express');
 const path = require('path');
 const router = express.Router();
-const { setInventory, editInventory, deleteInventory} = require('../../services/inventory-services');
+const { setInventory, editInventory, deleteInventory, consultInventoryAll, consultInventoryById} = require('../../services/inventory-services');
 
 router.get('/view-inventory', (req, res) => {
     res.sendFile(path.join(__dirname, '../../../frontEnd/public/inventory/view-inventory-management.html'));
@@ -25,10 +25,41 @@ router.post('/inventory', async (req, res) => {
    
    }
    })
-
-
-
    
+module.exports = router;
+
+//GET
+
+// ROUTE TO CONSULT INVENTORY
+
+router.get('/inventory', async (req, res) => {
+    try {
+        const inventory = await consultInventoryAll();
+        res.status(200).json(inventory);
+    } catch (error) {
+        res.status(500).json({ message: 'Error fetching inventory records', error: error.message });
+    }
+});
+
+module.exports = router;
+
+
+router.get('/inventory/:inventory_id', async (req, res) => {
+    const { inventory_id } = req.params;
+
+    try {
+        const inventory = await consultInventoryById(inventory_id);
+
+        if (inventory) {
+            res.status(200).json(inventory);
+        } else {
+            res.status(404).json({ message: 'Inventory record not found' });
+        }
+    } catch (error) {
+        res.status(500).json({ message: 'Error fetching inventory record by ID', error: error.message });
+    }
+});
+
 module.exports = router;
 
 //PUT

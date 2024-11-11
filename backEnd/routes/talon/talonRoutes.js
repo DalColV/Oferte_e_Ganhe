@@ -1,7 +1,7 @@
 const express = require('express');
 const path = require('path');
 const router = express.Router();
-const { insertTalon, deleteTalonLogs, editTalon } = require('../../services/talon-services');
+const { insertTalon, deleteTalonLogs, editTalon, talonConsultAll, talonConsultById } = require('../../services/talon-services');
 //const talonServices = require('../services/talon-services'); // Importa o módulo completo
 
 
@@ -39,9 +39,39 @@ router.post('/talon/send-talon', async (req, res) => {
     }
 });
 
+//GET
 
+//ROUTE TO CONSULT TALONS
+
+router.get('/talon-logs', async (req, res) => {
+    try {
+        const talons = await talonConsultAll();
+        res.status(200).json(talons);
+    } catch (error) {
+        res.status(500).json({ message: 'Error fetching talon logs', error: error.message });
+    }
+});
 
 module.exports = router;
+
+router.get('/talon-logs/:talon_id', async (req, res) => {
+    const { talon_id } = req.params;
+
+    try {
+        const talon = await talonConsultById(talon_id);
+        
+        if (talon) {
+            res.status(200).json(talon);
+        } else {
+            res.status(404).json({ message: 'Talon log not found' });
+        }
+    } catch (error) {
+        res.status(500).json({ message: 'Error fetching talon log by ID', error: error.message });
+    }
+});
+
+module.exports = router;
+
 
 // PUT
 

@@ -68,8 +68,12 @@ async function deleteUser(registration) {
 
 // Function to consult all users
 
-async function userConsult() {
-    const query =`select * from users;`;
+async function userConsultAll() {
+    const query =`SELECT 
+            users.*, 
+            profile.profile_name  -- Traz o nome do perfil associado ao usuário
+        FROM users
+        JOIN profile ON users.profile_id = profile.profile_id;`;
     
     try{ const result = await pool.query(query);
         return result.rows;
@@ -80,5 +84,25 @@ async function userConsult() {
     }
 }
 
-module.exports = { insertUser, editUser, deleteUser, userConsult};
+// Function to consult User by name
+
+async function userConsultByRegistration(registration) {
+    const query =` SELECT 
+            users.*, 
+            profile.profile_name  -- Traz o nome do perfil do usuário
+        FROM users
+        JOIN profile ON users.profile_id = profile.profile_id
+        WHERE users.registration = $1; `;
+    
+    try{ const result = await pool.query(query, [registration]);
+        return result.rows[0];
+
+    }catch(error){
+        console.error('Something Went Wrong', error);
+        throw error;
+    }
+}
+
+
+module.exports = { insertUser, editUser, deleteUser, userConsultAll, userConsultByRegistration};
 

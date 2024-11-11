@@ -1,6 +1,6 @@
 const express = require('express');
 const path = require('path');
-const { insertProfile, editProfile, deleteProfile } = require('../../services/profile-services');
+const { insertProfile, editProfile, deleteProfile, consultProfileAll, consultProfileById } = require('../../services/profile-services');
 const router = express.Router();
 
 //Rota para servir gestão de Perfis
@@ -32,6 +32,42 @@ router.post('/profile-management/new-profile', async (req, res) => {
 
     }catch (error){
         res.status(500).json({message: 'Error! Something Went Wrong!', error: error.message})
+    }
+});
+
+module.exports = router;
+
+//GET
+
+//ROUTE TO CONSULT PROFILE
+
+router.get('/profiles', async (req, res) => {
+    try {
+        const profiles = await consultProfileAll();
+        res.status(200).json(profiles);
+    } catch (error) {
+        res.status(500).json({ message: 'Error fetching profiles', error: error.message });
+    }
+});
+
+module.exports = router;
+
+// Function to Consult a profile by ID
+
+
+router.get('/profiles/:profile_id', async (req, res) => {
+    const { profile_id } = req.params;
+
+    try {
+        const profile = await consultProfileById(profile_id);
+
+        if (profile) {
+            res.status(200).json(profile);
+        } else {
+            res.status(404).json({ message: 'Profile not found' });
+        }
+    } catch (error) {
+        res.status(500).json({ message: 'Error fetching profile by ID', error: error.message });
     }
 });
 

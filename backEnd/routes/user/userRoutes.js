@@ -1,7 +1,7 @@
 const express = require('express');
 const path = require('path');
 const router = express.Router();
-const { insertUser, editUser, deleteUser} = require('../../services/user-services');
+const { insertUser, editUser, deleteUser, userConsultAll, userConsultByRegistration} = require('../../services/user-services');
 
 //GET
 
@@ -56,6 +56,42 @@ router.post('/register', async (req, res) => {
 });
 
 module.exports = router;
+
+// GET
+
+// Route to consult all users
+
+router.get('/users', async (req, res) => {
+    try {
+        const users = await userConsultAll();
+        res.status(200).json(users);
+    } catch (error) {
+        res.status(500).json({ message: 'Error fetching users', error: error.message });
+    }
+});
+
+module.exports = router;
+
+// Route to consult an especific users by registration
+
+router.get('/users/:registration', async (req, res) => {
+    const { registration } = req.params;
+
+    try {
+        const user = await userConsultByRegistration(registration);
+        
+        if (user) {
+            res.status(200).json(user);
+        } else {
+            res.status(404).json({ message: 'User not found' });
+        }
+    } catch (error) {
+        res.status(500).json({ message: 'Error fetching user by registration', error: error.message });
+    }
+});
+
+module.exports = router;
+
 
 //PUT 
 

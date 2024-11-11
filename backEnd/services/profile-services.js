@@ -18,6 +18,36 @@ async function insertProfile(profile_id, profile_name, access_id){
     }
 }
 
+//Function to consult all profiles
+
+async function consultProfileAll() {
+    const query =`
+        SELECT * from profile`;
+
+    try{
+        const result = await pool.query(query);
+        return result.rows;
+    }catch(error){
+        console.error('Something Wetn Wrong!', error);
+    }
+}
+
+// Function to Consult a profile by ID
+
+async function consultProfileById(profile_id) {
+    const query = `SELECT * FROM profile WHERE profile_id = $1;`;
+
+    try {
+        const result = await pool.query(query, [profile_id]);
+        return result.rows[0]; 
+    } catch (error) {
+        console.error('Something went wrong while fetching profile by id:', error);
+        throw error;
+    }
+}
+
+
+
 //Function to edit a profile
 
 async function editProfile(profile_id, profile_name, access_id) {
@@ -60,5 +90,5 @@ async function deleteProfile(profile_id) {
     
 }
 
-module.exports = {insertProfile, editProfile, deleteProfile};
+module.exports = {insertProfile, editProfile, deleteProfile, consultProfileAll, consultProfileById};
 

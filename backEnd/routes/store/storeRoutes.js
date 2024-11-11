@@ -1,6 +1,6 @@
 const express = require('express');
 const path = require('path');
-const { insertStore, editStore, deleteStore} = require('../../services/store-services');
+const { insertStore, editStore, deleteStore, consultStoreById, consultStores} = require('../../services/store-services');
 const router = express.Router();
 
 // Rota para registrar a loja
@@ -30,6 +30,41 @@ router.post('/store-register', async (req, res) => {
 });
 
 module.exports = router;
+
+//GET
+
+// ROUTE TO CONSULT STORE
+
+router.get('/stores', async (req, res) => {
+  try {
+      const stores = await consultStores();
+      res.status(200).json(stores);
+  } catch (error) {
+      res.status(500).json({ message: 'Error fetching stores', error: error.message });
+  }
+});
+
+module.exports = router;
+
+
+router.get('/stores/:store_id', async (req, res) => {
+  const { store_id } = req.params;
+
+  try {
+      const store = await consultStoreById(store_id);
+
+      if (store) {
+          res.status(200).json(store);
+      } else {
+          res.status(404).json({ message: 'Store not found' });
+      }
+  } catch (error) {
+      res.status(500).json({ message: 'Error fetching store by ID', error: error.message });
+  }
+});
+
+module.exports = router;
+
 
 //PUT 
 

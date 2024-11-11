@@ -18,6 +18,35 @@ async function setInventory(inventory_id, store_id, min_quantity, recommended_qu
     }
 }
 
+// Function to Consult All inventories
+
+async function consultInventoryAll() {
+    const query =`
+        SELECT * from inventory`;
+
+    try{
+        const result = await pool.query(query);
+        return result.rows;
+    }catch(error){
+        console.error('Something Wetn Wrong!', error);
+    }
+}
+
+// Function to Consult a especific inventory by ID
+
+async function consultInventoryById(inventory_id) {
+    const query = `SELECT * FROM inventory WHERE inventory_id = $1;`;
+
+    try {
+        const result = await pool.query(query, [inventory_id]);
+        return result.rows[0]; 
+    } catch (error) {
+        console.error('Something went wrong while fetching inventory by id:', error);
+        throw error;
+    }
+}
+
+
 //Function to Edit Inventory
 
 async function editInventory(inventory_id, store_id, min_quantity, recommended_quantity, current_quantity) {
@@ -56,4 +85,4 @@ async function deleteInventory(inventory_id) {
     
 }
 
-module.exports = {setInventory, editInventory, deleteInventory};
+module.exports = {setInventory, editInventory, deleteInventory, consultInventoryAll, consultInventoryById};
