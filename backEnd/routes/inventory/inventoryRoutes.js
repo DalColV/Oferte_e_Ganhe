@@ -3,12 +3,6 @@ const path = require('path');
 const router = express.Router();
 const { setInventory, editInventory, deleteInventory, consultInventoryAll, consultInventoryById} = require('../../services/inventory-services');
 
-router.get('/view-inventory', (req, res) => {
-    res.sendFile(path.join(__dirname, '../../../frontEnd/public/inventory/view-inventory-management.html'));
-
-});
-
-module.exports = router;
 
 // POST
 

@@ -3,40 +3,6 @@ const path = require('path');
 const router = express.Router();
 const { insertUser, editUser, deleteUser, userConsultAll, userConsultByRegistration} = require('../../services/user-services');
 
-//GET
-
-// Rota pag de cadastro de usuários
-router.get('/view-register', (req, res) => {
-    res.sendFile(path.join(__dirname, '../../../frontEnd/public/login-and-register/view-register.html'));
-});
-
-module.exports = router;
-
-// Rota pag de login de usuários
-router.get('/view-login', (req, res) => {
-    res.sendFile(path.join(__dirname, '../../../frontEnd/public/login-and-register/view-login.html'));
-
-});
-
-module.exports = router;
-
-// Rota pag de Recuperar Senha
-
-router.get('/view-recover-password', (req, res) => {
-    res.sendFile(path.join(__dirname, '../../../frontEnd/public/recover-password/view-recover-password.html'));
-
-});
-
-module.exports = router;
-
-//Rota pag resetar Senha
-
-router.get('/view-reset-password', (req, res) => {
-    res.sendFile(path.join(__dirname, '../../../frontEnd/public/recover-password/view-reset-password.html'));
-
-});
-
-module.exports = router;
 
 //POST
 

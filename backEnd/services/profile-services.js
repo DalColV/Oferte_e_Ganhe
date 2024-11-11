@@ -2,12 +2,12 @@ const pool = require('../config/database');
 
 // Function to create a new profile 
 
-async function insertProfile(profile_id, profile_name, access_id){
+async function insertProfile(profile_id, profile_name, module){
     const query = `insert into profile (profile_id, profile_name, access_id)
     values ($1, $2, $3)
     returning *;`
 
-    const values = [profile_id, profile_name, access_id];
+    const values = [profile_id, profile_name, module];
 
     try { const result = await pool.query(query, values);
         return result.rows[0];
@@ -50,7 +50,7 @@ async function consultProfileById(profile_id) {
 
 //Function to edit a profile
 
-async function editProfile(profile_id, profile_name, access_id) {
+async function editProfile(profile_id, profile_name, module) {
     const query = `
     UPDATE profile
     SET profile_name = $1, access_id = $2
@@ -58,7 +58,7 @@ async function editProfile(profile_id, profile_name, access_id) {
     RETURNING*;
     `;
     
-    const values =  [profile_name, access_id, profile_id];
+    const values =  [profile_name, module, profile_id];
 
     try {
         const resul = await pool.query(query, values);

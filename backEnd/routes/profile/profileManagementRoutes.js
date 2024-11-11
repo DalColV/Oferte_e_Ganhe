@@ -3,31 +3,16 @@ const path = require('path');
 const { insertProfile, editProfile, deleteProfile, consultProfileAll, consultProfileById } = require('../../services/profile-services');
 const router = express.Router();
 
-//Rota para servir gestão de Perfis
 
-router.get('/view-profile-management', (req, res) => {
-    res.sendFile(path.join(__dirname, '../../../frontEnd/public/management/view-profile-management.html'));
-
-});
-module.exports = router;
-
-//Rota para servir Criar novo perfil
-
-router.get('/view-profile-management/profile', (req, res) => {
-    res.sendFile(path.join(__dirname, '../../../frontEnd/public/management/view-new-profile.html'));
-
-});
-
-module.exports = router;
 
 //POST
 
 //Route to insert a new profile in database
 
 router.post('/profile-management/new-profile', async (req, res) => {
-    const {profile_id, profile_name, access_id} = req.body;
+    const {profile_id, profile_name, module} = req.body;
 
-    try{ const newProfile = await insertProfile(profile_id, profile_name, access_id);
+    try{ const newProfile = await insertProfile(profile_id, profile_name, module);
         res.status(201).json({message: 'Profile Successfully Registered!', PROFILE: newProfile});
 
     }catch (error){
@@ -79,9 +64,9 @@ module.exports = router;
 
 router.put('/profile-edit/:profile_id', async (req, res) =>{
     const {profile_id} = req.params;
-    const {profile_name, access_id} = req.body;
+    const {profile_name, module} = req.body;
 
-    try{ const updateProfile = await editProfile(profile_id, profile_name, access_id);
+    try{ const updateProfile = await editProfile(profile_id, profile_name, module);
         if(updateProfile){
         res.status(200).json({message: 'Profile Updated Successfully!', profile: updateProfile});
 
