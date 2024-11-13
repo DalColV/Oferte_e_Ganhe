@@ -2,9 +2,9 @@ const inventoryService = require('../services/inventoryServices');
 
 
 
-class inventoryController {
+class InventoryController {
     
-    // POST - Criar um novo inventário
+    // POST - Create a new Inventory
 
     static async createInventory(req, res) {
         const { inventory_id, store_id, min_quantity, recommended_quantity, current_quantity } = req.body;
@@ -16,7 +16,7 @@ class inventoryController {
         }
     }
 
-    // GET - Consultar todos os inventários
+    // GET - Consultar todos os estoques
 
     static async consultInventories(req, res) {
         try {
@@ -27,7 +27,7 @@ class inventoryController {
         }
     }
 
-    // GET - Consultar um inventário específico pelo ID
+    // GET - Consultar um estoque específico pelo ID
 
     static async consultById(req, res) {
         const { inventory_id } = req.params;
@@ -44,7 +44,7 @@ class inventoryController {
         }
     }
 
-    // PUT - Atualizar um inventário
+    // PUT - Atualizar um estoque
     static async updateInventory(req, res) {
         const { inventory_id } = req.params;
         const { store_id, min_quantity, recommended_quantity, current_quantity } = req.body;
@@ -61,7 +61,7 @@ class inventoryController {
         }
     }
 
-    // DELETE - Deletar um inventário
+    // DELETE - Deletar um estoque
     static async removeInventory(req, res) {
         const { inventory_id } = req.params;
 
@@ -78,4 +78,4 @@ class inventoryController {
     }
 }
 
-module.exports = inventoryController;
+module.exports = InventoryController;
