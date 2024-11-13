@@ -1,7 +1,7 @@
 const express = require('express');
 const path = require('path');
 const router = express.Router();
-const { insertUser, editUser, deleteUser, userConsultAll, userConsultByRegistration} = require('../../services/user-services');
+const { insertUser, editUser, deleteUser, userConsultAll, userConsultByRegistration} = require('../../services/userServices');
 
 
 //POST

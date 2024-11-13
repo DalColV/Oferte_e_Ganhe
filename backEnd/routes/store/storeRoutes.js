@@ -1,6 +1,6 @@
 const express = require('express');
 const path = require('path');
-const { insertStore, editStore, deleteStore, consultStoreById, consultStores} = require('../../services/store-services');
+const { insertStore, editStore, deleteStore, consultStoreById, consultStores} = require('../../services/storeServices');
 const router = express.Router();
 
 
@@ -9,17 +9,27 @@ const router = express.Router();
 
 //ROUTE TO CREATE A NEW STORE
 
-router.post('/store-register', async (req, res) => {
-  const {store_id, store_name} = req.body;
 
-  try{ const newStore = await insertStore(store_id, store_name); 
-    res.status(201).json({message: 'Store Successfully Registered!', store: newStore});
-  }catch (error){
-    res.status(500).json({message: 'Error! Something Went Wrong!', error: error.message});
-  }
+router.post('/store-register', async (req, res) => {
+    const { store_id, store_name, street, cep, number } = req.body;
+
+    try {
+      
+        const store = await insertStore(store_id, store_name, street, cep, number);
+
+        res.status(201).json({
+            message: 'Store Created Successfully!',
+            store: store
+        });
+
+    } catch (error) {
+        console.error('Error! Something Went Wrong', error);
+        res.status(500).json({ message: 'Error! Something Went Wrong!', error: error.message });
+    }
 });
 
 module.exports = router;
+
 
 //GET
 
@@ -62,9 +72,9 @@ module.exports = router;
 
 router.put('/store-edit/:store_id', async (req, res) => {
   const {store_id} = req.params;
-  const {store_name} = req.body;
+  const {store_name,address_id} = req.body;
 
-  try{ const updateStore = await editStore(store_id, store_name);
+  try{ const updateStore = await editStore(store_id, store_name, address_id);
     if(updateStore){
       res.status(200).json({message: 'Store Updated Successfully!', store: updateStore});
 

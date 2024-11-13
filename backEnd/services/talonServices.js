@@ -1,11 +1,10 @@
 const pool = require('../config/database');
 
-// Function to create a new talon_logs
-
+// Function to create a new talon log
 async function insertTalon(inventory_id, shipment, talon_quantity, send_date, order_date, talon_status, receive_date, registration) {
     const query = `
         INSERT INTO talon_logs (inventory_id, shipment, talon_quantity, send_date, order_date, talon_status, receive_date, registration)
-        VALUES ($1, $2::Varchar, $3, $4::Timestamp, $5::Timestamp, $6::JSONB, $7::Timestamp, $8)
+        VALUES ($1, $2, $3, $4::Timestamp, $5::Timestamp, $6::talon_status_enum, $7::Timestamp, $8)
         RETURNING *;
     `;
 
@@ -15,13 +14,12 @@ async function insertTalon(inventory_id, shipment, talon_quantity, send_date, or
         const result = await pool.query(query, values);
         return result.rows[0];
     } catch (error) {
-        console.error('Something Went Wrong!', error);
+        console.error('Error creating talon log:', error);
         throw error;
     }
 }
 
 // Function to consult all talons
-
 async function talonConsultAll() {
     const query = `SELECT * FROM talon_logs;`;
     
@@ -29,31 +27,25 @@ async function talonConsultAll() {
         const result = await pool.query(query);
         return result.rows;
     } catch (error) {
-        console.error('Something went wrong while fetching all users:', error);
+        console.error('Error fetching all talons:', error);
         throw error;
     }
 }
 
-// Function to consult a talon by id
-
+// Function to consult a talon by ID
 async function talonConsultById(talon_id) {
     const query = `SELECT * FROM talon_logs WHERE talon_id = $1;`;
 
     try {
         const result = await pool.query(query, [talon_id]);
-        return result.rows[0]; // Retorna o primeiro usuário encontrado (ou undefined se não houver resultado)
+        return result.rows[0];
     } catch (error) {
-        console.error('Something went wrong while fetching user by registration:', error);
+        console.error('Error fetching talon by ID:', error);
         throw error;
     }
 }
 
-
-
-
-
-//Function to Edit a Talon
-
+// Function to edit a talon log
 async function editTalon(talon_id, inventory_id, shipment, talon_quantity, send_date, order_date, talon_status, receive_date, registration) {
     const query = `
         UPDATE talon_logs
@@ -68,30 +60,26 @@ async function editTalon(talon_id, inventory_id, shipment, talon_quantity, send_
         const result = await pool.query(query, values);
         return result.rows[0]; 
     } catch (error) {
-        console.error('Something Went Wrong!', error);
+        console.error('Error updating talon log:', error);
         throw error;
     }
 }
 
-// Function to delete a Talon
-
+// Function to delete a talon log
 async function deleteTalonLogs(talon_id) {
     const query = `
-    DELETE FROM talon_logs
-    WHERE talon_id = $1
-    RETURNING*;
+        DELETE FROM talon_logs
+        WHERE talon_id = $1
+        RETURNING *;
     `;
 
     try {
         const result = await pool.query(query, [talon_id]);
         return result.rows[0]; 
-    } catch (erroR) {
-        console.error('Something Went Wrong!', error);
+    } catch (error) {
+        console.error('Error deleting talon log:', error);
         throw error;
     }
-
-    
 }
- 
 
-module.exports = {insertTalon, deleteTalonLogs, editTalon, talonConsultAll, talonConsultById};
+module.exports = { insertTalon, talonConsultAll, talonConsultById, editTalon, deleteTalonLogs };
