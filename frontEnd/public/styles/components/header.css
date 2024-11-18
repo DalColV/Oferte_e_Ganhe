@@ -1,0 +1,8 @@
+/* Cabeçalho */
+.cabecalho {
+    background-color: #4AAD6F;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 52px;
+  }

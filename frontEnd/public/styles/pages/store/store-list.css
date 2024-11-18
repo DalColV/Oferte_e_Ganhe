@@ -1,0 +1,25 @@
+.container__listagem-lojas {
+    margin-top: 28px;
+  }
+  
+  .container__listagem-lojas input::placeholder {
+    padding: 6.25rem;
+  }
+  
+  .btn__csv-loja {
+    margin-top: 24px;
+    margin-bottom: 31px;
+  }
+  
+  .container__loja-titulo-img{
+    text-align: left;
+    display: flex;
+    align-items: center;
+  }
+  .container__loja-titulo-img img{
+    margin-bottom: 20px;
+  }
+  
+  .container__listagem-lojas {
+    background-color: #ffffff;
+  }

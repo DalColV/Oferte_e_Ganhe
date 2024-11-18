@@ -1,0 +1,64 @@
+/* Campo de Input */
+.formulario-padrao {
+    margin: 0 auto;
+    margin-top: 4rem;
+    max-width: 35rem;
+  }
+  
+  .formulario-padrao input,
+  select {
+    margin: 0 2rem;
+    gap: 2rem;
+    padding: 5px;
+    border-radius: 10px;
+    border: 1px solid #979797; 
+  }
+  
+  .formulario-padrao input::placeholder {
+    font-size: 12px;
+    text-align: center; 
+    padding: 0 110px 0 100px;
+  }
+  
+  .formulario-padrao label {
+    text-align: left;
+  }
+  
+  .formulario-padrao a {
+    margin: 0.5rem 0 1rem 2rem;
+    font-size: 12px;
+  }
+  
+  /* ícone de busca do input */
+  .input-wrapper {
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+    width: 100%;
+  }
+  
+  .input-wrapper i {
+    margin-left: -30px;
+    cursor: pointer;
+  }
+  
+  .input-wrapper input {
+    margin: 0 ;
+    width: 100%;
+  }
+  
+  /*Label do Input */
+  .formulario-padrao label{
+    margin: 1rem 2rem 0.25rem 2rem;
+    font-size: 12px;
+  }
+  
+  
+  /* Estilos telas maiores*/
+  @media (min-width: 640px) {
+    .formulario-padrao {
+      background-color: #F2FBF5;
+      padding: 20px;
+      border-radius: 8px; 
+    }
+  }

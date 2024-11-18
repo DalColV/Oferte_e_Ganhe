@@ -1,0 +1,84 @@
+.container__principal-taloes h1 {
+    margin-top: 2.0625rem;
+    margin-bottom: 2rem;
+  }
+  
+  .container__principal-taloes {
+    display: flex;
+    gap: 17px;
+  }
+  
+  .cards-taloes {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    gap: 28px;
+    border: 1px solid #06a561;
+    border-radius: 10px;
+    background-color: #eaf6ef;
+    min-height: 65px;
+  }
+  
+  .perfis-cadastrados span,
+  .usuarios-cadastrados span {
+    font-size: 2.25rem;
+    font-weight: bold;
+    color: #979797;
+  }
+  
+  .perfis-cadastrados span,
+  .usuarios-cadastrados span {
+    margin-right: 17px;
+  }
+  
+  .perfis-cadastrados h2,
+  .usuarios-cadastrados h2 {
+    margin-left: 19px;
+    
+  }
+  
+  .recebimento__taloes {
+    margin-top: 54px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 0;
+    height: 100%;
+  }
+  
+  .recebimento__taloes h2 {
+    font-weight: bold;
+    margin: 23px 0 13px 19px;
+  }
+  
+  .taloes__enviados,
+  .taloes__pendentes,
+  .taloes__recebidos {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 90%;
+    margin-left: 19px;
+    margin-bottom: 4px;
+  }
+  
+  .taloes__enviados span,
+  .taloes__recebidos span, 
+  .taloes__pendentes span {
+    color: #979797;
+    text-align: center;
+  }
+  
+  .taloes__recebidos {
+    margin-bottom: 16px;
+  }
+  
+  .taloes__enviados p,
+  .taloes__pendentes p,
+  .taloes__recebidos p
+   {
+    width: 110px;
+    margin: 0;
+  }

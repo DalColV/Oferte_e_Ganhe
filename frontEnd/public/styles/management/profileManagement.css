@@ -1,0 +1,20 @@
+.gestao__perfis-input {
+    margin: 0;
+  }
+  
+  .gestao-perfis h2 {
+    text-align: left;
+    margin-top: 18px;
+  }
+  
+  .container__perfis-imagem {
+    display: flex;
+    align-items: center;
+    margin-bottom: 23px;
+  }
+  
+  #img-cruz {
+    margin-top: 20px;
+    margin-left: 20px;
+  }
+  

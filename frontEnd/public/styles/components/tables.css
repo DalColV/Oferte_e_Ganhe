@@ -1,0 +1,45 @@
+/* Tabela */
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 0px;
+    font-size: 12px;
+  }
+  th, td {
+    padding: 8px 12px;
+    text-align: left;
+    border-left: none; 
+    border-right: none; 
+    background-color: transparent;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+  th {
+    background-color: white;
+    border-bottom: 1px solid #ddd; 
+    color: #979797;  
+  }
+  td {
+    border-bottom: 1px solid #ddd; 
+  }
+  
+  /* Botão Tabela Editar*/
+  .btn-tabela{
+    padding: 6px 10px;
+    width: 3.75rem;
+    background-color:  #4CAF50; 
+    color: white; 
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+  /* Botão Tabela deletar*/
+  .btn-tabela__deletar {
+    border: none;
+    cursor: pointer;
+  }

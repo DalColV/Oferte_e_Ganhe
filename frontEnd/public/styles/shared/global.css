@@ -1,0 +1,31 @@
+body {
+  text-align: center;
+  font-family: 'Inter', 'sans-serif';
+}
+
+/* Container Principal da Página */
+.container-global {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Título Principal h1*/
+.titulo-principal {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+/* Título Secundário h2*/
+.titulo-secundario {
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+
+/* Estilos tamanhos maiores do que  640px*/
+
+@media (min-width: 640px) {
+   .titulo-principal {
+    font-size: 2.0rem;
+  }
+}

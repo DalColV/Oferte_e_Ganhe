@@ -1,5 +1,27 @@
-@import url(../outros/autenticacao-de-conta.css);
-
-@import url(../styles/login-e-cadastro/login.css);
-@import url(../styles/global.css);
-@import url(../styles/manutencao/manutencao.css);
+/* Global */
+@import url(./shared/global.css);
+/* Componetes */
+@import url(./components/forms.css);
+@import url(./components/header.css);
+@import url(./components/button.css);
+@import url(./components/tables.css);
+/* Login e Cadastro  */
+@import url(./pages/login-and-register/login.css);
+@import url(./pages/recover-password/recover-password.css);
+/* Manutenção */
+@import url(./pages/maintenance/maintenance.css);
+/* Dashboard */
+@import url(./pages/dashboard/dashboard.css);
+/* Gestão de Estoque */
+@import url(./pages/inventory/inventoryManagement.css);
+/* Páginas de Gestão  */
+@import url(./pages/management/management.css);
+@import url(./pages/management/profileManagement.css);
+/* Loja, lista e cadastro. */
+@import url(./pages/store/store-list.css);
+@import url(./pages/store/store-register.css);
+/* Modal CSS */
+@import url(./shared/modal.css);
+/* Talões */
+@import url(./pages/talon/talon.css);
+@import url(./pages/talon/send-talon.css);
