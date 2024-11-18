@@ -2,7 +2,7 @@ const express = require('express');
 const StoreController = require('../../controllers/storeController');
 const router = express.Router();
 
-//CRUD
+// CRUD Routes
 
 // POST - Route to create a new store
 router.post('/store-register', StoreController.createStore);

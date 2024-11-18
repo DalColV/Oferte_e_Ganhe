@@ -1,29 +1,18 @@
 const pool = require('../config/database');
 
 // Function to Create a new Store
-
 async function insertStore(store_id, store_name, street, cep, number) {
     const client = await pool.connect();
     try {
         await client.query('BEGIN');
 
-        // Insert the address into the Address table
-        const addressQuery = `
-            INSERT INTO Address (street, cep, number)
-            VALUES ($1, $2, $3)
-            RETURNING address_id;
-        `;
-        const addressValues = [street, cep, number];
-        const addressResult = await client.query(addressQuery, addressValues);
-        const address_id = addressResult.rows[0].address_id;
-
-        // Insert the store into the STORE table 
+        // Insert the store directly into the STORE table (address fields are part of this table now)
         const storeQuery = `
-            INSERT INTO STORE (store_id, store_name, address_id)
-            VALUES ($1, $2, $3)
-            RETURNING store_id, store_name, address_id;
+            INSERT INTO STORE (store_id, store_name, street, cep, number)
+            VALUES ($1, $2, $3, $4, $5)
+            RETURNING store_id, store_name, street, cep, number;
         `;
-        const storeValues = [store_id, store_name, address_id];
+        const storeValues = [store_id, store_name, street, cep, number];
         const storeResult = await client.query(storeQuery, storeValues);
 
         // If successful, commit the transaction
@@ -40,27 +29,24 @@ async function insertStore(store_id, store_name, street, cep, number) {
     }
 }
 
-
 // Function to Consult All Stores
-
 async function consultStores() {
-    const query =`
+    const query = `
         SELECT * FROM store;
     `;
 
-    try{
+    try {
         const result = await pool.query(query);
         return result.rows;
-    }catch(err){
+    } catch (err) {
         console.error('Something Went Wrong.', err);
     }
 }
 
-// Function to Consult a specific Store
-
+// Function to Consult a specific Store by ID
 async function consultStoreById(store_id) {
     const query = `
-         SELECT * from store WHERE store_id = $1;
+        SELECT * from store WHERE store_id = $1;
     `;
 
     const values = [store_id];
@@ -74,40 +60,40 @@ async function consultStoreById(store_id) {
     }
 }
 
-//Function to Edit a Store
-
-async function editStore(store_id, store_name, address_id) {
-    const query =  `
-    UPDATE store
-    SET store_name = $1, address_id = $2
-    WHERE store_id= $3
-    RETURNING*;
+// Function to Edit a Store
+async function editStore(store_id, store_name, street, cep, number) {
+    const query = `
+        UPDATE store
+        SET store_name = $1, street = $2, cep = $3, number = $4
+        WHERE store_id = $5
+        RETURNING store_id, store_name, street, cep, number;
     `;
     
-    const values = [store_name, address_id, store_id ];
+    const values = [store_name, street, cep, number, store_id];
 
-    try{ const result = await pool.query(query, values);
+    try {
+        const result = await pool.query(query, values);
         return result.rows[0];
-    }catch(error){
+    } catch (error) {
         console.error('Something Went Wrong!', error);
         throw error;
     }
 }
 
-// Funciton to Delete a Store
-
+// Function to Delete a Store
 async function deleteStore(store_id) {
-    const query =  `
-    DELETE FROM store
-    WHERE store_id = $1
-    RETURNING*;
+    const query = `
+        DELETE FROM store
+        WHERE store_id = $1
+        RETURNING store_id, store_name, street, cep, number;
     `;
     
     const values = [store_id];
 
-    try{ const result = await pool.query(query, values);
+    try {
+        const result = await pool.query(query, values);
         return result.rows[0];
-    }catch(error){
+    } catch (error) {
         console.error('Something Went Wrong!', error);
         throw error;
     }

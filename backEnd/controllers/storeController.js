@@ -3,7 +3,6 @@ const storeService = require('../services/storeServices');
 class StoreController {
     
     // POST - Create a new Store
-
     static async createStore(req, res) {
         const { store_id, store_name, street, cep, number } = req.body;
 
@@ -16,7 +15,6 @@ class StoreController {
     }
 
     // GET - Consult all stores
-
     static async consultStores(req, res) {
         try {
             const stores = await storeService.consultStores();
@@ -27,7 +25,6 @@ class StoreController {
     }
 
     // GET - Consult a specific store by ID
-
     static async consultById(req, res) {
         const { store_id } = req.params;
 
@@ -44,13 +41,12 @@ class StoreController {
     }
 
     // PUT - Update a store
-
     static async updateStore(req, res) {
         const { store_id } = req.params;
-        const { store_name, address_id } = req.body;
+        const { store_name, street, cep, number } = req.body;
 
         try {
-            const updatedStore = await storeService.editStore(store_id, store_name, address_id);
+            const updatedStore = await storeService.editStore(store_id, store_name, street, cep, number);
             if (updatedStore) {
                 res.status(200).json({ message: 'Store updated successfully', store: updatedStore });
             } else {
@@ -62,7 +58,6 @@ class StoreController {
     }
 
     // DELETE - Delete a store
-    
     static async deleteStore(req, res) {
         const { store_id } = req.params;
 
