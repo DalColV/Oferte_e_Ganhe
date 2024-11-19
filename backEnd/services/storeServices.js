@@ -6,7 +6,6 @@ async function insertStore(store_id, store_name, street, cep, number) {
     try {
         await client.query('BEGIN');
 
-        // Insert the store directly into the STORE table (address fields are part of this table now)
         const storeQuery = `
             INSERT INTO STORE (store_id, store_name, street, cep, number)
             VALUES ($1, $2, $3, $4, $5)
@@ -15,12 +14,10 @@ async function insertStore(store_id, store_name, street, cep, number) {
         const storeValues = [store_id, store_name, street, cep, number];
         const storeResult = await client.query(storeQuery, storeValues);
 
-        // If successful, commit the transaction
         await client.query('COMMIT');
         return storeResult.rows[0];
 
     } catch (error) {
-        // If there's an error, rollback the transaction
         await client.query('ROLLBACK');
         console.error('Something Went Wrong', error);
         throw error;

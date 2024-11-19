@@ -8,16 +8,18 @@ const pool = new Pool({
      port: 5432,
 })
 
-//aqui da pra fazer por async e await
-
-pool.connect((err, client, release) => {
-    if (err) {
-         return console.error('Erro ao conectar ao banco!', error.stack);
+const connectToDatabase = async () => {
+     try {
+       
+       const client = await pool.connect();
+       console.log('Conexão Estabelecida!');
+       client.release(); 
+     } catch (error) {
+       console.error('Erro ao conectar ao banco!', error.stack);
      }
-     console.log('Conexão Estabelecida!');
-     release();
-});
-
-module.exports = pool;
-
+   };
+   
+   connectToDatabase();  
+   
+   module.exports = pool;
 
