@@ -1,10 +1,10 @@
-import { hasharPass } from '../../utils/passwordUtil'; 
-import { TokenService } from '../../services/authServices/tokenServices'; 
-import { getUserByRegistration, createUser } from '../../model/userModel'; 
+const { hasharPass } = require('../../utils/passwordUtil');
+const TokenService = require('../../services/authServices/tokenServices');
+const { getUserByRegistration, createUser } = require('../../model/userModel');
 
 const tokenServices = new TokenService();
 
-export const signUp = async (req, res) => {
+const signUp = async (req, res) => {
     try {
         const { registration, username, password, email } = req.body;
 
@@ -14,7 +14,7 @@ export const signUp = async (req, res) => {
 
         const existingUser = await getUserByRegistration(registration);
         if (existingUser) {
-            return res.status(409).json({ message: "User already exists!" }); 
+            return res.status(409).json({ message: "User already exists!" });
         }
 
         const hashedPassword = await hasharPass(password);
@@ -23,7 +23,7 @@ export const signUp = async (req, res) => {
             registration,
             username,
             password: hashedPassword,
-            email
+            email,
         });
 
         const payload = { registration: newUser.registration, username: newUser.username };
@@ -31,10 +31,12 @@ export const signUp = async (req, res) => {
 
         return res.status(201).json({
             message: "User registered successfully!",
-            token, 
+            token,
         });
     } catch (error) {
         console.error("Error in signUp:", error);
-        return res.status(500).json({ message: "Internal server error" }); // ver aqui pra usar o middleware de erro
+        return res.status(500).json({ message: "Internal server error" }); // Middleware de erro pode ser usado aqui
     }
 };
+
+module.exports = { signUp };

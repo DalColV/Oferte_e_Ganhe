@@ -9,3 +9,5 @@ const bcrypt = require('bcryptjs');
     const isEqualPassword = async (password, hashedPass) =>{
     return bcrypt.compare(password, hashedPass);
 };
+
+module.exports = { isEqualPassword, hasharPass };

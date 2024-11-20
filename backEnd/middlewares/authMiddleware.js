@@ -4,27 +4,29 @@ const tokenServices = new TokenService();
 
 
 const authMiddleware = (req, res, next) => {
-    try {
+  try {
       const authHeader = req.headers.authorization;
+      console.log("Authorization Header Received:", authHeader);
+
       if (!authHeader) {
-        return res.status(401).json({ error: "Authorization header missing" });
-      }
-      
-      const result = tokenServices.verify(authHeader);
-
-    if (result.error) {
-      return res.status(result.statusCode).json({ error: result.error });
-    }
-
-    if (requiredRole && result.decoded.role !== requiredRole) {
-        return res.status(403).json({ error: "Access forbidden" });
+          return res.status(401).json({ error: "Authorization header missing" });
       }
 
-    req.user = result.decoded;
+      const token = authHeader.split(" ")[1]; 
+      console.log("Extracted Token:", token);
 
-    next();
+      if (!token) {
+          return res.status(401).json({ error: "Token missing from Authorization header" });
+      }
+
+      const result = tokenServices.verify(`Bearer ${token}`); 
+      console.log("Decoded Token:", result);
+
+      req.user = result; 
+      next();
   } catch (error) {
-    return res.status(500).json({ error: "Authentication failed" });
+      console.error("Error in Token Verification:", error.message);
+      return res.status(401).json({ error: "Invalid Token" });
   }
 };
 

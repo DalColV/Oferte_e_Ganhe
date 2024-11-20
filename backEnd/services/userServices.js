@@ -1,25 +1,19 @@
-const pool = require('../config/database');
+const {pool} = require('../config/database');
+
 
 
 // Function to insert a new user
 
-async function insertUser(registration , username, store_id, profile_id, email, password = 'users') {
-    const query = `
-        insert into users (registration , username, store_id, profile_id, email, password)
-        values ($1, $2, $3, $4, $5, $6)
-        returning *;
-    `;
+const insertUser = async (registration, username, store_id, profile_id, email, password) => {
+    const result = await pool.query(
+        `INSERT INTO users (registration, username, store_id, profile_id, email, password)
+         VALUES ($1, $2, $3, $4, $5, $6)
+         RETURNING registration, username, store_id, profile_id, email`,
+        [registration, username, store_id, profile_id, email, password]
+    );
+    return result.rows[0];
+};
 
-    const values = [registration , username, store_id, profile_id, email, password];
-
-    try {
-        const result = await pool.query(query, values);
-        return result.rows[0]; 
-    } catch (error) {
-        console.error('Err! Something Went Wrong!', error);
-        throw error;
-    }
-}
 
 //Function to edit an user
 
@@ -49,22 +43,31 @@ async function editUser(registration, username, store_id, profile_id, email, pas
 }
 
 //Function to Delete an User
-
 async function deleteUser(registration) {
-    const query = `
-        DELETE FROM users
-        WHERE registration = $1
-        RETURNING *;
+    const checkUserQuery = `
+        SELECT * FROM users WHERE registration = $1;
     `;
 
+    const deleteQuery = `
+        DELETE FROM users WHERE registration = $1 RETURNING *;
+    `;
+    
     try {
-        const result = await pool.query(query, [registration]);
+        const checkResult = await pool.query(checkUserQuery, [registration]);
+
+        if (checkResult.rows.length === 0) {
+            return null; 
+        }
+
+        const result = await pool.query(deleteQuery, [registration]);
+
         return result.rows[0]; 
     } catch (error) {
-        console.error('Something Wetn Wrong!', error);
+        console.error('Something Went Wrong!', error);
         throw error;
     }
 }
+
 
 // Function to consult all users
 

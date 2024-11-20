@@ -21,5 +21,5 @@ const connectToDatabase = async () => {
    
    connectToDatabase();  
    
-   module.exports = pool;
+   module.exports = {pool};
 
