@@ -1,4 +1,4 @@
-const pool = require('../config/database');
+const {pool} = require('../config/database');
 
 // Function to Create a new Store
 async function insertStore(store_id, store_name, street, cep, number) {

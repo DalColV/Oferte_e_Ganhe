@@ -31,3 +31,5 @@ const authMiddleware = (req, res, next) => {
 };
 
 module.exports = authMiddleware;
+
+//ver tratamento de erros daqui pra modularizar no handle

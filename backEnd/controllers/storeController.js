@@ -5,14 +5,16 @@ class StoreController {
     // POST - Create a new Store
     static async createStore(req, res) {
         const { store_id, store_name, street, cep, number } = req.body;
-
+    
         try {
             const newStore = await storeService.insertStore(store_id, store_name, street, cep, number);
             res.status(201).json({ message: 'Store created successfully!', store: newStore });
         } catch (error) {
+            console.error("Error creating store:", error);  
             res.status(500).json({ message: 'Error creating store', error: error.message });
         }
     }
+    
 
     // GET - Consult all stores
     static async consultStores(req, res) {
