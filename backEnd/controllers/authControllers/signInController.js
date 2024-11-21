@@ -1,6 +1,7 @@
 const TokenService = require("../../services/authServices/tokenServices");
 const { getUserByRegistration } = require("../../model/userModel");
 const { isEqualPassword } = require("../../utils/password");
+const {putTokenOff} = require("../../model/logoutModel");
 
 
 const tokenServices = new TokenService();
@@ -30,4 +31,21 @@ const tokenServices = new TokenService();
     return res.json({message: "You're in!", token: token});
 
 }
-module.exports = { signIn };
+
+const logout = async (req, res) => {
+    const token = req.headers.authorization?.split(" ")[1]; 
+    if (!token) {
+        return res.status(400).json({ message: "Token not provided!" });
+    }
+
+    try {
+        await putTokenOff(token);
+        return res.json({ message: "Logged out successfully!" });
+    } catch (error) {
+        console.error("Error logging out:", error);
+        return res.status(500).json({ message: "Logout failed!" });
+    }
+};
+
+module.exports = { logout, signIn };
+

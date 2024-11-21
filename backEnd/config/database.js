@@ -23,3 +23,18 @@ const connectToDatabase = async () => {
    
    module.exports = {pool};
 
+
+   //SEQUELIZE
+
+// const { Sequelize } = require('sequelize');
+
+// const sequelize = new Sequelize({
+//   dialect: 'postgres',
+//   host: 'localhost',
+//   username: 'seu_usuario',
+//   password: 'postgres',
+//   database: 'oferte_e_ganhe',
+// });
+
+// module.exports = sequelize;
+
