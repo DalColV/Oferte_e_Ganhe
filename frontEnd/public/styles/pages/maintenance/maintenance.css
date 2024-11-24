@@ -1,0 +1,17 @@
+.container__botao-logout-manutencao {
+  min-height: 60vh !important;
+}
+
+@media (min-width: 1024px) {
+  .menu-lateral__manutencao-taloes {
+   margin-top: 5rem;
+  }
+  
+  .menu-lateral__manutencao-taloes h2{
+    margin-top: 0 !important;
+  }
+
+  .container__botao-logout-manutencao {
+    min-height: 70vh !important;
+  }
+}

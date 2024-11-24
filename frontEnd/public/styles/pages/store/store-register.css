@@ -1,17 +1,17 @@
 .titulo__cadastro-loja {
-    margin-bottom: 1.875rem;
-  }
-  .btn__voltar-loja {
-    background-color: #ffffff;
-    color: #06A561;
-    border: 1px solid #D7DBEC;
-  }
-  
-  .btn__salvar-loja {
-    margin-top: 0;
-  }
-  
-  .container__cadastro-loja {
-    background-color: #ffffff;
-    max-width: 30rem;
-  }
+  margin-bottom: 1.875rem;
+}
+
+.container__cadastro-loja {
+  background-color: #ffffff;
+  max-width: 30rem;
+}
+
+
+.container__menu-lateral {
+  margin-top: 4.5rem;
+}
+
+.container__botao-logout{
+  min-height: 18vh;
+}

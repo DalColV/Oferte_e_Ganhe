@@ -1,7 +1,7 @@
 const express = require('express');
 const TalonController = require('../../controllers/talonController');
 const router = express.Router();
-const authMiddleware = require("../../middlewares/authMiddleware");
+const {authMiddleware} = require("../../middlewares/authMiddleware");
 
 
 // POST - Route to create a new Talon log

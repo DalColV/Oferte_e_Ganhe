@@ -10,7 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../../public/styles/reset.css">
   <link rel="stylesheet" href="../../public/styles/style.css">
-  <title>DASHBOARD</title>
+  <title>Editar Usuário</title>
 </head>
 
 <body>
@@ -56,47 +56,57 @@
               <a href="../maintenance/maintenance.html">Manutenção de Talões</a>
             </li>
           </ul>
-          <div class="container__botao-logout"> 
+          <div class="container__botao-logout">
             <button class="btn-logout">Logout</button>
           </div>
         </div>
       </aside>
-      <div class="col-sm-3  col-md-4"></div>
-      <div class="col-sm-6 col-md-4 container-global container__principal-taloes">
-        <h1 class="titulo-principal">DASHBOARD</h1>
-        <div class="usuarios-cadastrados cards-taloes">
-          <h2 class="titulo-secundario">Usuários Cadastrados</h2>
-          <span>00</span>
-        </div>
-        <div class="perfis-cadastrados cards-taloes">
-          <h2 class="titulo-secundario">Perfis Cadastrados</h2>
-          <span>00</span>
-        </div>
-        <div class="recebimento__taloes cards-taloes">
-          <h2>Talões</h2>
-          <div class="taloes__enviados">
-            <img src="../../img/taloes_enviados.png" alt="imagem status talões enviados">
-            <p>Enviados</p>
-            <span>00</span>
-          </div>
-          <div class="taloes__pendentes">
-            <img src="../../img/taloes_pendentes.png" alt="imagem status talões pendentes">
-            <p>Pendentes</p>
-            <span>00</span>
-          </div>
-          <div class="taloes__recebidos">
-            <img src="../../img/taloes_recebidos.png" alt="imagem status talões recebidos">
-            <p>Recebidos</p>
-            <span>00</span>
-          </div>
-        </div>
+      <div class="col-lg-2"></div>
+      <div class="col-lg-8 container-global formulario-padrao formulario-editar">
+        <h1 class="titulo-principal">Editar Usuário e Vincular Perfil</h1>
+
+        <label for="nome">Nome</label>
+        <input type="text" name="nome" id="">
+        <label for="matricula">Matrícula</label>
+        <input type="text" name="matricula" id="">
+        <label for="loja">Loja</label>
+        <select name="loja">
+          <option selected disabled></option>
+          <option value="lojaA">Loja A</option>
+          <option value="lojaB">Loja B</option>
+          <option value="lojaC">Loja C</option>
+        </select>
+
+        <label for="email">E-mail</label>
+        <input type="email" name="email" id="">
+
+        <label for="acesso">Acesso</label>
+        <select name="acesso">
+          <option selected disabled></option>
+          <option value="#">##</option>
+          <option value="#">##</option>
+          <option value="#">##</option>
+        </select>
+
+        <button class="btn-padrao btn__voltar" onclick="voltarPagina()">Voltar</button>        
+        <button class="btn-padrao btn__salvar">Salvar</button>
+
       </div>
-      <div class="col-sm-3 col-md-4"></div>
+      <div class="col-lg-2"></div>
     </div>
   </section>
   </div>
+
+  <dialog id="modal">
+    <h1>Você excedeu o número de tentativas</h1>
+    <p>Espere para tentar novamente</p>
+    <button type="button" class="btn-padrao btn-modal close-modal">OK</button>
+  </dialog>
+
   <div class="overlay"></div>
   <script src="../../src/menu/menu.js"></script>
+  <script src="../../src/modal/modal.js"></script>
+  <script src="../../src/edit/edit.js"></script>
 </body>
 
 </html>

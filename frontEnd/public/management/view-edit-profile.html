@@ -10,7 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../../public/styles/reset.css">
   <link rel="stylesheet" href="../../public/styles/style.css">
-  <title>DASHBOARD</title>
+  <title>Editar Perfil</title>
 </head>
 
 <body>
@@ -56,47 +56,76 @@
               <a href="../maintenance/maintenance.html">Manutenção de Talões</a>
             </li>
           </ul>
-          <div class="container__botao-logout"> 
+          <div class="container__botao-logout">
             <button class="btn-logout">Logout</button>
           </div>
         </div>
       </aside>
-      <div class="col-sm-3  col-md-4"></div>
-      <div class="col-sm-6 col-md-4 container-global container__principal-taloes">
-        <h1 class="titulo-principal">DASHBOARD</h1>
-        <div class="usuarios-cadastrados cards-taloes">
-          <h2 class="titulo-secundario">Usuários Cadastrados</h2>
-          <span>00</span>
-        </div>
-        <div class="perfis-cadastrados cards-taloes">
-          <h2 class="titulo-secundario">Perfis Cadastrados</h2>
-          <span>00</span>
-        </div>
-        <div class="recebimento__taloes cards-taloes">
-          <h2>Talões</h2>
-          <div class="taloes__enviados">
-            <img src="../../img/taloes_enviados.png" alt="imagem status talões enviados">
-            <p>Enviados</p>
-            <span>00</span>
+      <div class="col-lg-2"></div>
+      <div class="col-lg-8 container-global formulario-padrao formulario-editar-criar ">
+        <h1 class="titulo-principal">Editar Perfil</h1>
+
+        <label for="perfil">Perfil</label>
+        <input type="text" name="perfil" id="">
+        <h2>Definir Acessos</h2>
+
+        <div class="container-inputs__editar-criar">
+          <div class="box__editar-criar">
+            <input type="checkbox" name="gestao-usuario">
+            <label for="gestao-usuario">Gestao de Usuário</label>
           </div>
-          <div class="taloes__pendentes">
-            <img src="../../img/taloes_pendentes.png" alt="imagem status talões pendentes">
-            <p>Pendentes</p>
-            <span>00</span>
+
+          <div class="box__editar-criar">
+            <input type="checkbox" name="gestao-perfis">
+            <label for="gestao-perfis">Gestao de Perfis</label>
           </div>
-          <div class="taloes__recebidos">
-            <img src="../../img/taloes_recebidos.png" alt="imagem status talões recebidos">
-            <p>Recebidos</p>
-            <span>00</span>
+
+          <div class="box__editar-criar">
+            <input type="checkbox" name="gestao-estoque">
+            <label for="gestao-estoque">Gestao de Estoque</label>
           </div>
+
+          <div class="box__editar-criar">
+            <input type="checkbox" name="envio-taloes">
+            <label for="envio-taloes">Envio de Talões</label>
+          </div>
+
+          <div class="box__editar-criar">
+            <input type="checkbox" name="recimento-taloes">
+            <label for="recimento-taloes">Recimento de Talões</label>
+          </div>
+
+          <div class="box__editar-criar">
+            <input type="checkbox" name="gestao-lojas">
+            <label for="gestao-lojas">Gestão de Lojas</label>
+          </div>
+
+          <div class="box__editar-criar">
+            <input type="checkbox" name="manutencao">
+            <label for="manutencao">Manutenção</label>
+          </div>
+
         </div>
+
+        <button class="btn-padrao btn__voltar" onclick="voltarPagina()">Voltar</button>        
+        <button class="btn-padrao btn__salvar">Salvar</button>
+
       </div>
-      <div class="col-sm-3 col-md-4"></div>
+      <div class="col-lg-2"></div>
     </div>
   </section>
   </div>
+
+  <dialog id="modal">
+    <h1>Você excedeu o número de tentativas</h1>
+    <p>Espere para tentar novamente</p>
+    <button type="button" class="btn-padrao btn-modal close-modal">OK</button>
+  </dialog>
+
   <div class="overlay"></div>
   <script src="../../src/menu/menu.js"></script>
+  <script src="../../src/modal/modal.js"></script>
+  <script src="../../src/edit/edit.js"></script>
 </body>
 
 </html>

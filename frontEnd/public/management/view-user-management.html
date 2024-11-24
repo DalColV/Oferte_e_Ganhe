@@ -9,77 +9,135 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-  <link rel="stylesheet" href="../../styles/reset.css">
-  <link rel="stylesheet" href="../../styles/style.css">
-  <title>Gestão de Usuário</title>
+  <link rel="stylesheet" href="../../public/styles/reset.css">
+  <link rel="stylesheet" href="../../public/styles/style.css">
+  <title>Gestão de Usuários</title>
 </head>
+
 <body>
   <header class="container-fluid cabecalho">
-    <div class="row w-100">      
+    <div class="row w-100">
       <div class="col-2 d-flex align-items-center">
         <button class="btn-menu">
-          <img src="../../../img/btn-menu.png" alt="botão menu">
+          <img src="../../img/btn-menu.png" alt="botão menu">
         </button>
       </div>
       <div class="col-8 d-flex justify-content-center align-items-center">
-        <img src="../../../img/logo.png" alt="logo da Oferte e Ganhe">
+        <img src="../../img/logo.png" alt="logo da Oferte e Ganhe">
       </div>
       <div class="col-2"></div>
     </div>
   </header>
   <section class="container-fluid ">
     <div class="row">
-      <div class="col-sm-10 container-global container__gestao-de-usuario ">
-        <div class="input-wrapper input__gestao-de-estoque">
-          <input type="text" id="campo__buscar-id" placeholder="Buscar">
+      <aside class="menu-lateral">
+        <div class="container__menu-lateral">
+          <span class="fechar-menu">x</span>
+          <h2 class="titulo-secundario">Master</h2>
+          <ul class="lista-menu">
+            <li>
+              <a href="../management/view-user-management.html">Gestão de Usuários</a>
+            </li>
+            <li>
+              <a href="../management/view-profile-management.html">Gestão de Perfis </a>
+            </li>
+            <li>
+              <a href="../talon/send-talon.html">Envio de Talões</a>
+            </li>
+            <li>
+              <a href="../talon/receipt-talon.html">Recimento de Talões</a>
+            </li>
+            <li>
+              <a href="../inventory/view-inventory-management.html">Gestão de Estoque</a>
+            </li>
+            <li>
+              <a href="../store/view-store-register.html">Cadastrar Loja</a>
+            </li>
+            <li>
+              <a href="../maintenance/maintenance.html">Manutenção de Talões</a>
+            </li>
+          </ul>
+          <div class="container__botao-logout"> 
+            <button class="btn-logout">Logout</button>
+          </div>
+        </div>
+      </aside>
+      <div class="container__gestao  formulario-padrao">
+        <div class="input-wrapper ">
+          <input type="text" id="#" placeholder="Buscar">
           <i class="fa fa-search"></i>
         </div>
-        <h1>Gestão de Usuário</h1>
-        <button id="btn__exportar-csv">Exportar .csv</button> 
-        <div class="table-container tabela__gestao-usuario">
+        <h1 class="titulo-principal">Gestão de Usuários</h1>
+        <button class="btn__exportar-csv exportar-csv-gestao">Exportar .csv</button>
+        <div class="table-container">
           <table>
             <thead>
-                <tr>
-                    <th>Usuário</th>
-                    <th>Matrícula</th>                   
-                    <th>Loja</th>
-                    <th>E-mail</th>
-                    <th>Acesso</th>
-                </tr>
+              <tr>
+                <th>Usuário</th>
+                <th>Matrícula</th>
+                <th>Loja</th>
+                <th>E-mail</th>
+                <th>Acesso</th>
+                <th>Ações</th>
+              </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>Fulano de tal</td>
-                    <td>1234856</td>                     
-                    <td>063</td>
-                    <td>fulano@gmail.com</td>
-                    <td>estoque</td>
-                </tr>
-                <tr>
-                    <td>Beltrano de tal</td>
-                    <td>1234856</td>
-                    <td>063</td>
-                    <td>beltrano@gmail.com</td>
-                    <td>estoque</td>
-                </tr>
-                <tr>
-                    <td>Ciclano de tal</td>
-                    <td>1234856</td>
-                    <td>063</td>
-                    <td>ciclano@gmail.com</td>
-                    <td>estoque</td>
-                </tr>
+              <tr>
+                <td>Fulano de tal</td>
+                <td>1234856</td>
+                <td>063</td>
+                <td>fulano@gmail.com</td>
+                <td>estoque</td>
+                <td>
+                  <button class="btn-tabela__editar">
+                    <a href="./view-edit-user.html">Editar</a>
+                  </button>
+                  <button class="btn-tabela__deletar">
+                    <img src="../../img/icone_lixeira.png" alt="icone de lixeira" width="15px" height="15px">
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td>Beltrano de tal</td>
+                <td>1234856</td>
+                <td>063</td>
+                <td>beltrano@gmail.com</td>
+                <td>estoque</td>
+                <td>
+                  <button class="btn-tabela__editar">
+                    <a href="./view-edit-user.html">Editar</a>
+                  </button>
+                  <button class="btn-tabela__deletar">
+                    <img src="../../img/icone_lixeira.png" alt="icone de lixeira" width="15px" height="15px">
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td>Ciclano de tal</td>
+                <td>1234856</td>
+                <td>063</td>
+                <td>ciclano@gmail.com</td>
+                <td>estoque</td>
+                <td>
+                  <button class="btn-tabela__editar">
+                    <a href="./view-edit-user.html">Editar</a>
+                  </button>
+                  <button class="btn-tabela__deletar">
+                    <img src="../../img/icone_lixeira.png" alt="icone de lixeira" width="15px" height="15px">
+                  </button>
+                </td>
+              </tr>
             </tbody>
-        </table>
+          </table>
+        </div>
       </div>
     </div>
-  </div>
-          
-      </div>
-    
+    </div>
     </div>
   </section>
   </div>
+  <div class="overlay"></div>
+  <script src="../../src/menu/menu.js"></script>
 </body>
 
 </html>

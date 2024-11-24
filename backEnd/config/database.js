@@ -31,7 +31,7 @@ const connectToDatabase = async () => {
 // const sequelize = new Sequelize({
 //   dialect: 'postgres',
 //   host: 'localhost',
-//   username: 'seu_usuario',
+//   username: '',
 //   password: 'postgres',
 //   database: 'oferte_e_ganhe',
 // });

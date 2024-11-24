@@ -1,7 +1,7 @@
 const express = require('express');
 const ProfileController = require('../../controllers/profileController');
 const router = express.Router();
-const authMiddleware = require("../../middlewares/authMiddleware");
+const {authMiddleware} = require("../../middlewares/authMiddleware");
 
 
 //CRUD

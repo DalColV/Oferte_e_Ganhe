@@ -7,8 +7,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../../styles/reset.css">
-<link rel="stylesheet" href="../../styles/style.css">
+<link rel="stylesheet" href="../../public/styles/reset.css">
+<link rel="stylesheet" href="../../public/styles/style.css">
   <title>Cadastro</title>
 </head>
 
@@ -16,26 +16,31 @@
   <header class="container-fluid cabecalho">
     <div class="row">
       <div class="col">
-        <img src="Oferte_e_Ganhe\img\logo.png" alt="logo da Oferte e Ganhe">
+        <img src="../../img/logo.png" alt="logo da Oferte e Ganhe">
       </div>
     </div>
   </header>
   <section class="container-fluid ">
     <div class="row">
-      <div class="col-sm-10 container-global">
-        <h1>Cadastro</h1>
+      <div class="col-sm-10 container-global formulario-padrao formulario-padrao-desktop">
+        <h1 class="titulo-principal">Cadastro</h1>
         <label for="nome">Nome</label>
         <input type="text" name="nome" id="nome">
         <label for="email">E-mail</label>
         <input type="email" name="email" id="email">
         <label for="loja">Loja</label>
-        <input type="text" name="loja" id="loja">
+        <select name="loja" id="loja">
+          <option value="" selected disabled></option>
+          <option value="">Loja A</option>
+          <option value="">Loja B</option>
+          <option value="">Loja C</option>
+        </select>
         <label for="matricula">Matrícula</label>
-        <input type="number" name="matricula" id="matricula">
+        <input type="text" name="matricula" id="">
         <label for="senha">Senha</label>
         <input type="password" name="senha" id="senha">
-        <button>Cadastrar</button>
-        <a href="../login-and-register/login.html" >Já tem conta? Clique em entrar!</a>
+        <button class="btn-padrao">Cadastrar</button>
+        <a href="../login-and-register/view-login.html" >Já tem conta? Clique em entrar!</a>
       </div>
     </div>
   </section>

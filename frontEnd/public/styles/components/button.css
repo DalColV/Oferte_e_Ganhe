@@ -1,35 +1,41 @@
 /* Botão Padrão */
 .btn-padrao {  
-    margin: 2rem 2rem 0.5rem 2rem;  
-    padding: 10px;
-    font-family: "Inter", "sans-serif"; 
-    background-color: #4AAD6F;
-    border-radius: 8px;
-    border-color: #D7DBEC;
-    color: #FFFF;  
-  }
-  
-  /* Botão exportar csv */
-  .btn__exportar-csv {
-    width: 130px;
-    height: 35px;
-    margin: 0 auto;
-    padding: 10px;
-    border: 1px solid #D7DBEC;
-    background-color: #ffffff;
-    border-radius: 8px;
-    padding: 10px;
-    color: #06A561;
-  }
-  
-  /* Botão Menu */
-  .btn-menu {
-    background: transparent;
-    border: none;
-  }
-  
-  /* Botão Solicitar talões a matriz */
-  .btn-solicitar-taloes {
-    margin: 4rem auto;
-    width: 240px;
-  }
+  margin: 2rem 2rem 0.5rem 2rem;  
+  padding: 10px;
+  font-family: "Inter", "sans-serif"; 
+  background-color: #4AAD6F;
+  border-radius: 8px;
+  border-color: #D7DBEC;
+  color: #FFFF;   
+}
+
+/* Botão exportar csv */
+.btn__exportar-csv {
+  width: 130px;
+  height: 35px;
+  margin: 0 auto;
+  padding: 10px;
+  border: 1px solid #D7DBEC;
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 10px;
+  color: #06A561;
+}
+
+/* Botão Solicitar talões a matriz */
+.btn-solicitar-taloes {
+  margin: 4rem auto;
+  width: 240px;
+}
+
+.btn__voltar {
+  background-color: #ffffff;
+  border: 1px solid #D7DBEC;
+  color: #06A561;
+  font-size: 12px;
+}
+
+.btn__salvar {
+  margin-top: 0;
+  font-size: 12px;
+}

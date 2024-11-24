@@ -17,11 +17,16 @@
 /* Páginas de Gestão  */
 @import url(./pages/management/management.css);
 @import url(./pages/management/profileManagement.css);
-/* Loja, lista e cadastro. */
+/* Editar e Criar novas páginas */
+@import url(./shared/edit-and-create.css);
+/* Loja*/
+@import url(./pages/store/store.css);
 @import url(./pages/store/store-list.css);
 @import url(./pages/store/store-register.css);
 /* Modal CSS */
-@import url(./shared/modal.css);
+@import url(./components/modal.css);
 /* Talões */
 @import url(./pages/talon/talon.css);
 @import url(./pages/talon/send-talon.css);
+/* Menu Lateral */
+@import url(./components/menu.css);

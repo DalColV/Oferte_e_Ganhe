@@ -1,7 +1,7 @@
 const express = require('express');
 const StoreController = require('../../controllers/storeController');
 const router = express.Router();
-const authMiddleware = require("../../middlewares/authMiddleware");
+const {authMiddleware} = require("../../middlewares/authMiddleware");
 
 
 // CRUD Routes
