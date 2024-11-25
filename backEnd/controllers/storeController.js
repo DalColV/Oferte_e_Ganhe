@@ -1,77 +1,67 @@
 const storeService = require('../services/storeServices');
+const { AppError, handleError } = require('../utils/errors');
+const { sendSuccess } = require('../utils/responses');
 
 class StoreController {
-    
-    // POST - Create a new Store
     static async createStore(req, res) {
         const { store_id, store_name, street, cep, number } = req.body;
-    
         try {
             const newStore = await storeService.insertStore(store_id, store_name, street, cep, number);
-            res.status(201).json({ message: 'Store created successfully!', store: newStore });
+            sendSuccess(res, 201, "Store created successfully!", newStore);
         } catch (error) {
-            console.error("Error creating store:", error);  
-            res.status(500).json({ message: 'Error creating store', error: error.message });
+            handleError(res, error);
         }
     }
-    
 
-    // GET - Consult all stores
     static async consultStores(req, res) {
         try {
             const stores = await storeService.consultStores();
-            res.status(200).json(stores);
+            sendSuccess(res, 200, "Stores fetched successfully", stores);
         } catch (error) {
-            res.status(500).json({ message: 'Error fetching stores', error: error.message });
+            handleError(res, error);
         }
     }
 
-    // GET - Consult a specific store by ID
     static async consultById(req, res) {
         const { store_id } = req.params;
-
         try {
             const store = await storeService.consultStoreById(store_id);
             if (store) {
-                res.status(200).json(store);
+                sendSuccess(res, 200, "Store found", store);
             } else {
-                res.status(404).json({ message: 'Store not found' });
+                throw new AppError("Store not found", 404);
             }
         } catch (error) {
-            res.status(500).json({ message: 'Error fetching store by ID', error: error.message });
+            handleError(res, error);
         }
     }
 
-    // PUT - Update a store
     static async updateStore(req, res) {
         const { store_id } = req.params;
         const { store_name, street, cep, number } = req.body;
-
         try {
             const updatedStore = await storeService.editStore(store_id, store_name, street, cep, number);
             if (updatedStore) {
-                res.status(200).json({ message: 'Store updated successfully', store: updatedStore });
+                sendSuccess(res, 200, "Store updated successfully", updatedStore);
             } else {
-                res.status(404).json({ message: 'Store not found' });
+                throw new AppError("Store not found", 404);
             }
         } catch (error) {
-            res.status(500).json({ message: 'Error updating store', error: error.message });
+            handleError(res, error);
         }
     }
 
-    // DELETE - Delete a store
     static async deleteStore(req, res) {
         const { store_id } = req.params;
-
         try {
             const deletedStore = await storeService.deleteStore(store_id);
             if (deletedStore) {
-                res.status(200).json({ message: 'Store deleted successfully', store: deletedStore });
+                sendSuccess(res, 200, "Store deleted successfully", deletedStore);
             } else {
-                res.status(404).json({ message: 'Store not found' });
+                throw new AppError("Store not found", 404);
             }
         } catch (error) {
-            res.status(500).json({ message: 'Error deleting store', error: error.message });
+            handleError(res, error);
         }
     }
 }

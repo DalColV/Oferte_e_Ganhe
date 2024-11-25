@@ -1,117 +1,73 @@
 const profileService = require('../services/profileServices');
+const { AppError, handleError } = require('../utils/errors');
+const { sendSuccess } = require('../utils/responses');
 
 class ProfileController {
-
-    // POST - Criar um novo perfil
-
     static async createProfile(req, res) {
-        const {
-            profile_name,
-            has_profile_management = false,
-            has_user_management = false,
-            has_inventory_management = false,
-            has_maintenance = false,
-            has_store_management = false,
-            has_shipping = false,
-            has_receiving = false
-        } = req.body;
-
+        const { profile_name, has_profile_management, has_user_management, has_inventory_management, has_maintenance, has_store_management, has_shipping, has_receiving } = req.body;
         try {
             const newProfile = await profileService.insertProfile(
-                profile_name,
-                has_profile_management,
-                has_user_management,
-                has_inventory_management,
-                has_maintenance,
-                has_store_management,
-                has_shipping,
-                has_receiving
+                profile_name, has_profile_management, has_user_management, has_inventory_management,
+                has_maintenance, has_store_management, has_shipping, has_receiving
             );
-            res.status(201).json({ message: 'Profile Successfully Registered!', PROFILE: newProfile });
+            sendSuccess(res, 201, "Profile Successfully Registered!", newProfile);
         } catch (error) {
-            res.status(500).json({ message: 'Error! Something Went Wrong!', error: error.message });
+            handleError(res, error);
         }
     }
-
-    // GET - Consultar todos os perfis
 
     static async getAllProfiles(req, res) {
         try {
             const profiles = await profileService.consultProfileAll();
-            res.status(200).json(profiles);
+            sendSuccess(res, 200, "Profiles fetched successfully", profiles);
         } catch (error) {
-            res.status(500).json({ message: 'Error fetching profiles', error: error.message });
+            handleError(res, error);
         }
     }
-
-    // GET - Consultar um perfil específico por ID
 
     static async getProfileById(req, res) {
         const { profile_id } = req.params;
-
         try {
             const profile = await profileService.consultProfileById(profile_id);
             if (profile) {
-                res.status(200).json(profile);
+                sendSuccess(res, 200, "Profile found", profile);
             } else {
-                res.status(404).json({ message: 'Profile not found' });
+                throw new AppError("Profile not found", 404);
             }
         } catch (error) {
-            res.status(500).json({ message: 'Error fetching profile by ID', error: error.message });
+            handleError(res, error);
         }
     }
-
-    // PUT - Atualizar um perfil
 
     static async updateProfile(req, res) {
         const { profile_id } = req.params;
-        const {
-            profile_name,
-            has_profile_management,
-            has_user_management,
-            has_inventory_management,
-            has_maintenance,
-            has_store_management,
-            has_shipping,
-            has_receiving
-        } = req.body;
-
+        const { profile_name, has_profile_management, has_user_management, has_inventory_management, has_maintenance, has_store_management, has_shipping, has_receiving } = req.body;
         try {
             const updatedProfile = await profileService.editProfile(
-                profile_id,
-                profile_name,
-                has_profile_management,
-                has_user_management,
-                has_inventory_management,
-                has_maintenance,
-                has_store_management,
-                has_shipping,
-                has_receiving
+                profile_id, profile_name, has_profile_management, has_user_management, has_inventory_management,
+                has_maintenance, has_store_management, has_shipping, has_receiving
             );
             if (updatedProfile) {
-                res.status(200).json({ message: 'Profile Updated Successfully!', profile: updatedProfile });
+                sendSuccess(res, 200, "Profile Updated Successfully!", updatedProfile);
             } else {
-                res.status(404).json({ message: 'Profile Not Found!' });
+                throw new AppError("Profile not found", 404);
             }
         } catch (error) {
-            res.status(500).json({ message: 'Something Went Wrong!', error: error.message });
+            handleError(res, error);
         }
     }
 
-    // DELETE - Deletar um perfil
-    
     static async deleteProfile(req, res) {
         const { profile_id } = req.params;
-
         try {
             const deletedProfile = await profileService.deleteProfile(profile_id);
             if (deletedProfile) {
-                res.status(200).json({ message: 'Profile Has Been Deleted!', profile: deletedProfile });
+                sendSuccess(res, 200, "Profile deleted successfully", deletedProfile);
             } else {
-                res.status(404).json({ message: 'Profile Not Found!' });
+                throw new AppError("Profile not found", 404);
             }
         } catch (error) {
-            res.status(500).json({ message: 'Something Went Wrong!', error: error.message });
+            handleError(res, error);
         }
     }
 }

@@ -1,118 +1,71 @@
 const talonService = require('../services/talonServices');
+const { AppError, handleError } = require('../utils/errors');
+const { sendSuccess } = require('../utils/responses');
 
 class TalonController {
-
-    // POST - Create a new Talon 
-
     static async createTalon(req, res) {
-        const {
-            inventory_id,
-            shipment,
-            talon_quantity,
-            send_date,
-            order_date,
-            talon_status,
-            receive_date,
-            registration
-        } = req.body;
-
+        const { inventory_id, shipment, talon_quantity, send_date, order_date, talon_status, receive_date, registration } = req.body;
         try {
             const newTalon = await talonService.insertTalon(
-                inventory_id,
-                shipment,
-                talon_quantity,
-                send_date,
-                order_date,
-                talon_status,
-                receive_date,
-                registration
+                inventory_id, shipment, talon_quantity, send_date, order_date, talon_status, receive_date, registration
             );
-            res.status(201).json({ message: "Talon Created Successfully!", talon_logs: newTalon });
+            sendSuccess(res, 201, "Talon Created Successfully!", newTalon);
         } catch (error) {
-            res.status(500).json({ message: 'Something Went Wrong!', error: error.message });
+            handleError(res, error);
         }
     }
-
-    // GET - Retrieve all Talon 
 
     static async consultAllTalons(req, res) {
         try {
             const talons = await talonService.talonConsultAll();
-            res.status(200).json(talons);
+            sendSuccess(res, 200, "Talons retrieved successfully", talons);
         } catch (error) {
-            res.status(500).json({ message: 'Error fetching talon logs', error: error.message });
+            handleError(res, error);
         }
     }
-
-    // GET - Retrieve a specific Talon by ID
 
     static async consultTalonById(req, res) {
         const { talon_id } = req.params;
-
         try {
             const talon = await talonService.talonConsultById(talon_id);
-
             if (talon) {
-                res.status(200).json(talon);
+                sendSuccess(res, 200, "Talon found", talon);
             } else {
-                res.status(404).json({ message: 'Talon log not found' });
+                throw new AppError("Talon log not found", 404);
             }
         } catch (error) {
-            res.status(500).json({ message: 'Error fetching talon log by ID', error: error.message });
+            handleError(res, error);
         }
     }
-
-    // PUT - Update a Talon 
 
     static async updateTalon(req, res) {
         const { talon_id } = req.params;
-        const {
-            inventory_id,
-            shipment,
-            talon_quantity,
-            send_date,
-            order_date,
-            talon_status,
-            receive_date,
-            registration
-        } = req.body;
-
+        const { inventory_id, shipment, talon_quantity, send_date, order_date, talon_status, receive_date, registration } = req.body;
         try {
             const updatedTalon = await talonService.editTalon(
-                talon_id,
-                inventory_id,
-                shipment,
-                talon_quantity,
-                send_date,
-                order_date,
-                talon_status,
-                receive_date,
-                registration
+                talon_id, inventory_id, shipment, talon_quantity, send_date, order_date, talon_status, receive_date, registration
             );
             if (updatedTalon) {
-                res.status(200).json({ message: "Talon Updated Successfully!", talon_logs: updatedTalon });
+                sendSuccess(res, 200, "Talon Updated Successfully!", updatedTalon);
             } else {
-                res.status(404).json({ message: 'Talon not found!' });
+                throw new AppError("Talon not found", 404);
             }
         } catch (error) {
-            res.status(500).json({ message: 'Something Went Wrong!', error: error.message });
+            handleError(res, error);
         }
     }
 
-    // DELETE - Delete a Talon 
-    
     static async deleteTalon(req, res) {
         const { talon_id } = req.params;
-
         try {
             const deletedTalon = await talonService.deleteTalonLogs(talon_id);
             if (deletedTalon) {
-                res.status(200).json({ message: 'Talon deleted successfully!', talon_logs: deletedTalon });
+                sendSuccess(res, 200, "Talon deleted successfully", deletedTalon);
             } else {
-                res.status(404).json({ message: 'Talon not found.' });
+                throw new AppError("Talon not found", 404);
             }
         } catch (error) {
-            res.status(500).json({ message: 'Error deleting talon', error: error.message });
+            handleError(res, error);
         }
     }
 }

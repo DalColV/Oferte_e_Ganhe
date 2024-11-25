@@ -1,79 +1,67 @@
 const inventoryService = require('../services/inventoryServices');
-
-
+const { AppError, handleError } = require('../utils/errors');
+const { sendSuccess } = require('../utils/responses');
 
 class InventoryController {
-    
-    // POST - Create a new Inventory
-
     static async createInventory(req, res) {
         const { inventory_id, store_id, min_quantity, recommended_quantity, current_quantity } = req.body;
-
-        try { const newInventory = await inventoryService.setInventory(inventory_id, store_id, min_quantity, recommended_quantity, current_quantity);
-            res.status(201).json({ message: 'Inventory created successfully!', inventory: newInventory });
+        try {
+            const newInventory = await inventoryService.setInventory(inventory_id, store_id, min_quantity, recommended_quantity, current_quantity);
+            sendSuccess(res, 201, "Inventory created successfully!", newInventory);
         } catch (error) {
-            res.status(500).json({ message: 'Error creating inventory', error: error.message });
+            handleError(res, error);
         }
     }
-
-    // GET - Consultar todos os estoques
 
     static async consultInventories(req, res) {
         try {
             const inventories = await inventoryService.consultInventoryAll();
-            res.status(200).json(inventories);
+            sendSuccess(res, 200, "Inventories fetched successfully", inventories);
         } catch (error) {
-            res.status(500).json({ message: 'Error fetching inventory records', error: error.message });
+            handleError(res, error);
         }
     }
-
-    // GET - Consultar um estoque específico pelo ID
 
     static async consultById(req, res) {
         const { inventory_id } = req.params;
-
         try {
             const inventory = await inventoryService.consultInventoryById(inventory_id);
             if (inventory) {
-                res.status(200).json(inventory);
+                sendSuccess(res, 200, "Inventory record found", inventory);
             } else {
-                res.status(404).json({ message: 'Inventory record not found' });
+                throw new AppError("Inventory record not found", 404);
             }
         } catch (error) {
-            res.status(500).json({ message: 'Error fetching inventory by ID', error: error.message });
+            handleError(res, error);
         }
     }
 
-    // PUT - Atualizar um estoque
     static async updateInventory(req, res) {
         const { inventory_id } = req.params;
         const { store_id, min_quantity, recommended_quantity, current_quantity } = req.body;
-
         try {
             const updatedInventory = await inventoryService.editInventory(inventory_id, store_id, min_quantity, recommended_quantity, current_quantity);
             if (updatedInventory) {
-                res.status(200).json({ message: 'Inventory updated successfully', inventory: updatedInventory });
+                sendSuccess(res, 200, "Inventory updated successfully", updatedInventory);
             } else {
-                res.status(404).json({ message: 'Inventory not found' });
+                throw new AppError("Inventory not found", 404);
             }
         } catch (error) {
-            res.status(500).json({ message: 'Error updating inventory', error: error.message });
+            handleError(res, error);
         }
     }
 
-    // DELETE - Deletar um estoque
     static async removeInventory(req, res) {
         const { inventory_id } = req.params;
-
         try {
             const removedInventory = await inventoryService.deleteInventory(inventory_id);
             if (removedInventory) {
-                res.status(200).json({ message: 'Inventory deleted successfully', inventory: removedInventory });
+                sendSuccess(res, 200, "Inventory deleted successfully", removedInventory);
             } else {
-                res.status(404).json({ message: 'Inventory not found' });
+                throw new AppError("Inventory not found", 404);
             }
         } catch (error) {
-            res.status(500).json({ message: 'Error deleting inventory', error: error.message });
+            handleError(res, error);
         }
     }
 }
