@@ -3,16 +3,24 @@ const { AppError, handleError } = require('../utils/errors');
 const { sendSuccess } = require('../utils/responses');
 
 class InventoryController {
+    // Função para criar um inventário
     static async createInventory(req, res) {
-        const { inventory_id, store_id, min_quantity, recommended_quantity, current_quantity } = req.body;
+        const { store_id, min_quantity, recommended_quantity, current_quantity } = req.body;
         try {
-            const newInventory = await inventoryService.setInventory(inventory_id, store_id, min_quantity, recommended_quantity, current_quantity);
+            // Validação de parâmetros
+            if (!store_id || !min_quantity || !recommended_quantity || !current_quantity) {
+                throw new AppError("All fields are required", 400);
+            }
+
+            // Chamando o método de criação do service
+            const newInventory = await inventoryService.setInventory(store_id, min_quantity, recommended_quantity, current_quantity);
             sendSuccess(res, 201, "Inventory created successfully!", newInventory);
         } catch (error) {
             handleError(res, error);
         }
     }
 
+    // Função para consultar todos os inventários
     static async consultInventories(req, res) {
         try {
             const inventories = await inventoryService.consultInventoryAll();
@@ -22,6 +30,7 @@ class InventoryController {
         }
     }
 
+    // Função para consultar um inventário por ID
     static async consultById(req, res) {
         const { inventory_id } = req.params;
         try {
@@ -36,10 +45,16 @@ class InventoryController {
         }
     }
 
+    // Função para atualizar um inventário
     static async updateInventory(req, res) {
         const { inventory_id } = req.params;
         const { store_id, min_quantity, recommended_quantity, current_quantity } = req.body;
         try {
+            // Validação de parâmetros
+            if (!store_id || !min_quantity || !recommended_quantity || !current_quantity) {
+                throw new AppError("All fields are required to update inventory", 400);
+            }
+
             const updatedInventory = await inventoryService.editInventory(inventory_id, store_id, min_quantity, recommended_quantity, current_quantity);
             if (updatedInventory) {
                 sendSuccess(res, 200, "Inventory updated successfully", updatedInventory);
@@ -51,6 +66,7 @@ class InventoryController {
         }
     }
 
+    // Função para remover um inventário
     static async removeInventory(req, res) {
         const { inventory_id } = req.params;
         try {

@@ -1,99 +1,77 @@
-const {pool} = require('../config/database');
+const Store = require('../model/storeModel');
 
-// Function to Create a new Store
+// Função para criar uma nova loja
 async function insertStore(store_id, store_name, street, cep, number) {
-    const client = await pool.connect();
     try {
-        await client.query('BEGIN');
-
-        const storeQuery = `
-            INSERT INTO STORE (store_id, store_name, street, cep, number)
-            VALUES ($1, $2, $3, $4, $5)
-            RETURNING store_id, store_name, street, cep, number;
-        `;
-        const storeValues = [store_id, store_name, street, cep, number];
-        const storeResult = await client.query(storeQuery, storeValues);
-
-        await client.query('COMMIT');
-        return storeResult.rows[0];
-
+        const newStore = await Store.create({
+            store_id,
+            store_name,
+            street,
+            cep,
+            number
+        });
+        return newStore;
     } catch (error) {
-        await client.query('ROLLBACK');
-        console.error('Something Went Wrong', error);
+        console.error('Something went wrong while creating the store:', error);
         throw error;
-    } finally {
-        client.release();
     }
 }
 
-// Function to Consult All Stores
+// Função para consultar todas as lojas
 async function consultStores() {
-    const query = `
-        SELECT * FROM store;
-    `;
-
     try {
-        const result = await pool.query(query);
-        return result.rows;
-    } catch (err) {
-        console.error('Something Went Wrong.', err);
+        const stores = await Store.findAll();
+        return stores;
+    } catch (error) {
+        console.error('Something went wrong while fetching stores:', error);
+        throw error;
     }
 }
 
-// Function to Consult a specific Store by ID
+// Função para consultar uma loja por ID
 async function consultStoreById(store_id) {
-    const query = `
-        SELECT * from store WHERE store_id = $1;
-    `;
-
-    const values = [store_id];
-
     try {
-        const result = await pool.query(query, values);
-        return result.rows[0];
-    } catch (err) {
-        console.error('Something Went Wrong.', err);
-        throw err;
+        const store = await Store.findOne({
+            where: { store_id }
+        });
+        return store;
+    } catch (error) {
+        console.error('Something went wrong while fetching the store by ID:', error);
+        throw error;
     }
 }
 
-// Function to Edit a Store
+// Função para editar uma loja
 async function editStore(store_id, store_name, street, cep, number) {
-    const query = `
-        UPDATE store
-        SET store_name = $1, street = $2, cep = $3, number = $4
-        WHERE store_id = $5
-        RETURNING store_id, store_name, street, cep, number;
-    `;
-    
-    const values = [store_name, street, cep, number, store_id];
-
     try {
-        const result = await pool.query(query, values);
-        return result.rows[0];
+        const updatedStore = await Store.update(
+            { store_name, street, cep, number },
+            {
+                where: { store_id },
+                returning: true
+            }
+        );
+
+        return updatedStore[1][0];  // Retorna o primeiro objeto da resposta
     } catch (error) {
-        console.error('Something Went Wrong!', error);
+        console.error('Something went wrong while updating the store:', error);
         throw error;
     }
 }
 
-// Function to Delete a Store
+// Função para deletar uma loja
 async function deleteStore(store_id) {
-    const query = `
-        DELETE FROM store
-        WHERE store_id = $1
-        RETURNING store_id, store_name, street, cep, number;
-    `;
-    
-    const values = [store_id];
-
     try {
-        const result = await pool.query(query, values);
-        return result.rows[0];
+        const deletedStore = await Store.destroy({
+            where: { store_id },
+            returning: true
+        });
+
+        return deletedStore;
     } catch (error) {
-        console.error('Something Went Wrong!', error);
+        console.error('Something went wrong while deleting the store:', error);
         throw error;
     }
 }
 
-module.exports = {insertStore, editStore, deleteStore, consultStoreById, consultStores};
+module.exports = { insertStore, consultStores, consultStoreById, editStore, deleteStore };

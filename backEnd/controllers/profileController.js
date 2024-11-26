@@ -7,8 +7,14 @@ class ProfileController {
         const { profile_name, has_profile_management, has_user_management, has_inventory_management, has_maintenance, has_store_management, has_shipping, has_receiving } = req.body;
         try {
             const newProfile = await profileService.insertProfile(
-                profile_name, has_profile_management, has_user_management, has_inventory_management,
-                has_maintenance, has_store_management, has_shipping, has_receiving
+                profile_name, 
+                has_profile_management, 
+                has_user_management, 
+                has_inventory_management,
+                has_maintenance, 
+                has_store_management, 
+                has_shipping, 
+                has_receiving
             );
             sendSuccess(res, 201, "Profile Successfully Registered!", newProfile);
         } catch (error) {
@@ -44,8 +50,15 @@ class ProfileController {
         const { profile_name, has_profile_management, has_user_management, has_inventory_management, has_maintenance, has_store_management, has_shipping, has_receiving } = req.body;
         try {
             const updatedProfile = await profileService.editProfile(
-                profile_id, profile_name, has_profile_management, has_user_management, has_inventory_management,
-                has_maintenance, has_store_management, has_shipping, has_receiving
+                profile_id, 
+                profile_name, 
+                has_profile_management, 
+                has_user_management, 
+                has_inventory_management,
+                has_maintenance, 
+                has_store_management, 
+                has_shipping, 
+                has_receiving
             );
             if (updatedProfile) {
                 sendSuccess(res, 200, "Profile Updated Successfully!", updatedProfile);

@@ -25,8 +25,8 @@ app.use(express.static(path.join(__dirname, '../frontEnd/public')));
 
 
 // Rotas para as páginas HTML
-app.use('/', authMiddleware, storeRoutes);
-app.use('/', authMiddleware, viewRoutes);
+app.use('/',  storeRoutes);
+app.use('/', viewRoutes);
 app.use('/', authMiddleware, inventoryRoutes);
 app.use('/', authMiddleware, profileManagementRoutes);
 app.use('/', authMiddleware, talonRoutes);

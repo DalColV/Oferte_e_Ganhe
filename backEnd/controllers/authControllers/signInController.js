@@ -22,6 +22,7 @@ const signIn = async (req, res) => {
     const payload = {
         registration: user.registration,
         username: user.username,
+        profile_id,
     };
 
     const token = tokenServices.generate(payload);
