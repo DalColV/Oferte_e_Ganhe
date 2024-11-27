@@ -41,4 +41,4 @@ Store.associate = (models) => {
   Store.hasOne(models.Inventory, { foreignKey: 'store_id', as: 'inventory' });
 };
 
-module.exports = { Store };
+module.exports =  Store ;

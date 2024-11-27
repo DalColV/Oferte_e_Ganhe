@@ -52,4 +52,4 @@ Profile.associate = (models) => {
   Profile.hasMany(models.User, { foreignKey: 'profile_id', as: 'users' });
 };
 
-module.exports = {Profile};
+module.exports = Profile;

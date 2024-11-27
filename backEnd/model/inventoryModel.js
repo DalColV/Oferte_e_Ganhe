@@ -40,4 +40,4 @@ Inventory.associate = (models) => {
   Inventory.hasMany(models.TalonLog, { foreignKey: 'inventory_id', as: 'talonLogs' });
 };
 
-module.exports = { Inventory };
+module.exports =  Inventory ;

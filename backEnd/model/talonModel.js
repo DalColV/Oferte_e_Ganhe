@@ -61,4 +61,4 @@ TalonLogs.associate = (models) => {
   TalonLogs.belongsTo(models.User, { foreignKey: 'registration', as: 'user' });
 };
 
-module.exports = {TalonLogs};
+module.exports = TalonLogs;

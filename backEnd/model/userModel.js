@@ -46,9 +46,8 @@ const User = sequelize.define(
 User.associate = (models) => {
   User.belongsTo(models.Profile, { foreignKey: 'profile_id', as: 'profile' });
   User.belongsTo(models.Store, { foreignKey: 'store_id', as: 'store' });
-  User.hasMany(models.TalonLog, { foreignKey: 'registration', as: 'talonLogs' });
 };
 
-module.exports = { User };
+module.exports =  User ;
 
 

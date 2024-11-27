@@ -7,16 +7,16 @@ const {authMiddleware} = require("../../middlewares/authMiddleware");
 router.post('/register', UserController.registerUser);
 
 // GET - Consult all users
-router.get('/users', authMiddleware, UserController.consultAllUsers);
+router.get('/users', UserController.consultAllUsers);
 
 // GET - Consult a specific user by registration
-router.get('/users/:registration', authMiddleware, UserController.consultUserByRegistration);
+router.get('/users/:registration', UserController.consultUserByRegistration);
 
 // PUT - Update a user
-router.put('/register-edit/:registration', authMiddleware, UserController.updateUser);
+router.put('/register-edit/:registration', UserController.updateUser);
 
 // DELETE - Delete a user
-router.delete('/register-delete/:registration', authMiddleware, UserController.deleteUser);
+router.delete('/register-delete/:registration', UserController.deleteUser);
 
 module.exports = router;
 
