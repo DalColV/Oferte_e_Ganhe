@@ -16,31 +16,26 @@ const signIn = async (req, res) => {
             return res.status(401).json({ message: "Invalid Credentials!" });
         }
 
-        // Verifica se a senha está correta
         const isPasswordCorrect = await isEqualPassword(password, user.password);
         if (!isPasswordCorrect) {
             return res.status(401).json({ message: "Invalid Credentials!" });
         }
 
-        // Define o payload do token com as informações do usuário
         const payload = {
             registration: user.registration,
             username: user.username,
-            profile_id: user.profile_id, // Agora, estamos pegando diretamente do usuário
+            profile_id: user.profile_id, 
         };
 
-        // Gera o token de autenticação
         const token = tokenServices.generate(payload);
 
-        // Define o token como um cookie HTTP Only
         res.cookie('auth_token', token, {
             httpOnly: true,
-            secure: process.env.NODE_ENV === 'production',
+            secure: false,
             sameSite: 'strict',
-            maxAge: 24 * 60 * 60 * 1000, // 1 dia
+            maxAge: 24 * 60 * 60 * 1000, 
         });
 
-        // Retorna a resposta com o token
         return res.json({ message: "You're in!", token });
     } catch (error) {
         console.error('Error during sign in process:', error);
@@ -49,10 +44,10 @@ const signIn = async (req, res) => {
 };
 
 const logout = (req, res) => {
-    // Limpa o cookie de autenticação
+
     res.clearCookie('auth_token', {
         httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
+        secure: false,
         sameSite: 'strict',
     });
 

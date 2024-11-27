@@ -13,7 +13,7 @@ const insertUser = async (registration, username, store_id, profile_id, email, p
       registration,
       username,
       store_id,
-      profile_id,
+      profile_id, 
       email,
       password,
     });
@@ -23,7 +23,6 @@ const insertUser = async (registration, username, store_id, profile_id, email, p
     throw error;
   }
 };
-
 // Função para editar um usuário
 const editUser = async (registration, username, store_id, profile_id, email, password) => {
   try {

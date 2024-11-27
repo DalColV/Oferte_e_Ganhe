@@ -13,10 +13,13 @@ class UserController {
                 throw new AppError("All fields are required!", 400);
             }
 
+            // Defina o profile_id como '1' (perfil restrito) caso não seja enviado
+            const finalProfileId = profile_id || 1; // Supondo que 1 seja o ID do perfil restrito
+
             const hashedPassword = await hasharPass(password);
 
             const newUser = await userService.insertUser(
-                registration, username, store_id, profile_id, email, hashedPassword
+                registration, username, store_id, finalProfileId, email, hashedPassword
             );
 
             const token = new TokenService().generate({ registration: newUser.registration, username: newUser.username });
@@ -57,15 +60,15 @@ class UserController {
         const { username, store_id, profile_id, email, password } = req.body;
         try {
             const hashedPassword = password ? await hasharPass(password) : undefined;
-
+    
             const updatedUser = await userService.editUser(
                 registration, username, store_id, profile_id, email, hashedPassword
             );
-
+    
             if (!updatedUser) {
                 throw new AppError("User not found", 404);
             }
-
+    
             sendSuccess(res, 200, "User updated successfully", updatedUser);
         } catch (error) {
             handleError(res, error);

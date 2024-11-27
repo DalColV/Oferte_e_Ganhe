@@ -1,33 +1,64 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 
-const TalonLog = sequelize.define('TalonLog', {
-  id: {
-    type: DataTypes.INTEGER,
-    primaryKey: true,
-    autoIncrement: true,
+const TalonLogs = sequelize.define(
+  'TalonLogs',
+  {
+    talon_id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
+    shipment: {
+      type: DataTypes.STRING(15),
+      allowNull: false,
+    },
+    inventory_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'inventory',
+        key: 'inventory_id',
+      },
+    },
+    talon_quantity: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    send_date: {
+      type: DataTypes.DATE,
+      allowNull: false,
+    },
+    order_date: {
+      type: DataTypes.DATE,
+      allowNull: false,
+    },
+    talon_status: {
+      type: DataTypes.ENUM('Sent', 'Received', 'Misplaced'),
+      allowNull: false,
+    },
+    receive_date: {
+      type: DataTypes.DATE,
+      allowNull: true,
+    },
+    registration: {
+      type: DataTypes.STRING(10),
+      allowNull: false,
+      references: {
+        model: 'users',
+        key: 'registration',
+      },
+    },
   },
-  registration: {
-    type: DataTypes.STRING(15),
-    allowNull: false,
-  },
-  inventory_id: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-  },
-  log_data: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-}, {
-  tableName: 'talon_logs',
-  timestamps: false,
-});
+  {
+    tableName: 'talon_logs',
+    timestamps: false,
+  }
+);
 
-// Associações
-TalonLog.associate = (models) => {
-  TalonLog.belongsTo(models.Inventory, { foreignKey: 'inventory_id', as: 'inventory' });
-  TalonLog.belongsTo(models.User, { foreignKey: 'registration', as: 'user' });
+TalonLogs.associate = (models) => {
+  TalonLogs.belongsTo(models.Inventory, { foreignKey: 'inventory_id', as: 'inventory' });
+  TalonLogs.belongsTo(models.User, { foreignKey: 'registration', as: 'user' });
 };
 
-module.exports = { TalonLog };
+module.exports = {TalonLogs};
