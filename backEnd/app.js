@@ -2,11 +2,11 @@ require('dotenv').config();
 const express = require('express');
 const app = express();
 const cookieParser = require('cookie-parser');
-const { authMiddleware } = require('./middlewares/authMiddleware')
-;
+const { authMiddleware } = require('./middlewares/authMiddleware');
 
 app.use(express.json()); 
 app.use(cookieParser());
+
 
 
 const path = require('path');
@@ -25,11 +25,11 @@ app.use(express.static(path.join(__dirname, '../frontEnd/public')));
 
 
 // Rotas para as páginas HTML
-app.use('/',  storeRoutes);
+app.use('/', storeRoutes);
 app.use('/', viewRoutes);
-app.use('/', authMiddleware, inventoryRoutes);
-app.use('/', authMiddleware, profileManagementRoutes);
-app.use('/', authMiddleware, talonRoutes);
+app.use('/', inventoryRoutes);
+app.use('/', profileManagementRoutes);
+app.use('/', talonRoutes);
 app.use('/', userRoutes);
 app.use('/', authRoutes);
 

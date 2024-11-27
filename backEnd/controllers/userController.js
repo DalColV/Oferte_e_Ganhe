@@ -5,18 +5,12 @@ const { AppError, handleError } = require('../utils/errors');
 const { sendSuccess } = require('../utils/responses');
 
 class UserController {
-    
-        // Registrar usuário
+    // Registrar usuário
     static async registerUser(req, res) {
         const { registration, username, store_id, profile_id, email, password } = req.body;
         try {
             if (!registration || !username || !password || !email) {
                 throw new AppError("All fields are required!", 400);
-            }
-
-            const existingUser = await userService.userConsultByRegistration(registration);
-            if (existingUser) {
-                throw new AppError("User already exists!", 409);
             }
 
             const hashedPassword = await hasharPass(password);
@@ -62,10 +56,8 @@ class UserController {
         const { registration } = req.params;
         const { username, store_id, profile_id, email, password } = req.body;
         try {
-            // Criptografar senha caso seja fornecida
             const hashedPassword = password ? await hasharPass(password) : undefined;
 
-            // Atualizar usuário
             const updatedUser = await userService.editUser(
                 registration, username, store_id, profile_id, email, hashedPassword
             );

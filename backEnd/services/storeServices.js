@@ -1,14 +1,15 @@
-const Store = require('../model/storeModel');
+const { Store } = require('../model/index');
 
 // Função para criar uma nova loja
-async function insertStore(store_id, store_name, street, cep, number) {
+async function insertStore(store_id, store_name, street, cep, number, is_matriz) {
     try {
         const newStore = await Store.create({
             store_id,
             store_name,
             street,
             cep,
-            number
+            number,
+            is_matriz
         });
         return newStore;
     } catch (error) {
@@ -42,10 +43,10 @@ async function consultStoreById(store_id) {
 }
 
 // Função para editar uma loja
-async function editStore(store_id, store_name, street, cep, number) {
+async function editStore(store_id, store_name, street, cep, number, is_matriz) {
     try {
         const updatedStore = await Store.update(
-            { store_name, street, cep, number },
+            { store_name, street, cep, number, is_matriz },
             {
                 where: { store_id },
                 returning: true

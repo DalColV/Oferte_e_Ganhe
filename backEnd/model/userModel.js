@@ -1,62 +1,44 @@
-const pool = require('../config/database'); // Conexão com o banco de dados
+const { DataTypes } = require('sequelize');
+const sequelize = require('../config/database');
 
-// Consultar todos os usuários
-const userConsultAll = async () => {
-    const query = `SELECT * FROM users;`;
-    const result = await pool.query(query);
-    return result.rows;
+const User = sequelize.define('User', {
+  registration: {
+    type: DataTypes.STRING(15),
+    primaryKey: true,
+    allowNull: false,
+  },
+  username: {
+    type: DataTypes.STRING(80),
+    allowNull: false,
+  },
+  store_id: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
+  profile_id: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
+  email: {
+    type: DataTypes.STRING(120),
+    allowNull: false,
+  },
+  password: {
+    type: DataTypes.STRING(200),
+    allowNull: false,
+  },
+}, {
+  tableName: 'users',
+  timestamps: false,
+});
+
+// Associações
+User.associate = (models) => {
+  User.belongsTo(models.Profile, { foreignKey: 'profile_id', as: 'profile' });
+  User.belongsTo(models.Store, { foreignKey: 'store_id', as: 'store' });
+  User.hasMany(models.TalonLog, { foreignKey: 'registration', as: 'talonLogs' });
 };
 
-// Consultar um usuário pelo registro
-const userConsultByRegistration = async (registration) => {
-    const query = `SELECT * FROM users WHERE registration = $1;`;
-    const values = [registration];
-    const result = await pool.query(query, values);
-    return result.rows[0];
-};
+module.exports = { User };
 
-// Inserir um novo usuário
-const insertUser = async (registration, username, store_id, profile_id, email, password) => {
-    const query = `
-        INSERT INTO users (registration, username, store_id, profile_id, email, password)
-        VALUES ($1, $2, $3, $4, $5, $6)
-        RETURNING *;
-    `;
-    const values = [registration, username, store_id, profile_id, email, password];
-    const result = await pool.query(query, values);
-    return result.rows[0];
-};
 
-// Editar um usuário
-const editUser = async (registration, username, store_id, profile_id, email, password) => {
-    const query = `
-        UPDATE users
-        SET 
-            username = COALESCE($1, username),
-            store_id = COALESCE($2, store_id),
-            profile_id = COALESCE($3, profile_id),
-            email = COALESCE($4, email),
-            password = COALESCE($5, password)
-        WHERE registration = $6
-        RETURNING *;
-    `;
-    const values = [username, store_id, profile_id, email, password, registration];
-    const result = await pool.query(query, values);
-    return result.rows[0];
-};
-
-// Deletar um usuário pelo registro
-const deleteUser = async (registration) => {
-    const query = `DELETE FROM users WHERE registration = $1 RETURNING *;`;
-    const values = [registration];
-    const result = await pool.query(query, values);
-    return result.rows[0];
-};
-
-module.exports = {
-    userConsultAll,
-    userConsultByRegistration,
-    insertUser,
-    editUser,
-    deleteUser,
-};

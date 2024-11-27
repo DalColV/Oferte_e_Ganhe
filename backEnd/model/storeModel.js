@@ -1,30 +1,25 @@
- const { Sequelize, DataTypes } = require('sequelize');
- const sequelize = require('../config/database'); 
+const { DataTypes } = require('sequelize');
+const sequelize = require('../config/database');
 
- const Store = sequelize.define('Store', {
-     store_id: {
-         type: DataTypes.INTEGER,
-         primaryKey: true,
-     },
-     store_name: {
-         type: DataTypes.STRING,
-         allowNull: false,
-     },
-     street: {
-         type: DataTypes.STRING,
-         allowNull: false,
-     },
-     cep: {
-         type: DataTypes.STRING,
-         allowNull: false,
-     },
-     number: {
-         type: DataTypes.STRING,
-         allowNull: false,
-     }
- }, {
-     tableName: 'store',  
-     timestamps: false,
- });   
+const Store = sequelize.define('Store', {
+  id: {
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+    autoIncrement: true,
+  },
+  name: {
+    type: DataTypes.STRING(100),
+    allowNull: false,
+  },
+}, {
+  tableName: 'stores',
+  timestamps: false,
+});
 
- module.exports = Store;
+// Associações
+Store.associate = (models) => {
+  Store.hasMany(models.User, { foreignKey: 'store_id', as: 'users' });
+  Store.hasOne(models.Inventory, { foreignKey: 'store_id', as: 'inventory' });
+};
+
+module.exports = { Store };

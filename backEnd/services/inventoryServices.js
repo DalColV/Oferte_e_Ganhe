@@ -1,4 +1,4 @@
-const Inventory = require('../model/inventoryModel');
+const { Inventory } = require('../model/index');
 
 // Função para adicionar um inventário
 async function setInventory(inventory_id, store_id, min_quantity, recommended_quantity, current_quantity) {

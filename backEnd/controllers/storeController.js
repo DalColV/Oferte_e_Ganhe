@@ -4,9 +4,9 @@ const { sendSuccess } = require('../utils/responses');
 
 class StoreController {
     static async createStore(req, res) {
-        const { store_id, store_name, street, cep, number } = req.body;
+        const { store_id, store_name, street, cep, number, is_matriz } = req.body;
         try {
-            const newStore = await storeService.insertStore(store_id, store_name, street, cep, number);
+            const newStore = await storeService.insertStore(store_id, store_name, street, cep, number, is_matriz);
             sendSuccess(res, 201, "Store created successfully!", newStore);
         } catch (error) {
             handleError(res, error);
@@ -38,9 +38,9 @@ class StoreController {
 
     static async updateStore(req, res) {
         const { store_id } = req.params;
-        const { store_name, street, cep, number } = req.body;
+        const { store_name, street, cep, number, is_matriz } = req.body;
         try {
-            const updatedStore = await storeService.editStore(store_id, store_name, street, cep, number);
+            const updatedStore = await storeService.editStore(store_id, store_name, street, cep, number, is_matriz);
             if (updatedStore) {
                 sendSuccess(res, 200, "Store updated successfully", updatedStore);
             } else {
