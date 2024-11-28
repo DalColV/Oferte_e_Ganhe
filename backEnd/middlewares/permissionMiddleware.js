@@ -21,11 +21,11 @@ const permissionMiddleware = (requiredPermissions) => {
                 : [requiredPermissions];
 
             // Verifica se o perfil possui todas as permissões necessárias
-            const hasAllPermissions = permissions.every(permission => profile[permission]);
+            const hasAllPermissions = permissions.some(permission => profile[permission]);
 
             if (!hasAllPermissions) {
                 return res.status(403).json({ 
-                    error: `Access denied. The following permissions are required: ${permissions.join(", ")}.` 
+                    error: `Access denied. At least one of the following permissions is required: ${permissions.join(", ")}.`  
                 });
             }
 

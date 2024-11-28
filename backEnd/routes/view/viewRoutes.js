@@ -60,4 +60,8 @@ router.get('/talon/view-receipt', (req, res) => {
     res.sendFile(path.join(__dirname, '../../../frontEnd/public/talon/view-receipt-talon.html'));
 });
 
+router.get('/talon/view-maintenance', (req, res) => {
+    res.sendFile(path.join(__dirname, '../../../frontEnd/public/talon/view-maintenance-talon.html'));
+});
+
 module.exports = router;
