@@ -1,4 +1,6 @@
 require('dotenv').config();
+console.log("SECRET_KEY:", process.env.SECRET_KEY);  
+
 const express = require('express');
 const app = express();
 const cookieParser = require('cookie-parser');

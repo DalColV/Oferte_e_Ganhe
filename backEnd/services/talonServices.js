@@ -1,4 +1,4 @@
-const TalonLog  = require('../model/talonModel');
+const TalonLog  = require('../models/talonModel');
 
 // Função para criar um novo registro de Talon
 async function insertTalon({ 

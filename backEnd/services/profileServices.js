@@ -1,4 +1,4 @@
-const  Profile  = require('../model/profileModel');
+const  Profile  = require('../models/profileModel');
 
 // Function to create a new profile
 async function insertProfile(

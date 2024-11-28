@@ -8,10 +8,8 @@ const signIn = async (req, res) => {
     const { registration, password } = req.body;
 
     try {
-        // Consultando o usuário pelo registro
         const user = await userConsultByRegistration(registration);
 
-        // Se o usuário não for encontrado, retorna erro de credenciais inválidas
         if (!user) {
             return res.status(401).json({ message: "Invalid Credentials!" });
         }

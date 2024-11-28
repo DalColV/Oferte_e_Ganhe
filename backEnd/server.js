@@ -1,5 +1,5 @@
-const app = require('./app'); // Importa a aplicação configurada
-const sequelize = require('./config/database'); // Importa a instância do Sequelize
+const app = require('./app'); 
+const sequelize = require('./config/database'); 
 const PORT = process.env.PORT || 3000;
 
 // Verifica a conexão com o banco de dados

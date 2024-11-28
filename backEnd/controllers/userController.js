@@ -13,8 +13,7 @@ class UserController {
                 throw new AppError("All fields are required!", 400);
             }
 
-            // Defina o profile_id como '1' (perfil restrito) caso não seja enviado
-            const finalProfileId = profile_id || 1; // Supondo que 1 seja o ID do perfil restrito
+            const finalProfileId = profile_id || 3; 
 
             const hashedPassword = await hasharPass(password);
 

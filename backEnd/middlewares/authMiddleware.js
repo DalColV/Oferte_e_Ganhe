@@ -20,7 +20,6 @@ const authMiddleware = (req, res, next) => {
 
         next();
     } catch (error) {
-        console.error("Error in Token Verification:", error.message);
 
         return res.status(401).json({ error: "Authentication failed. Please try again." });
     }

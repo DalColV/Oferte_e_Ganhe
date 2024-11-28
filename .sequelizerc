@@ -1,5 +1,0 @@
-module.exports = {
-    'config': 'config/config.js',   // Caminho para o arquivo de configuração
-    'models-path': 'model',          // Caminho para os modelos
-    'seeders-path': 'seeders'         // Caminho para os seeds
-};

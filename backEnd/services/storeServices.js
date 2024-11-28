@@ -1,4 +1,4 @@
-const Store  = require('../model/storeModel');
+const Store  = require('../models/storeModel');
 
 // Função para criar uma nova loja
 async function insertStore(store_id, store_name, street, cep, number, is_matriz) {

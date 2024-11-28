@@ -2,18 +2,20 @@ const jwt = require("jsonwebtoken");
 
 const SECRET_KEY = process.env.SECRET_KEY;
 
+
 if (!SECRET_KEY) {
+
     throw new Error("SECRET_KEY is not defined!"); 
 }
 
 class TokenService {
     verify(token) {
-        try {
-            if (!token.startsWith("Bearer ")) {
-                return { error: "Invalid Token Format!", statusCode: 400 };
-            }
-            token = token.replace("Bearer ", "");
 
+        try {
+            if (token.includes("Bearer ")) {
+                token = token.replace("Bearer ", "");
+            }
+        
             const decoded = jwt.verify(token, SECRET_KEY);
 
             return {
@@ -26,6 +28,7 @@ class TokenService {
                     error: "Invalid Token",
                     statusCode: 401
                 };
+            
             }
             if (error instanceof jwt.TokenExpiredError) {
                 return {

@@ -1,4 +1,4 @@
-const  User  = require('../model/userModel');
+const  User  = require('../models/userModel');
 
 // Função para inserir um novo usuário
 const insertUser = async (registration, username, store_id, profile_id, email, password) => {
