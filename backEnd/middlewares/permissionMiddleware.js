@@ -1,6 +1,6 @@
-const Profile = require("../models/profileModel"); 
+const Profile = require("../models/profileModel");
 
-const permissionMiddleware = (requiredPermission) => {
+const permissionMiddleware = (requiredPermissions) => {
     return async (req, res, next) => {
         try {
             const { profile_id } = req.user;
@@ -15,9 +15,18 @@ const permissionMiddleware = (requiredPermission) => {
                 return res.status(403).json({ error: "Access denied. Profile not found." });
             }
 
-            // Verifica se o perfil possui a permissão necessária
-            if (!profile[requiredPermission]) {
-                return res.status(403).json({ error: `Access denied. Permission '${requiredPermission}' is required.` });
+            // Converte requiredPermissions para array, caso seja string
+            const permissions = Array.isArray(requiredPermissions)
+                ? requiredPermissions
+                : [requiredPermissions];
+
+            // Verifica se o perfil possui todas as permissões necessárias
+            const hasAllPermissions = permissions.every(permission => profile[permission]);
+
+            if (!hasAllPermissions) {
+                return res.status(403).json({ 
+                    error: `Access denied. The following permissions are required: ${permissions.join(", ")}.` 
+                });
             }
 
             next();

@@ -12,13 +12,13 @@ router.post('/register', UserController.registerUser);
 router.get('/users', authMiddleware, permissionMiddleware("has_user_management"), UserController.consultAllUsers);
 
 // GET - Consult a specific user by registration
-router.get('/users/:registration', UserController.consultUserByRegistration);
+router.get('/users/:registration', authMiddleware, permissionMiddleware("has_user_management"), UserController.consultUserByRegistration);
 
 // PUT - Update a user
-router.put('/register-edit/:registration', UserController.updateUser);
+router.put('/register-edit/:registration', authMiddleware, permissionMiddleware("has_user_management"), UserController.updateUser);
 
 // DELETE - Delete a user
-router.delete('/register-delete/:registration', UserController.deleteUser);
+router.delete('/register-delete/:registration', authMiddleware, permissionMiddleware("has_user_management"), UserController.deleteUser);
 
 module.exports = router;
 
