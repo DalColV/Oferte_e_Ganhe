@@ -10,7 +10,7 @@ const { permissionMiddleware} = require('../../middlewares/permissionMiddleware'
 router.post('/store-register', authMiddleware, permissionMiddleware("has_store_management"), StoreController.createStore);
 
 // GET - Route to consult all stores
-router.get('/stores', authMiddleware, permissionMiddleware("has_store_management"), StoreController.consultStores);
+router.get('/stores', StoreController.consultStores);
 
 // GET - Route to consult a specific store by ID
 router.get('/stores/:store_id', authMiddleware, permissionMiddleware("has_store_management"), StoreController.consultById);
