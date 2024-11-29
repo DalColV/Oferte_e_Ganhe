@@ -15,35 +15,39 @@
   <header class="container-fluid cabecalho">
     <div class="row">
       <div class="col">
-        <img src= "../../img/logo.png" alt="logo da Oferte e Ganhe">
+        <img src= "../img/logo.png" alt="logo da Oferte e Ganhe">
       </div>
     </div>
   </header>
   <section class="container-fluid ">
     <div class="row">
       <div class="col-lg-2"></div>
-      <div class="col-lg-8 container-global formulario-padrao formulario-login">
+      <div class="col-lg-2"></div>
+      <form id="loginForm" class="col-lg-8 container-global formulario-padrao formulario-login">
         <h1 class="titulo-principal">Login</h1>
         <label for="matricula">Matrícula</label>
-        <input type="text" name="matricula" id="">
+        <input type="text" name="matricula" id="matricula" required>
         <label for="senha">Senha</label>
-        <input type="password" name="senha" id="senha">
+        <input type="password" name="senha" id="senha" required>
         <a href="../recover-password/view-recover-password.html" id="recuperar">Recuperar senha</a>
-        <button class="btn-padrao open-modal">Entrar</button>
-        <a href="../login-and-register/view-register.html" >Não tem uma conta? Clique para cadastrar!</a>
-      </div>
+        <button type="submit" class="btn-padrao" id="btn-entrar">Entrar</button>
+        <a href="../login-and-register/view-register.html">Não tem uma conta? Clique para cadastrar!</a>
+      </form>
       <div class="col-lg-2"></div>
     </div>
   </section>
   </div>
 
-  <dialog id="modal">
+  <script type="module" src="/scripts/login.js"></script>
+
+
+<!-- <dialog id="modal">
     <h1>Você excedeu o número de tentativas</h1>
     <p>Espere para tentar novamente</p>
     <button type="button" class="btn-padrao btn-modal close-modal">OK</button>
   </dialog>
 
-  <script src="../../src/modal/modal.js"></script>
+  <script src="Oferte_e_Ganhe\frontEnd\src\modal\modal.js"></script>
 </body>
 
-</html>
+</html>  -->

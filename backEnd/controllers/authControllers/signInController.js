@@ -34,7 +34,7 @@ const signIn = async (req, res) => {
             maxAge: 24 * 60 * 60 * 1000, 
         });
 
-        return res.json({ message: "You're in!", token });
+        return res.json({ message: "You're in!", token: token }); //aqui caso de erro
     } catch (error) {
         console.error('Error during sign in process:', error);
         return res.status(500).json({ message: 'Internal Server Error' });
