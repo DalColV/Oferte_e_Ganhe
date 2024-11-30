@@ -10,8 +10,8 @@ document.getElementById("loginForm").addEventListener("submit", async function (
     }
 
     try {
-        // Faz a requisição para o backend
-        const response = await fetch("http://localhost:3000/signin", {
+        // Req para o backend
+        const response = await fetch("http://localhost:3000/login", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -20,13 +20,13 @@ document.getElementById("loginForm").addEventListener("submit", async function (
         });
 
         if (response.ok) {
-            const data = await response.json();
-            window.location.href = "/dashboard/dashboard.html"; 
+            window.location.href = "/dashboard"; 
+        }else{
             const errorData = await response.json();
-            alert(errorData.message); 
+            alert(errorData.message);
         }
     } catch (error) {
         console.error("Erro ao realizar o login:", error);
     }
 });
-
+S

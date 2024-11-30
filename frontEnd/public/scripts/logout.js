@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
           const response = await fetch('/logout', { method: 'POST' });
   
           if (response.ok) {
-            window.location.href = '/view-login'; 
+            window.location.href = '/login'; 
           } else {
             alert('Logout failed.');
           }

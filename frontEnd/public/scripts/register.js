@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', async () => {
-    const storeSelect = document.getElementById('loja'); // Alterado 'store' para 'loja' para corresponder ao HTML
+    const storeSelect = document.getElementById('loja'); 
 
     if (!storeSelect) {
         console.error("Elemento 'loja' não encontrado no DOM.");
@@ -11,8 +11,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (!response.ok) throw new Error('Error fetching stores');
 
         const result = await response.json();
-        const stores = result.data; // Acessa o array de lojas dentro de `data`
-
+        const stores = result.data; 
         stores.forEach((store) => {
             const option = document.createElement('option');
             option.value = store.store_id;
@@ -27,7 +26,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 
 document.querySelector('.btn-padrao').addEventListener('click', async (event) => {
-    event.preventDefault(); // Evita o reload da página
+    event.preventDefault();
   
     // Capturar valores dos campos
     const username = document.getElementById('nome').value;
@@ -59,7 +58,7 @@ document.querySelector('.btn-padrao').addEventListener('click', async (event) =>
         const data = await response.json();
         alert('Usuário cadastrado com sucesso!');
         console.log(data); 
-        window.location.href = '../login-and-register/view-login.html';
+        window.location.href = '../login';
       } else {
         const errorData = await response.json();
         alert(`Erro ao cadastrar: ${errorData.message || 'Erro desconhecido.'}`);
