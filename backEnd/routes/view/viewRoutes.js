@@ -65,15 +65,15 @@ router.get('/store-management', authMiddleware, permissionMiddleware("has_store_
 });
 
 //Talon Management
-router.get('/talon/send',authMiddleware, permissionMiddleware("has_shipping"), (req, res) => {
+router.get('/talon-send',authMiddleware, permissionMiddleware("has_shipping"), (req, res) => {
     res.sendFile(path.join(__dirname, '../../../frontEnd/public/talon/view-send-talon.html'));
 });
 
-router.get('/talon/receipt', authMiddleware, permissionMiddleware("has_receiving"), (req, res) => {
+router.get('/talon-receipt', authMiddleware, permissionMiddleware("has_receiving"), (req, res) => {
     res.sendFile(path.join(__dirname, '../../../frontEnd/public/talon/view-receipt-talon.html'));
 });
 
-router.get('/talon/maintenance', authMiddleware, permissionMiddleware("has_maintenence"), (req, res) => {
+router.get('/talon-maintenance', authMiddleware, permissionMiddleware("has_maintenence"), (req, res) => {
     res.sendFile(path.join(__dirname, '../../../frontEnd/public/talon/view-maintenance-talon.html'));
 });
 

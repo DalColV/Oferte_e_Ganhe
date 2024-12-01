@@ -36,6 +36,9 @@
           <h2 class="titulo-secundario" id="login">MÓDULOS</h2>
           <ul class="lista-menu">
             <li>
+              <a href="/dashboard">Home</a>
+            </li>
+            <li>
               <a href="/user-management">Gestão de Usuários</a>
             </li>
             <li>
@@ -117,9 +120,9 @@
                   <button class="btn-tabela__editar">
                     <a href="./view-edit-user.html">Editar</a>
                   </button>
-                  <button class="btn-tabela__deletar">
+                  <button class="btn-tabela__deletar" data-user-id="1234856">
                     <img src="../../img/icone_lixeira.png" alt="icone de lixeira" id="lixeira" width="15px" height="15px">
-                  </button>
+                  </button>                  
                 </td>
               </tr>
             </tbody>
@@ -131,9 +134,16 @@
     </div>
   </section>
   </div>
+  <dialog id="modal">
+    <h1>Deseja Mesmo Deletar?</h1>
+    <p>A exclusão será permanente!</p>
+    <button type="button" class="btn-padrao btn-modal close-modal">OK</button>
+  </dialog>
   <div class="overlay"></div>
   <script src="../scripts/menu/menu.js"></script>
   <script type="module" src="/scripts/userManagement.js"></script>
+  <script type="module" src="/scripts/modal/modal.js"></script>
+
 </body>
 
 </html>
