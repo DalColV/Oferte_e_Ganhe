@@ -64,7 +64,7 @@
       </aside>
       <div class="container__gestao  formulario-padrao">
         <div class="input-wrapper ">
-          <input type="text" id="#" placeholder="Buscar">
+          <input type="text" id="search-user" placeholder="Buscar pela Matrícula do Usuário">
           <i class="fa fa-search"></i>
         </div>
         <h1 class="titulo-principal">Gestão de Usuários</h1>
@@ -83,17 +83,12 @@
             </thead>
             <tbody>
               <tr>
-                <td>Fulano de tal</td>
-                <td>1234856</td>
-                <td>063</td>
-                <td>fulano@gmail.com</td>
-                <td>estoque</td>
                 <td>
                   <button class="btn-tabela__editar">
                     <a href="./view-edit-user.html">Editar</a>
                   </button>
                   <button class="btn-tabela__deletar">
-                    <img src="../../img/icone_lixeira.png" alt="icone de lixeira" width="15px" height="15px">
+                    <img src="../../img/icone_lixeira.png" alt="icone de lixeira" id="lixeira" width="15px" height="15px">
                   </button>
                 </td>
               </tr>
@@ -108,7 +103,7 @@
                     <a href="./view-edit-user.html">Editar</a>
                   </button>
                   <button class="btn-tabela__deletar">
-                    <img src="../../img/icone_lixeira.png" alt="icone de lixeira" width="15px" height="15px">
+                    <img src="../../img/icone_lixeira.png" alt="icone de lixeira" id="lixeira" width="15px" height="15px">
                   </button>
                 </td>
               </tr>
@@ -123,7 +118,7 @@
                     <a href="./view-edit-user.html">Editar</a>
                   </button>
                   <button class="btn-tabela__deletar">
-                    <img src="../../img/icone_lixeira.png" alt="icone de lixeira" width="15px" height="15px">
+                    <img src="../../img/icone_lixeira.png" alt="icone de lixeira" id="lixeira" width="15px" height="15px">
                   </button>
                 </td>
               </tr>
@@ -137,7 +132,8 @@
   </section>
   </div>
   <div class="overlay"></div>
-  <script src="../../src/menu/menu.js"></script>
+  <script src="../scripts/menu/menu.js"></script>
+  <script type="module" src="/scripts/userManagement.js"></script>
 </body>
 
 </html>

@@ -33,6 +33,9 @@ router.get('/user-management', authMiddleware, permissionMiddleware("has_user_ma
     res.sendFile(path.join(__dirname, '../../../frontEnd/public/management/view-user-management.html'));
 });
 
+router.get('/user-edit', authMiddleware, permissionMiddleware("has_user_management"), (req, res) => {
+    res.sendFile(path.join(__dirname, '../../../frontEnd/public/management/view-edit-user.html'));
+});
 
 //Inventory
 router.get('/inventory-management',authMiddleware,  permissionMiddleware("has_inventory_management"), (req, res) => {

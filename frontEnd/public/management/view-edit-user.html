@@ -72,9 +72,6 @@
         <label for="loja">Loja</label>
         <select name="loja">
           <option selected disabled></option>
-          <option value="lojaA">Loja A</option>
-          <option value="lojaB">Loja B</option>
-          <option value="lojaC">Loja C</option>
         </select>
 
         <label for="email">E-mail</label>
@@ -83,9 +80,6 @@
         <label for="acesso">Acesso</label>
         <select name="acesso">
           <option selected disabled></option>
-          <option value="#">##</option>
-          <option value="#">##</option>
-          <option value="#">##</option>
         </select>
 
         <button class="btn-padrao btn__voltar" onclick="voltarPagina()">Voltar</button>        
@@ -97,16 +91,9 @@
   </section>
   </div>
 
-  <dialog id="modal">
-    <h1>Você excedeu o número de tentativas</h1>
-    <p>Espere para tentar novamente</p>
-    <button type="button" class="btn-padrao btn-modal close-modal">OK</button>
-  </dialog>
-
   <div class="overlay"></div>
-  <script src="../../src/menu/menu.js"></script>
-  <script src="../../src/modal/modal.js"></script>
-  <script src="../../src/edit/edit.js"></script>
+  <script src="../scripts/menu/menu.js"></script>
+  <script type="module" src="/scripts/userEdit.js"></script>
 </body>
 
 </html>

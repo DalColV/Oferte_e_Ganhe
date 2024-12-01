@@ -16,10 +16,10 @@ router.get('/users', authMiddleware, permissionMiddleware("has_user_management")
 router.get('/users/:registration', authMiddleware, permissionMiddleware("has_user_management"), UserController.consultUserByRegistration);
 
 // PUT - Update a user
-router.put('/register-edit/:registration', authMiddleware, permissionMiddleware("has_user_management"), UserController.updateUser);
+router.put('/user-edit/:registration', authMiddleware, permissionMiddleware("has_user_management"), UserController.updateUser);
 
 // DELETE - Delete a user
-router.delete('/register-delete/:registration', authMiddleware, permissionMiddleware("has_user_management"), UserController.deleteUser);
+router.delete('/user-delete/:registration', authMiddleware, permissionMiddleware("has_user_management"), UserController.deleteUser);
 
 module.exports = router;
 
