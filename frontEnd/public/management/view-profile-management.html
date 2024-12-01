@@ -84,6 +84,7 @@
                   <tr>
                       <th>Perfil</th>
                       <th>Acesso</th>
+                      <th>ID Perfil</th>
                       <th>Ações</th>
                   </tr>
               </thead>
@@ -91,15 +92,25 @@
               </tbody>
           </table>
       </div>
-      
       </div>
     </div>
     </div>
     </div>
   </section>
+  <!-- Modal de Confirmação -->
+  <div id="deleteModal" class="modal">
+    <div class="modal-content">
+        <span class="modal-close">&times;</span>
+        <h3>Deseja deletar usuário?</h3>
+        <p>Essa ação será permanente!</p>
+        <button id="cancelDelete">Cancelar</button>
+        <button id="confirmDelete">Excluir</button>
+    </div>
+</div>
   </div>
   <div class="overlay"></div>
   <script src="../scripts/menu/menu.js"></script>
+  <script src="../scripts/modal/modal.js"></script>
   <script type="module" src="/scripts/profileManagement.js"></script>
 </body>
 

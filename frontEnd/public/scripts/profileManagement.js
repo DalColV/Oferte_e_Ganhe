@@ -1,16 +1,16 @@
-let allProfiles = []; // Variável para armazenar os perfis retornados pela API
+let allProfiles = []; 
 
 // Função para consultar os perfis e armazenar todos os dados
 async function getPerfis() {
     try {
-        const response = await fetch('/profiles'); // Rota para consultar todos os perfis
-        const result = await response.json(); // Resposta da API
+        const response = await fetch('/profiles'); 
+        const result = await response.json(); 
 
-        console.log('Resposta da API de Perfis:', result); // Verifique a estrutura dos dados
+        console.log('Resposta da API de Perfis:', result); 
 
         if (Array.isArray(result.data)) {
-            allProfiles = result.data; // Armazena todos os perfis para o filtro
-            renderTabelaPerfis(allProfiles); // Renderiza a tabela inicialmente com todos os perfis
+            allProfiles = result.data; 
+            renderTabelaPerfis(allProfiles); 
         } else {
             console.error('Esperado um array de perfis, mas a resposta foi:', result);
         }
@@ -21,20 +21,19 @@ async function getPerfis() {
 
 // Função para renderizar a tabela com os perfis fornecidos
 function renderTabelaPerfis(perfis) {
-    const tableBody = document.getElementById('perfil-table-body'); // Referência ao corpo da tabela
-
-    // Limpa o conteúdo da tabela antes de adicionar as novas linhas
+    const tableBody = document.getElementById('perfil-table-body');
     tableBody.innerHTML = '';
 
-    // Adiciona uma linha para cada perfil
     perfis.forEach(perfil => {
         const row = document.createElement('tr');
+        row.setAttribute('data-profile-id', perfil.profile_id);
 
-        // Célula do nome do perfil
+        const idCell = document.createElement('td');
+        idCell.textContent = perfil.profile_id || 'ID não disponível';
+
         const nomeCell = document.createElement('td');
         nomeCell.textContent = perfil.profile_name || 'Nome não disponível';
 
-        // Célula de Acesso
         const acessoCell = document.createElement('td');
         const modulosAcessados = [];
         if (perfil.has_profile_management) modulosAcessados.push('Gestão Perfil');
@@ -49,7 +48,6 @@ function renderTabelaPerfis(perfis) {
             ? modulosAcessados.map(modulo => `<div>${modulo}</div>`).join('') 
             : 'Nenhum';
 
-        // Célula de Ações
         const acoesCell = document.createElement('td');
         const editButton = document.createElement('button');
         editButton.classList.add('btn-tabela__editar');
@@ -60,6 +58,7 @@ function renderTabelaPerfis(perfis) {
 
         const deleteButton = document.createElement('button');
         deleteButton.classList.add('btn-tabela__deletar');
+        deleteButton.setAttribute('data-profile-id', perfil.profile_id);
         const deleteImg = document.createElement('img');
         deleteImg.src = '../../img/icone_lixeira.png';
         deleteImg.alt = 'icone de lixeira';
@@ -72,11 +71,14 @@ function renderTabelaPerfis(perfis) {
 
         row.appendChild(nomeCell);
         row.appendChild(acessoCell);
+        row.appendChild(idCell);
         row.appendChild(acoesCell);
 
         tableBody.appendChild(row);
     });
 }
+
+
 
 document.getElementById('search-profile').addEventListener('input', (event) => {
     const searchValue = event.target.value.toLowerCase(); 
@@ -91,3 +93,58 @@ document.addEventListener('DOMContentLoaded', () => {
     getPerfis();
 });
 
+// DELEÇÃO DE PERFIL
+
+document.addEventListener('DOMContentLoaded', () => {
+    const tableBody = document.querySelector('tbody');
+    const modal = document.getElementById('deleteModal');
+    const closeModal = document.querySelector('.modal-close');
+    const confirmDeleteButton = document.getElementById('confirmDelete');
+    const cancelDeleteButton = document.getElementById('cancelDelete');
+    
+    let currentProfileId = null;
+
+    tableBody.addEventListener('click', function(event) {
+        if (event.target.closest('.btn-tabela__deletar')) {
+            const deleteButton = event.target.closest('.btn-tabela__deletar');
+            currentProfileId = deleteButton.getAttribute('data-profile-id');
+            modal.style.display = 'flex';
+        }
+    });
+
+    closeModal.addEventListener('click', () => {
+        modal.style.display = 'none';
+        currentProfileId = null;
+    });
+
+    cancelDeleteButton.addEventListener('click', () => {
+        modal.style.display = 'none';
+        currentProfileId = null;
+    });
+
+    confirmDeleteButton.addEventListener('click', () => {
+        fetch(`/profile-delete/${currentProfileId}`, {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.message && data.message.includes("successfully")) {
+                const rowToDelete = document.querySelector(`tr[data-profile-id="${currentProfileId}"]`);
+                if (rowToDelete) {
+                    rowToDelete.remove();
+                }
+            } else {
+                alert("Erro ao deletar o perfil: " + data.message);
+            }
+            modal.style.display = 'none';
+            currentProfileId = null;
+        })
+        .catch(error => {
+            alert("Ocorreu um erro ao deletar o perfil.");
+            console.error(error);
+            modal.style.display = 'none';
+            currentProfileId = null;
+        });
+    });
+});
