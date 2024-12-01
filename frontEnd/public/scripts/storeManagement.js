@@ -10,7 +10,7 @@ async function getStores() {
 
         if (Array.isArray(result.data)) {
             allStores = result.data; 
-            renderTabelaUsuarios(allStores); 
+            renderTabelaStores(allStores); 
         } else {
             console.error('Esperado um array de lojas, mas a resposta foi:', result);
         }
@@ -19,6 +19,7 @@ async function getStores() {
     }
 }
 
+// Função para renderizar a tabela com as stores fornecidas
 // Função para renderizar a tabela com as stores fornecidas
 function renderTabelaStores(stores) {
     const tableBody = document.querySelector('tbody'); // Referência ao corpo da tabela
@@ -31,13 +32,19 @@ function renderTabelaStores(stores) {
         const row = document.createElement('tr');
 
         // Colunas da tabela
-        const nomeCell = document.createElement('td');
-        nomeCell.textContent = store.store_name || 'Nome não disponível';
+        const storeIdCell = document.createElement('td');
+        storeIdCell.textContent = store.store_id || 'ID não disponível';
+
+        const storeNameCell = document.createElement('td');
+        storeNameCell.textContent = store.store_name || 'Nome não disponível';
 
         const enderecoCell = document.createElement('td');
-        enderecoCell.textContent = store.address || 'Endereço não disponível';
+        enderecoCell.textContent = store.street || 'Endereço não disponível';
 
-        // Célula de ações
+        const cepCell = document.createElement('td');
+        cepCell.textContent = store.cep || 'CEP não disponível';
+
+        // Célula de Ações
         const acoesCell = document.createElement('td');
         const editButton = document.createElement('button');
         editButton.classList.add('btn-tabela__editar');
@@ -58,12 +65,32 @@ function renderTabelaStores(stores) {
         acoesCell.appendChild(editButton);
         acoesCell.appendChild(deleteButton);
 
-        // Adiciona as células na linha
-        row.appendChild(nomeCell);
+        row.appendChild(storeIdCell);
+        row.appendChild(storeNameCell);
         row.appendChild(enderecoCell);
+        row.appendChild(cepCell);
         row.appendChild(acoesCell);
 
-        // Adiciona a linha no corpo da tabela
         tableBody.appendChild(row);
     });
 }
+
+
+// Evento de busca na tabela
+document.getElementById('campo__buscar-id').addEventListener('input', (event) => {
+    const searchValue = event.target.value.toLowerCase(); 
+
+    const filteredStores = allStores.filter(store => {
+        // Verifica se a matrícula do usuário contém o valor digitado
+        return store.store_id.toLowerCase().includes(searchValue);
+    });
+
+    renderTabelaStores(filteredStores); 
+});
+
+
+// Inicializa a página carregando os usuários
+document.addEventListener('DOMContentLoaded', () => {
+    console.log("Página carregada, chamando a função getUsers");
+    getStores();
+});
