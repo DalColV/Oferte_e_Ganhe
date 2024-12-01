@@ -8,7 +8,7 @@ const { permissionMiddleware} = require('../../middlewares/permissionMiddleware'
 //CRUD
 
 // POST - Create a new Profile
-router.post('/profile-management/new-profile', authMiddleware, permissionMiddleware("has_profile_management"), ProfileController.createProfile);
+router.post('/profile-new', authMiddleware, permissionMiddleware("has_profile_management"), ProfileController.createProfile);
 
 // GET - Consult all Profiles
 router.get('/profiles', authMiddleware, permissionMiddleware("has_profile_management"), ProfileController.getAllProfiles);
