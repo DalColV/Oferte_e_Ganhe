@@ -16,7 +16,7 @@ router.get('/profiles', authMiddleware, permissionMiddleware("has_profile_manage
 // GET - Consult Profile By ID
 router.get('/profiles/:profile_id', authMiddleware, permissionMiddleware("has_profile_management"), ProfileController.getProfileById);
 
-// PUT - Update a Store
+// PUT - Update a Profile
 router.put('/profile-edit/:profile_id', authMiddleware, permissionMiddleware("has_profile_management"), ProfileController.updateProfile);
 
 // DELETE - Delete a Profile

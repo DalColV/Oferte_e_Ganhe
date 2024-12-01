@@ -1,6 +1,6 @@
 document.getElementById("loginForm").addEventListener("submit", async function (event) {
-    event.preventDefault(); // Evita o comportamento padrão do formulário
-
+    event.preventDefault(); 
+    
     const registration = document.getElementById("matricula").value;
     const password = document.getElementById("senha").value;
 
@@ -19,7 +19,8 @@ document.getElementById("loginForm").addEventListener("submit", async function (
             body: JSON.stringify({ registration, password }),
         });
 
-        if (response.ok) {
+        if (response.ok) {  
+
             window.location.href = "/dashboard"; 
         }else{
             const errorData = await response.json();
@@ -29,4 +30,4 @@ document.getElementById("loginForm").addEventListener("submit", async function (
         console.error("Erro ao realizar o login:", error);
     }
 });
-S
+

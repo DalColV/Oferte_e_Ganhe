@@ -5,6 +5,19 @@ const { AppError, handleError } = require('../utils/errors');
 const { sendSuccess } = require('../utils/responses');
 
 class UserController {
+    //Pegar Perfil Do usuário 
+    static async getUserProfile(req, res) {
+        try {
+            const token = req.cookies['auth_token'];
+
+            const profile = await userService.getProfileFromToken(token);
+
+            sendSuccess(res, 200, "Profile retrieved successfully", profile);
+        } catch (error) {
+            handleError(res, error);
+        }
+    }
+
     // Registrar usuário
     static async registerUser(req, res) {
         const { registration, username, store_id, profile_id, email, password } = req.body;

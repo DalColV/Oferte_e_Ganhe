@@ -22,17 +22,19 @@ const signIn = async (req, res) => {
         const payload = {
             registration: user.registration,
             username: user.username,
-            profile_id: user.profile_id, 
+            profile_id: user.profile_id,
+            profile_name: user.profile_name, 
         };
 
         const token = tokenServices.generate(payload);
 
-        res.cookie('auth_token', token, {
-            httpOnly: true,
-            secure: false,
-            sameSite: 'strict',
-            maxAge: 24 * 60 * 60 * 1000, 
-        });
+         res.cookie('auth_token', token, {
+             httpOnly: true,
+             secure: false,
+             sameSite: 'strict',
+             maxAge: 24 * 60 * 60 * 1000, 
+         });
+    
 
         return res.json({ message: "You're in!", token: token }); //aqui caso de erro
     } catch (error) {

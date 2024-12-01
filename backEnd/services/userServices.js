@@ -1,4 +1,25 @@
 const  User  = require('../models/userModel');
+const jwt = require('jsonwebtoken');
+
+//Pegar Perfil Por Token
+const getProfileFromToken = async (token) => {
+  try {
+      if (!token) {
+          throw new Error('Authentication token not found');
+      }
+ 
+      const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+      if (!decoded || !decoded.profile_name) {
+          throw new Error('Invalid token or profile name not found');
+      }
+
+      return { profile_name: decoded.profile_name };
+  } catch (error) {
+      console.error('Error while decoding token:', error.message);
+      throw error;
+  }
+};
 
 // Função para inserir um novo usuário
 const insertUser = async (registration, username, store_id, profile_id, email, password) => {
@@ -97,4 +118,4 @@ const userConsultByRegistration = async (registration) => {
   }
 };
 
-module.exports = { insertUser, editUser, deleteUser, userConsultAll, userConsultByRegistration };
+module.exports = { insertUser, editUser, deleteUser, userConsultAll, userConsultByRegistration, getProfileFromToken };

@@ -32,7 +32,7 @@
       <aside class="menu-lateral">
         <div class="container__menu-lateral">
           <span class="fechar-menu">x</span>
-          <h2 class="titulo-secundario">Master</h2>
+          <h2 class="titulo-secundario" id="login">MÓDULOS</h2>
           <ul class="lista-menu">
             <li>
               <a href="/user-management">Gestão de Usuários</a>
@@ -65,29 +65,29 @@
       <div class="col-sm-6 col-md-4 container-global container__principal-taloes">
         <h1 class="titulo-principal">DASHBOARD</h1>
         <div class="usuarios-cadastrados cards-taloes">
-          <h2 class="titulo-secundario">Usuários Cadastrados</h2>
-          <span>00</span>
+          <h2 class="titulo-secundario" >Usuários Cadastrados</h2>
+          <span id="count1">00</span>
         </div>
         <div class="perfis-cadastrados cards-taloes">
           <h2 class="titulo-secundario">Perfis Cadastrados</h2>
-          <span>00</span>
+          <span id="count2">00</span>
         </div>
         <div class="recebimento__taloes cards-taloes">
           <h2>Talões</h2>
           <div class="taloes__enviados">
             <img src="../../img/taloes_enviados.png" alt="imagem status talões enviados">
             <p>Enviados</p>
-            <span>00</span>
+            <span id="Sent">00</span>
           </div>
           <div class="taloes__pendentes">
             <img src="../../img/taloes_pendentes.png" alt="imagem status talões pendentes">
             <p>Pendentes</p>
-            <span>00</span>
+            <span id="Misplaced">00</span>
           </div>
           <div class="taloes__recebidos">
             <img src="../../img/taloes_recebidos.png" alt="imagem status talões recebidos">
             <p>Recebidos</p>
-            <span>00</span>
+            <span id="Received">00</span>
           </div>
         </div>
       </div>
@@ -96,7 +96,9 @@
   </section>
   </div>
   <div class="overlay"></div>
+  <script src="https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/build/jwt-decode.min.js"></script>
   <script src="../scripts/menu/menu.js"></script>
+  <script type="module" src="/scripts/dashboard.js"></script>
 </body>
 <script type="module" src="/scripts/logout.js"></script>
 

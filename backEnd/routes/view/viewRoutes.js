@@ -19,7 +19,7 @@ router.get('/recover-password', (req, res) => {
     res.sendFile(path.join(__dirname, '../../../frontEnd/public/recover-password/view-recover-password.html'));
 });
 
-router.get('/view-reset-password', (req, res) => {
+router.get('/reset-password', (req, res) => {
     res.sendFile(path.join(__dirname, '../../../frontEnd/public/recover-password/view-reset-password.html'));
 });
 
@@ -44,7 +44,11 @@ router.get('/profile-management', authMiddleware, permissionMiddleware("has_prof
     res.sendFile(path.join(__dirname, '../../../frontEnd/public/management/view-profile-management.html'));
 });
 
-router.get('/view-profile-management/profile', authMiddleware, permissionMiddleware("has_profile_management"), (req, res) => {
+router.get('/profile-edit', authMiddleware, permissionMiddleware("has_profile_management"), (req, res) => {
+    res.sendFile(path.join(__dirname, '../../../frontEnd/public/management/view-edit-profile.html'));
+});
+
+router.get('/profile-management/news', authMiddleware, permissionMiddleware("has_profile_management"), (req, res) => {
     res.sendFile(path.join(__dirname, '../../../frontEnd/public/management/view-new-profile.html'));
 });
 

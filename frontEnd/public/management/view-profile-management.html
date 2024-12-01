@@ -33,28 +33,28 @@
       <aside class="menu-lateral">
         <div class="container__menu-lateral">
           <span class="fechar-menu">x</span>
-          <h2 class="titulo-secundario">Master</h2>
+          <h2 class="titulo-secundario" id="login">MÓDULOS</h2>
           <ul class="lista-menu">
             <li>
-              <a href="../management/view-user-management.html">Gestão de Usuários</a>
+              <a href="/user-management">Gestão de Usuários</a>
             </li>
             <li>
-              <a href="../management/view-profile-management.html">Gestão de Perfis </a>
+              <a href="/profile-management">Gestão de Perfis </a>
             </li>
             <li>
-              <a href="../talon/send-talon.html">Envio de Talões</a>
+              <a href="/inventory-management">Gestão de Estoque</a>
             </li>
             <li>
-              <a href="../talon/receipt-talon.html">Recimento de Talões</a>
+              <a href="store-management">Gestão de Lojas</a>
             </li>
             <li>
-              <a href="../inventory/view-inventory-management.html">Gestão de Estoque</a>
+              <a href="/talon/send">Envio de Talões</a>
             </li>
             <li>
-              <a href="../store/view-store-register.html">Cadastrar Loja</a>
+              <a href="/talon/receipt">Recimento de Talões</a>
             </li>
             <li>
-              <a href="../maintenance/maintenance.html">Manutenção de Talões</a>
+              <a href="talon/maintenance">Manutenção de Talões</a>
             </li>
           </ul>
           <div class="container__botao-logout"> 
@@ -64,7 +64,7 @@
       </aside>
       <div class=" formulario-padrao container-global container__gestao gestao-perfis ">
         <div class="input-wrapper  gestao__perfis-input">
-          <input type="text" id="#" placeholder="Buscar">
+          <input type="text" id="search-profile" placeholder="Buscar por Nome do Perfil">
           <i class="fa fa-search"></i>
         </div>
         <h1 class="titulo-principal">Gestão de Perfis</h1>
@@ -73,55 +73,20 @@
           <h2 class="titulo-secundario">Perfis Cadastrados</h2>
           <img src="../../img/icone-cruz.png" alt="imagem cruz verde" width="20px" height="20px" id="img-cruz">
         </div>
-        <div class="table-container">
+        <div class="table-container" id="table-profile">
           <table>
-            <thead>
-              <tr>
-                <th>Perfil</th>
-                <th>Acesso</th>
-                <th>Ações</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Master</td>
-                <td>1234856</td>
-                <td>
-                  <button class="btn-tabela__editar">
-                    <a href="./view-edit-profile.html">Editar</a>
-                  </button>
-                  <button class="btn-tabela__deletar">
-                    <img src="../../img/icone_lixeira.png" alt="icone de lixeira" width="15px" height="15px">
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td>Estoque</td>
-                <td>1234856</td>
-                <td>
-                  <button class="btn-tabela__editar">
-                    <a href="./view-edit-profile.html">Editar</a>
-                  </button>
-                  <button class="btn-tabela__deletar">
-                    <img src="../../img/icone_lixeira.png" alt="icone de lixeira" width="15px" height="15px">
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td>Estoque</td>
-                <td>1234856</td>
-                <td>
-                  <button class="btn-tabela__editar">
-                    <a href="./view-edit-profile.html">Editar</a>
-                  </button>
-                  <button class="btn-tabela__deletar">
-                    <img src="../../img/icone_lixeira.png" alt="icone de lixeira" width="15px" height="15px">
-                  </button>
-                </td>
-              </tr>
-            </tbody>
+              <thead>
+                  <tr>
+                      <th>Perfil</th>
+                      <th>Acesso</th>
+                      <th>Ações</th>
+                  </tr>
+              </thead>
+              <tbody id="perfil-table-body"> 
+              </tbody>
           </table>
-        </div>
+      </div>
+      
       </div>
     </div>
     </div>
@@ -129,7 +94,8 @@
   </section>
   </div>
   <div class="overlay"></div>
-  <script src="../../src/menu/menu.js"></script>
+  <script src="../scripts/menu/menu.js"></script>
+  <script type="module" src="/scripts/profileManagement.js"></script>
 </body>
 
 </html>

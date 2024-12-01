@@ -4,7 +4,8 @@ const router = express.Router();
 const {authMiddleware} = require("../../middlewares/authMiddleware");
 const { permissionMiddleware } = require("../../middlewares/permissionMiddleware");
 
-
+//GET - Consult ID from profile
+router.get('/user/profile', authMiddleware, UserController.getUserProfile);
 // POST - Register a new user
 router.post('/register', UserController.registerUser);
 
