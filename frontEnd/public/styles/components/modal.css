@@ -1,54 +1,83 @@
-/* Tabela */
-.table-container {
-    width: 100%;
-    overflow-x: auto;
-  }
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    min-width: 0px;
-    font-size: 12px;
-  }
-  th, td {
-    padding: 8px 12px;
-    text-align: left;
-    border-left: none; 
-    border-right: none; 
-    background-color: transparent;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
-  }
-  th {
-    background-color: white;
-    border-bottom: 1px solid #ddd; 
-    color: #979797;  
-  }
-  td {
-    border-bottom: 1px solid #ddd; 
-  }
-  
-  /* Botão Tabela Editar*/
-  .btn-tabela__editar{
-    padding: 6px 10px;
-    width: 3.75rem;
-    background-color:  #4CAF50; 
-    border: none;
-    cursor: pointer;
-    border-radius: 4px;
-  }
-  /* Botão Tabela Editar link*/
-  .btn-tabela__editar a {
-    text-decoration: none;
-    color: white;
-    width: 100%;
-    height: 100%; 
-    padding: 0;
-    margin: 0; 
-  }
-  
-  /* Botão Tabela deletar*/
-  .btn-tabela__deletar {
-    border: none;
-    cursor: pointer;
-  }
+/* Modal Container */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  display: none; /* Oculto inicialmente */
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: #f1fdfc;
+  padding: 25px;
+  border-radius: 10px;
+  text-align: center;
+  width: 400px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Modal Header */
+.modal-content h3 {
+  font-size: 20px;
+  margin: 0;
+  color: #333;
+  font-weight: 600;
+}
+
+/* Modal Text */
+.modal-content p {
+  font-size: 14px;
+  color: #555;
+  margin: 10px 0;
+}
+
+/* Buttons */
+.modal-content button {
+  padding: 10px 20px;
+  font-size: 14px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 5px;
+  transition: background-color 0.3s ease;
+}
+
+/* Cancel Button */
+#cancelDelete {
+  background-color: #ddd;
+  color: #333;
+}
+
+#cancelDelete:hover {
+  background-color: #ccc;
+}
+
+/* Confirm Button */
+#confirmDelete {
+  background-color: #4CAF50;
+  color: white;
+}
+
+#confirmDelete:hover {
+  background-color: #45a049;
+}
+
+/* Close Icon */
+.modal-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 20px;
+  color: #888;
+  cursor: pointer;
+}
+
+.modal-close:hover {
+  color: #f44336; /* Red on hover */
+}

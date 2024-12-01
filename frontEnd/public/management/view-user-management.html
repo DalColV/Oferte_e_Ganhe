@@ -134,15 +134,21 @@
     </div>
   </section>
   </div>
-  <dialog id="modal">
-    <h1>Deseja Mesmo Deletar?</h1>
-    <p>A exclusão será permanente!</p>
-    <button type="button" class="btn-padrao btn-modal close-modal">OK</button>
-  </dialog>
+  <!-- Modal de Confirmação -->
+  <div id="deleteModal" class="modal">
+    <div class="modal-content">
+        <span class="modal-close">&times;</span>
+        <h3>Deseja deletar usuário?</h3>
+        <p>Essa ação será permanente!</p>
+        <button id="cancelDelete">Cancelar</button>
+        <button id="confirmDelete">Excluir</button>
+    </div>
+</div>
+
+</div>
   <div class="overlay"></div>
   <script src="../scripts/menu/menu.js"></script>
   <script type="module" src="/scripts/userManagement.js"></script>
-  <script type="module" src="/scripts/modal/modal.js"></script>
 
 </body>
 

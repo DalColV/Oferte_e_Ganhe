@@ -1,3 +1,5 @@
+console.log("Arquivo JavaScript carregado com sucesso!");
+
 let allUsers = [];
 
 // Função para buscar os usuários do sistema
@@ -57,6 +59,8 @@ function renderTabelaUsuarios(users) {
 
         const deleteButton = document.createElement('button');
         deleteButton.classList.add('btn-tabela__deletar');
+        deleteButton.setAttribute('data-user-id', user.registration); // Atribuindo o data-user-id
+        console.log('Criando botão de deletar para o usuário com ID:', user.registration); // Verifique os IDs
         const deleteImg = document.createElement('img');
         deleteImg.src = '../../img/icone_lixeira.png';
         deleteImg.alt = 'icone de lixeira';
@@ -102,32 +106,68 @@ document.addEventListener('DOMContentLoaded', () => {
 // DELETAR USUARIO
 
 document.addEventListener('DOMContentLoaded', () => {
-    const deleteButtons = document.querySelectorAll('lixeira');
+    const tableBody = document.querySelector('tbody'); // Referência ao corpo da tabela
+    const modal = document.getElementById('deleteModal');
+    const closeModal = document.querySelector('.modal-close');
+    const confirmDeleteButton = document.getElementById('confirmDelete');
+    const cancelDeleteButton = document.getElementById('cancelDelete');
+    
+    let currentUserId = null; // Variável para armazenar o ID do usuário que está sendo deletado
 
-    deleteButtons.forEach(button => {
-        button.addEventListener('click', async (event) => {
-            const usuarioId = event.target.getAttribute('data-id'); // Obtém o ID do usuário a partir do atributo 'data-id'
-            if (usuarioId) {
-                const confirmDelete = confirm('Tem certeza que deseja excluir este usuário?');
-                if (confirmDelete) {
-                    try {
-                        const response = await fetch(`/users/${usuarioId}`, {
-                            method: 'DELETE',
-                        });
+    // Abrir o modal ao clicar no botão de deletar
+    tableBody.addEventListener('click', function(event) {
+        if (event.target.closest('.btn-tabela__deletar')) {
+            const deleteButton = event.target.closest('.btn-tabela__deletar'); // Encontra o botão de deletar
+            currentUserId = deleteButton.getAttribute('data-user-id'); // Obtém o ID do usuário
+            console.log("ID do usuário a ser deletado:", currentUserId); // Verifique se o ID está correto
 
-                        if (!response.ok) {
-                            throw new Error('Erro ao excluir usuário');
-                        }
+            // Exibe o modal
+            modal.style.display = 'flex'; 
+        }
+    });
 
-                        alert('Usuário excluído com sucesso!');
-                        // Redirecionar ou atualizar a página após a exclusão
-                        window.location.reload(); // Recarrega a página para refletir a exclusão
-                    } catch (error) {
-                        console.error('Erro ao excluir usuário:', error);
-                        alert('Erro ao excluir o usuário. Tente novamente mais tarde.');
-                    }
+    // Fechar o modal (caso o usuário queira cancelar a ação)
+    closeModal.addEventListener('click', () => {
+        modal.style.display = 'none'; // Fecha o modal
+        currentUserId = null; // Limpa o ID armazenado
+    });
+
+    cancelDeleteButton.addEventListener('click', () => {
+        modal.style.display = 'none'; // Fecha o modal sem deletar
+        currentUserId = null; // Limpa o ID armazenado
+    });
+
+    // Confirmar a exclusão
+    confirmDeleteButton.addEventListener('click', () => {
+        // Remover a chamada de window.confirm()
+
+        // Envia a requisição de deletação
+        fetch(`/user-delete/${currentUserId}`, {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' }
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Resposta da API:', data); // Verifique a resposta completa da API
+            if (data.message && data.message.includes("successfully")) {
+                // Remover a linha da tabela
+                const rowToDelete = document.querySelector(`tr[data-user-id="${currentUserId}"]`); // Encontra a linha (tr) correspondente
+                if (rowToDelete) {
+                    rowToDelete.remove(); // Remove a linha da tabela
                 }
+            } else {
+                alert("Erro ao deletar o usuário: " + data.message);
             }
+            modal.style.display = 'none'; // Fecha o modal
+            currentUserId = null; // Limpa o ID armazenado
+        })
+        .catch(error => {
+            alert("Ocorreu um erro ao deletar o usuário.");
+            console.error(error);
+            modal.style.display = 'none'; // Fecha o modal
+            currentUserId = null; // Limpa o ID armazenado
         });
     });
 });
+
+
