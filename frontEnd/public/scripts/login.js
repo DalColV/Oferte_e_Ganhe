@@ -20,6 +20,8 @@ document.getElementById("loginForm").addEventListener("submit", async function (
         });
 
         if (response.ok) {  
+            const data = await response.json();
+            sessionStorage.setItem("user", JSON.stringify(data));
 
             window.location.href = "/dashboard"; 
         }else{

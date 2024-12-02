@@ -20,18 +20,15 @@ async function getStores() {
 }
 
 // Função para renderizar a tabela com as stores fornecidas
-// Função para renderizar a tabela com as stores fornecidas
 function renderTabelaStores(stores) {
-    const tableBody = document.querySelector('tbody'); // Referência ao corpo da tabela
+    const tableBody = document.querySelector('tbody'); 
 
-    // Limpa o conteúdo da tabela antes de adicionar as novas linhas
     tableBody.innerHTML = '';
 
-    // Adiciona uma linha para cada store
     stores.forEach(store => {
         const row = document.createElement('tr');
+        row.setAttribute('data-store-id', store.store_id);
 
-        // Colunas da tabela
         const storeIdCell = document.createElement('td');
         storeIdCell.textContent = store.store_id || 'ID não disponível';
 
@@ -55,6 +52,7 @@ function renderTabelaStores(stores) {
 
         const deleteButton = document.createElement('button');
         deleteButton.classList.add('btn-tabela__deletar');
+        deleteButton.setAttribute('data-store-id', store.store_id);
         const deleteImg = document.createElement('img');
         deleteImg.src = '../../img/icone_lixeira.png';
         deleteImg.alt = 'icone de lixeira';
@@ -81,7 +79,6 @@ document.getElementById('campo__buscar-id').addEventListener('input', (event) =>
     const searchValue = event.target.value.toLowerCase(); 
 
     const filteredStores = allStores.filter(store => {
-        // Verifica se a matrícula do usuário contém o valor digitado
         return store.store_id.toLowerCase().includes(searchValue);
     });
 
@@ -89,8 +86,50 @@ document.getElementById('campo__buscar-id').addEventListener('input', (event) =>
 });
 
 
-// Inicializa a página carregando os usuários
 document.addEventListener('DOMContentLoaded', () => {
     console.log("Página carregada, chamando a função getUsers");
     getStores();
+});
+
+//Deleção de Loja
+
+document.addEventListener('DOMContentLoaded', () => {
+    const tableBody = document.querySelector('tbody');
+    const modal = document.getElementById('deleteModal');
+    const closeModal = document.querySelector('.modal-close');
+    const confirmDeleteButton = document.getElementById('confirmDelete');
+    const cancelDeleteButton = document.getElementById('cancelDelete');
+    
+    let currentStoreId = null;
+
+    // Evento de clique na tabela
+    tableBody.addEventListener('click', function(event) {
+        if (event.target.closest('.btn-tabela__deletar')) {
+            const deleteButton = event.target.closest('.btn-tabela__deletar');
+            currentStoreId = deleteButton.getAttribute('data-store-id'); // Obtém o ID da loja
+            modal.style.display = 'flex'; // Exibe o modal
+        }
+    });
+
+    // Fechar modal
+    closeModal.addEventListener('click', () => {
+        modal.style.display = 'none';
+        currentStoreId = null;
+    });
+
+    // Cancelar exclusão
+    cancelDeleteButton.addEventListener('click', () => {
+        modal.style.display = 'none';
+        currentStoreId = null;
+    });
+
+    // Confirmar exclusão e ocultar linha
+    confirmDeleteButton.addEventListener('click', () => {
+        const rowToHide = document.querySelector(`tr[data-store-id="${currentStoreId}"]`);
+        if (rowToHide) {
+            rowToHide.classList.add('hidden-row'); // Oculta a linha adicionando uma classe
+        }
+        modal.style.display = 'none'; // Fecha o modal
+        currentStoreId = null; // Reseta o ID
+    });
 });

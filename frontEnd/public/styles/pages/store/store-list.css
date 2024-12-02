@@ -24,3 +24,7 @@
 .container__listagem-lojas {
   background-color: #ffffff;
 }
+
+.hidden-row {
+  display: none;
+}

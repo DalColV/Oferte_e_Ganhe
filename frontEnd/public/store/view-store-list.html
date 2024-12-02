@@ -33,7 +33,7 @@
       <aside class="menu-lateral">
         <div class="container__menu-lateral">
           <span class="fechar-menu">x</span>
-          <h2 class="titulo-secundario" id="login">MÓDULOS</h2>
+          <h2 class="titulo-secundario" id="profile-name">MÓDULOS</h2>
           <ul class="lista-menu">
             <li>
               <a href="/dashboard">Home</a>
@@ -72,7 +72,9 @@
         </div>        
         <div class="container__loja-titulo-img">
           <h1 class="titulo-principal">Listagem de Lojas</h1>
-          <img src="../../img/icone-cruz.png" alt="imagem cruz verde" width="20px" height="20px" id="img-cruz">
+          <a href="./store-register" class="criar-perfil">
+            <img src="../img/icone-cruz.png" alt="imagem cruz verde" width="20px" height="20px" id="img-cruz">
+          </a>
         </div>
         <button class="btn__exportar-csv btn__csv-loja">Exportar .CSV</button>
         <div class="table-container ">
@@ -87,59 +89,27 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>0000000000</td>
-                <td>Aaaaa</td>
-                <td>Rua</td>
-                <td>00000000</td>
-                <td>
-                  <button class="btn-tabela">Editar</button>
-                  <button class="btn-tabela__deletar">
-                    <img src="../../img/icone_lixeira.png" alt="icone de lixeira" width="15px" height="15px">
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td>0000000000</td>
-                <td>Bbbbb</td>
-                <td>Rua</td>
-                <td>00000000</td>
-
-                <td>
-                  <button class="btn-tabela">Editar</button>
-                  <button class="btn-tabela__deletar">
-                    <img src="../../img/icone_lixeira.png" alt="icone de lixeira" width="15px" height="15px">
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td>0000000000</td>
-                <td>Ccccc</td>
-                <td>Rua</td>
-                <td>00000000</td>
-
-                <td>
-                  <button class="btn-tabela">Editar</button>
-                  <button class="btn-tabela__deletar">
-                    <img src="../../img/icone_lixeira.png" alt="icone de lixeira" width="15px" height="15px">
-                  </button>
-                </td>
-              </tr>
+              <!--injeta tabela dinmica aqui-->
             </tbody>
           </table>
         </div>
       </div>
     </div>
   </section>
-  <dialog id="modal">
-    <h1>Deseja Mesmo Deletar?</h1>
-    <p>A exclusão será permanente!</p>
-    <button type="button" class="btn-padrao btn-modal close-modal">OK</button>
-  </dialog>
+   <!-- Modal de Confirmação -->
+   <div id="deleteModal" class="modal">
+    <div class="modal-content">
+        <span class="modal-close">&times;</span>
+        <h3>Deseja deletar Loja?</h3>
+        <p>Essa ação será permanente!</p>
+        <button id="cancelDelete">Cancelar</button>
+        <button id="confirmDelete">Excluir</button>
+    </div>
   <div class="overlay"></div>
   <script src="../scripts/menu/menu.js"></script>
   <script type="module" src="/scripts/storeManagement.js"></script>
-  <!-- <script type="module" src="/scripts/modal/modal.js"></script> -->
+  <script type="module" src="/scripts/credentialUser.js"></script>
+
 </body>
 
 </html>

@@ -33,7 +33,7 @@
       <aside class="menu-lateral">
         <div class="container__menu-lateral">
           <span class="fechar-menu">x</span>
-          <h2 class="titulo-secundario" id="login">MÓDULOS</h2>
+          <h2 class="titulo-secundario" id="profile-name">MÓDULOS</h2>
           <ul class="lista-menu">
             <li>
               <a href="/dashboard">Home</a>
@@ -74,7 +74,7 @@
         <button class="btn__exportar-csv exportar-csv-gestao">Exportar .csv</button>
         <div class="container__perfis-imagem">
           <h2 class="titulo-secundario">Perfis Cadastrados</h2>
-          <a href="./profile-management/news" class="criar-perfil">
+          <a href="./profile-new" class="criar-perfil">
             <img src="../img/icone-cruz.png" alt="imagem cruz verde" width="20px" height="20px" id="img-cruz">
           </a>
         </div>
@@ -101,7 +101,7 @@
   <div id="deleteModal" class="modal">
     <div class="modal-content">
         <span class="modal-close">&times;</span>
-        <h3>Deseja deletar usuário?</h3>
+        <h3>Deseja deletar Perfil?</h3>
         <p>Essa ação será permanente!</p>
         <button id="cancelDelete">Cancelar</button>
         <button id="confirmDelete">Excluir</button>
@@ -112,6 +112,8 @@
   <script src="../scripts/menu/menu.js"></script>
   <script src="../scripts/modal/modal.js"></script>
   <script type="module" src="/scripts/profileManagement.js"></script>
+  <script type="module" src="/scripts/credentialUser.js"></script>
+
 </body>
 
 </html>

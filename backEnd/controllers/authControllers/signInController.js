@@ -36,7 +36,18 @@ const signIn = async (req, res) => {
          });
     
 
-        return res.json({ message: "You're in!", token: token }); //aqui caso de erro
+         return res.json({
+            message: "You're in!",
+            token,
+            user: {
+                registration: user.registration,
+                username: user.username,
+                profile_id: user.profile_id,
+                profile_name: user.profile_name,
+                store_id: user.store_id, 
+            },
+        });
+
     } catch (error) {
         console.error('Error during sign in process:', error);
         return res.status(500).json({ message: 'Internal Server Error' });
