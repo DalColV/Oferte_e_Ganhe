@@ -36,12 +36,8 @@ async function carregarPerfil() {
     }
 }
 
-
-
-// Função para salvar as alterações do perfil
 async function salvarPerfil() {
     try {
-        // Obter o ID do perfil da URL
         const urlParams = new URLSearchParams(window.location.search);
         const perfilId = urlParams.get('id');
 
@@ -50,7 +46,6 @@ async function salvarPerfil() {
             return;
         }
 
-        // Capturar os valores do formulário
         const profileData = {
             profile_name: document.querySelector('input[name="perfil"]').value,
             has_user_management: document.querySelector('input[name="gestao-usuario"]').checked,
@@ -62,7 +57,6 @@ async function salvarPerfil() {
             has_maintenance: document.querySelector('input[name="manutencao"]').checked,
         };
 
-        // Fazer a requisição para atualizar os dados do perfil
         const response = await fetch(`/profile-edit/${perfilId}`, {
             method: 'PUT', 
             headers: {
@@ -85,13 +79,11 @@ async function salvarPerfil() {
     }
 }
 
-// Função para voltar à página anterior
 function voltarPagina() {
     window.location.href = '/profile-management';
 }
 window.voltarPagina = voltarPagina;
 
-// Adicionar eventos ao carregar a página
 document.addEventListener('DOMContentLoaded', () => {
     carregarPerfil();
 

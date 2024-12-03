@@ -42,6 +42,10 @@ router.get('/inventory-management',authMiddleware,  permissionMiddleware("has_in
     res.sendFile(path.join(__dirname, '../../../frontEnd/public/inventory/view-inventory-management.html'));
 });
 
+router.get('/inventory-edit',authMiddleware,  permissionMiddleware("has_inventory_management"), (req, res) => {
+    res.sendFile(path.join(__dirname, '../../../frontEnd/public/inventory/view-edit-inventory-management.html'));
+});
+
 //Profile Management 
 router.get('/profile-management', authMiddleware, permissionMiddleware("has_profile_management"), (req, res) => {
     res.sendFile(path.join(__dirname, '../../../frontEnd/public/management/view-profile-management.html'));
