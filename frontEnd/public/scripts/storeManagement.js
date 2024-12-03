@@ -106,8 +106,8 @@ document.addEventListener('DOMContentLoaded', () => {
     tableBody.addEventListener('click', function(event) {
         if (event.target.closest('.btn-tabela__deletar')) {
             const deleteButton = event.target.closest('.btn-tabela__deletar');
-            currentStoreId = deleteButton.getAttribute('data-store-id'); // Obtém o ID da loja
-            modal.style.display = 'flex'; // Exibe o modal
+            currentStoreId = deleteButton.getAttribute('data-store-id'); 
+            modal.style.display = 'flex'; 
         }
     });
 

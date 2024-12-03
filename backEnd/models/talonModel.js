@@ -15,7 +15,7 @@ const TalonLogs = sequelize.define(
     },
     inventory_id: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
       references: {
         model: 'inventory',
         key: 'inventory_id',

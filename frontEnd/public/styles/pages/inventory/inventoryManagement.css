@@ -37,7 +37,7 @@
   }
   
   .gestao-estoque-baixo {
-    background-color: #e83213;
+    background-color: #e31013;
     color: white;
   }
   
@@ -70,3 +70,4 @@
   .container__botao-logout-estoque {
     min-height: 35vh !important;
   }
+

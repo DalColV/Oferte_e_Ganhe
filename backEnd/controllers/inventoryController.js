@@ -45,6 +45,21 @@ class InventoryController {
         }
     }
 
+        // Função para consultar um inventário por Store
+        static async consultByStore(req, res) {
+            const { store_id } = req.params;
+            try {
+                const inventory = await inventoryService.consultInventoryById(store_id);
+                if (inventory) {
+                    sendSuccess(res, 200, "Inventory record found", inventory);
+                } else {
+                    throw new AppError("Inventory record not found", 404);
+                }
+            } catch (error) {
+                handleError(res, error);
+            }
+        }
+
     // Função para atualizar um inventário
     static async updateInventory(req, res) {
         const { inventory_id } = req.params;
@@ -80,6 +95,24 @@ class InventoryController {
             handleError(res, error);
         }
     }
+
+
+    // Função para remover um inventário
+    static async removeInventoryByStore(req, res) {
+        const { store_id } = req.params;
+        try {
+            const removedInventory = await inventoryService.deleteInventory(store_id);
+            if (removedInventory) {
+                sendSuccess(res, 200, "Inventory deleted successfully", removedInventory);
+            } else {
+                throw new AppError("Inventory not found", 404);
+            }
+        } catch (error) {
+            handleError(res, error);
+        }
+    }
 }
+
+
 
 module.exports = InventoryController;

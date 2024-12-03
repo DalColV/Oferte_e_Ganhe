@@ -11,7 +11,7 @@ table {
 }
 th, td {
   padding: 8px 12px;
-  text-align: left;
+  text-align: center;
   border-left: none; 
   border-right: none; 
   background-color: transparent;
@@ -51,4 +51,8 @@ td {
 .btn-tabela__deletar {
   border: none;
   cursor: pointer;
+}
+/* Estilo para a coluna de ações */
+table td:last-child {
+  background-color: white; 
 }

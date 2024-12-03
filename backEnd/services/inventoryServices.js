@@ -39,6 +39,17 @@ async function consultInventoryById(inventory_id) {
     }
 }
 
+// Função para consultar inventário Store
+async function consultInventoryByStore(store_id) {
+    try {
+        const inventory = await Inventory.findOne({ where: { store_id } });
+        return inventory;
+    } catch (error) {
+        console.error('Error fetching inventory by ID:', error);
+        throw error;
+    }
+}
+
 // Função para editar um inventário
 async function editInventory(inventory_id, store_id, min_quantity, recommended_quantity, current_quantity) {
     try {
@@ -73,5 +84,20 @@ async function deleteInventory(inventory_id) {
         throw error;
     }
 }
+// Função para deletar um inventário pela loja
 
-module.exports = { setInventory, consultInventoryAll, consultInventoryById, editInventory, deleteInventory };
+async function deleteInventoryByStore(store_id) {
+    try {
+        const inventory = await Inventory.findByPk(store_id);
+        if (inventory) {
+            await inventory.destroy();
+            return inventory;
+        }
+        throw new Error('Inventory not found');
+    } catch (error) {
+        console.error('Error deleting inventory:', error);
+        throw error;
+    }
+}
+
+module.exports = {deleteInventoryByStore, consultInventoryByStore, setInventory, consultInventoryAll, consultInventoryById, editInventory, deleteInventory };

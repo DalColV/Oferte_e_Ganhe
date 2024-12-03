@@ -19,11 +19,11 @@
     <div class="row w-100">
       <div class="col-2 d-flex align-items-center">
         <button class="btn-menu">
-          <img src="../../img/btn-menu.png" alt="botão menu">
+          <img src="../img/btn-menu.png" alt="botão menu">
         </button>
       </div>
       <div class="col-8 d-flex justify-content-center align-items-center">
-        <img src="../../img/logo.png" alt="logo da Oferte e Ganhe">
+        <img src="../img/logo.png" alt="logo da Oferte e Ganhe">
       </div>
       <div class="col-2"></div>
     </div>
@@ -33,7 +33,7 @@
       <aside class="menu-lateral">
         <div class="container__menu-lateral">
           <span class="fechar-menu">x</span>
-          <h2 class="titulo-secundario" id="profile-name">MÓDULOS</h2>
+          <h2 class="titulo-secundario" id="login">MÓDULOS</h2>
           <ul class="lista-menu">
             <li>
               <a href="/dashboard">Home</a>
@@ -90,59 +90,34 @@
               <tr>
                 <th>Loja</th>
                 <th>Estoque</th>
+                <th>Status</th>
                 <th>Qtd Recomendada</th>
                 <th>Qtd Atual</th>
                 <th>Ações</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td class="gestao-estoque-baixo">063</td>
-                <td class="gestao-estoque-baixo">Baixo</td>
-                <td class="gestao-estoque-baixo">0001</td>
-                <td class="gestao-estoque-baixo">0001</td>
-                <td class="gestao-estoque-baixo">
-                  <button class="btn-tabela">Editar</button>
-                  <button class="btn-tabela__deletar">
-                    <img src="../../img/icone_lixeira.png" alt="icone de lixeira" width="15px" height="15px">
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td>064</td>
-                <td class="gestao-estoque-normal">Normal</td>
-                <td>0001</td>
-                <td>0001</td>
-                <td>
-                  <button class="btn-tabela">Editar</button>
-                  <button class="btn-tabela__deletar">
-                    <img src="../../img/icone_lixeira.png" alt="icone de lixeira" width="15px" height="15px">
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td>065</td>
-                <td class="gestao-estoque-normal">Normal</td>
-                <td>0001</td>
-                <td>0001</td>
-                <td>
-                  <button class="btn-tabela">Editar</button>
-                  <button class="btn-tabela__deletar">
-                    <img src="../../img/icone_lixeira.png" alt="icone de lixeira" width="15px" height="15px">
-                  </button>
-                </td>
-              </tr>
+              
             </tbody>
           </table>
         </div>
-        <button class="btn-padrao btn-solicitar-taloes">Solicitar Talões à Matriz</button>
+        <button class="btn-padrao btn-solicitar-taloes" id="solicitaTalao">Solicitar Talões à Matriz</button>
       </div>
   </section>
+  <!-- Modal de Confirmação -->
+  <div id="deleteModal" class="modal">
+    <div class="modal-content">
+        <span class="modal-close">&times;</span>
+        <h3>ATENÇÃO! AÇÃO DE RISCO!</h3>
+        <p>Ao confirmar todos os registros relacionados à esse Estoque serão apagados permanentemente.</p>
+        <button id="cancelDelete">Cancelar</button>
+        <button id="confirmDelete">Excluir</button>
+    </div>
   </div>
   <div class="overlay"></div>
-  <script src="../../src/menu/menu.js"></script>
-  <script type="module" src="/scripts/credentialUser.js"></script>
-
+  <script src="../scripts/menu/menu.js"></script>
+  <script src="../scripts/modal/modal.js"></script>
+  <script type="module" src="/scripts/inventoryManagement.js"></script>
 </body>
 
 </html>
