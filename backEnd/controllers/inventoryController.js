@@ -45,20 +45,23 @@ class InventoryController {
         }
     }
 
-        // Função para consultar um inventário por Store
-        static async consultByStore(req, res) {
-            const { store_id } = req.params;
-            try {
-                const inventory = await inventoryService.consultInventoryById(store_id);
-                if (inventory) {
-                    sendSuccess(res, 200, "Inventory record found", inventory);
-                } else {
-                    throw new AppError("Inventory record not found", 404);
-                }
-            } catch (error) {
-                handleError(res, error);
+    static async getInventoryByStore(req, res) {
+        const { store_id } = req.params;
+    
+        try {
+            const inventoryData = await consultInventoryByStore(store_id);
+    
+            return res.status(200).json({ data: inventoryData });
+        } catch (error) {
+            if (error.message === 'Inventário não encontrado para esta loja.') {
+                return res.status(404).json({ error: error.message });
             }
+    
+            console.error('Erro no controller:', error);
+            return res.status(500).json({ error: 'Erro ao buscar inventário.' });
         }
+    }
+    
 
     // Função para atualizar um inventário
     static async updateInventory(req, res) {

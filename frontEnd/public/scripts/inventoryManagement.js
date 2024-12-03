@@ -22,13 +22,9 @@ function toggleSolicitarTalaoButton(isMatriz) {
 }
 
 function toggleTaloesCard(isMatriz) {
-    const taloesCard = document.querySelector('.card__gestao-estoque-master');
+    const taloesCard = document.getElementById('card_alerta');
     if (taloesCard) {
-        if (!isMatriz) {
-            taloesCard.style.display = 'none'; 
-        } else {
-            taloesCard.style.display = 'block'; 
-        }
+        taloesCard.style.display = isMatriz ? 'block' : 'none';
     } else {
         console.error("Card de solicitação de talões não encontrado.");
     }
@@ -39,11 +35,11 @@ async function fetchInventory(is_matriz, store_id) {
         console.log("Verificando store_id:", store_id);
 
         const endpoint = is_matriz ? '/inventory' : `/inventory/${store_id}`;
-        console.log("Endpoint da API:", endpoint); 
+        console.log("Endpoint da API:", endpoint);
 
         const response = await fetch(endpoint, {
             method: 'GET',
-            credentials: 'include', 
+            credentials: 'include',
         });
 
         if (!response.ok) {
@@ -51,13 +47,13 @@ async function fetchInventory(is_matriz, store_id) {
         }
 
         const data = await response.json();
-        console.log("Resposta da API: ", data); 
+        console.log("Resposta da API: ", data);
 
         toggleSolicitarTalaoButton(is_matriz);
-        toggleTaloesCard(is_matriz);
 
-        if (data && Array.isArray(data.data)) {
-            renderTable(data.data); 
+        if (data && data.data) {
+            const inventoryData = Array.isArray(data.data) ? data.data : [data.data];
+            renderTable(inventoryData); 
         } else {
             console.error("Dados de inventário inválidos ou não encontrados.");
         }
@@ -65,6 +61,7 @@ async function fetchInventory(is_matriz, store_id) {
         console.error('Erro ao carregar os dados do inventário:', error);
     }
 }
+
 
 function renderTable(inventoryData) {
     console.log("Renderizando tabela com os dados:", inventoryData);
@@ -74,7 +71,7 @@ function renderTable(inventoryData) {
         return;
     }
 
-    tableBody.innerHTML = ''; // Limpa a tabela antes de adicionar os novos dados
+    tableBody.innerHTML = ''; 
 
     inventoryData.forEach(item => {
         const status = item.current_quantity < item.recommended_quantity ? "Baixo" : "Normal";
@@ -152,6 +149,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     const isMatriz = store && store.is_matriz;
 
     console.log("Verificando se é matriz:", isMatriz);
+    toggleTaloesCard(isMatriz);
+
 
     await fetchInventory(isMatriz, storeId);
 });
@@ -167,7 +166,6 @@ document.addEventListener('DOMContentLoaded', () => {
     
     let currentInventoryId = null;
 
-    // Evento para mostrar o modal de confirmação de exclusão
     tableBody.addEventListener('click', function(event) {
         if (event.target.closest('.btn-tabela__deletar')) {
             const deleteButton = event.target.closest('.btn-tabela__deletar');
@@ -190,11 +188,9 @@ document.addEventListener('DOMContentLoaded', () => {
         currentInventoryId = null;
     });
 
-    // Confirmar exclusão e fazer requisição para o backend
     confirmDeleteButton.addEventListener('click', () => {
         console.log('Confirmando exclusão do estoque com ID:', currentInventoryId); 
 
-        // Fazer a requisição para o backend para excluir o estoque
         fetch(`/inventory-delete/${currentInventoryId}`, {
             method: 'DELETE',
             headers: { 'Content-Type': 'application/json' },

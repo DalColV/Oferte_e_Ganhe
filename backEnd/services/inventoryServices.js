@@ -42,10 +42,17 @@ async function consultInventoryById(inventory_id) {
 // Função para consultar inventário Store
 async function consultInventoryByStore(store_id) {
     try {
-        const inventory = await Inventory.findOne({ where: { store_id } });
-        return inventory;
+        const inventoryData = await Inventory.findAll({
+            where: { store_id },
+        });
+
+        if (!inventoryData.length) {
+            throw new Error('Inventário não encontrado para esta loja.');
+        }
+
+        return inventoryData;
     } catch (error) {
-        console.error('Error fetching inventory by ID:', error);
+        console.error('Erro ao buscar inventário pelo store_id:', error);
         throw error;
     }
 }

@@ -17,7 +17,7 @@ router.get('/inventory', authMiddleware, permissionMiddleware("has_inventory_man
 router.get('/inventory/:inventory_id', authMiddleware, permissionMiddleware("has_inventory_management"), InventoryController.consultById);
 
 // GET - Rota para consultar inventário por Store
-router.get('/inventory/:store_id', authMiddleware, permissionMiddleware("has_inventory_management"), InventoryController.consultById);
+router.get('/inventory/:store_id', authMiddleware, permissionMiddleware("has_inventory_management"), InventoryController.getInventoryByStore);
 
 // PUT - Rota para atualizar um inventário
 router.put('/inventory-edit/:inventory_id', authMiddleware, permissionMiddleware("has_inventory_management"), InventoryController.updateInventory);

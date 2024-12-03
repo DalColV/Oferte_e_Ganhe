@@ -62,15 +62,12 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             if (response.ok) {
                 const result = await response.json();
-                alert('Estoque atualizado com sucesso!');
                 window.location.href = '/inventory-management'; 
             } else {
                 const error = await response.json();
-                alert(`Erro ao atualizar o estoque: ${error.message}`);
             }
         } catch (err) {
             console.error('Erro ao atualizar o estoque:', err);
-            alert('Ocorreu um erro ao tentar atualizar o estoque. Verifique o console para mais detalhes.');
         }
     });
 });
