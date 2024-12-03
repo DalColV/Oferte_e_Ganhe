@@ -18,6 +18,24 @@ class UserController {
         }
     }
 
+    // Pegar E-mail do Usuário pelo ID
+    static async getUserEmail(req, res) {
+        try {
+            const { userId } = req.params;
+
+            const email = await userService.getUserEmail(userId);
+
+            if (!email) {
+                return res.status(404).json({ message: 'Usuário não encontrado.' });
+            }
+
+            sendSuccess(res, 200, "E-mail recuperado com sucesso", { email });
+
+        } catch (error) {
+            handleError(res, error);
+        }
+    }
+
     // Registrar usuário
     static async registerUser(req, res) {
         const { registration, username, store_id, profile_id, email, password } = req.body;
@@ -63,6 +81,34 @@ class UserController {
             sendSuccess(res, 200, "User found", user);
         } catch (error) {
             handleError(res, error);
+        }
+    }
+
+    // Consultar usuario por email
+    static async getUserByEmail(req, res) {
+        const { email } = req.body;
+    
+        if (!email) {
+            return res.status(400).json({ message: 'Email é obrigatório.' });
+        }
+    
+        try {
+            const user = await userService.getUserEmailByEmail(email);
+    
+            if (!user) {
+                return res.status(404).json({ message: 'Usuário não encontrado.' });
+            }
+    
+            return res.status(200).json({
+                message: 'Usuário encontrado.',
+                user,
+            });
+        } catch (error) {
+            console.error('Erro ao buscar o usuário:', error);
+            return res.status(500).json({
+                message: 'Erro ao buscar o usuário.',
+                error: error.message,
+            });
         }
     }
 

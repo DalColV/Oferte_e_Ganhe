@@ -22,6 +22,7 @@ const talonRoutes = require('./routes/talon/talonRoutes');
 const userRoutes = require('./routes/user/userRoutes');
 const authRoutes = require('./routes/auth/authRoutes');
 
+
 app.use(corsMiddleware);
 
 

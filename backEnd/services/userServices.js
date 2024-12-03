@@ -21,6 +21,20 @@ const getProfileFromToken = async (token) => {
   }
 };
 
+// Serviço para pegar o e-mail do usuário
+async function getUserEmailByEmail(email) {
+  try {
+      const user = await User.findOne({ where: { email } });
+      if (!user) {
+          console.log('Usuário não encontrado no banco de dados:', email);
+      }
+      return user;
+  } catch (error) {
+      console.log('Erro ao buscar o usuário:', error.message);
+      throw error;
+  }
+}
+
 // Função para inserir um novo usuário
 const insertUser = async (registration, username, store_id, profile_id, email, password) => {
   try {
@@ -118,4 +132,4 @@ const userConsultByRegistration = async (registration) => {
   }
 };
 
-module.exports = { insertUser, editUser, deleteUser, userConsultAll, userConsultByRegistration, getProfileFromToken };
+module.exports = { getUserEmailByEmail, insertUser, editUser, deleteUser, userConsultAll, userConsultByRegistration, getProfileFromToken };
