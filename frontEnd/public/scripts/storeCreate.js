@@ -1,54 +1,62 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const salvarButton = document.querySelector('.btn__salvar');
+document.addEventListener("DOMContentLoaded", function () {
+    // Evento para capturar o envio do formulário
+    document.getElementById('cadastroLojaForm').addEventListener('submit', async function (e) {
+      e.preventDefault(); // Previne o envio padrão do formulário
+  
+      // Captura os valores dos campos do formulário
+      const storeId = document.getElementById('codigo-loja').value; // store_id
+      const storeName = document.getElementById('nome').value; // store_name
+      const cep = document.getElementById('CEP').value; // CEP
+      const street = document.getElementById('rua').value; // street
+      const number = document.getElementById('numero').value; // number
+      const isMatriz = document.getElementById('matriz').checked; // matriz
+  
+      console.log("CEP capturado: ", cep); // Verifique se o valor de CEP está correto
+  
+      // Valida o campo 'CEP' para garantir que não esteja vazio
+      if (!cep || cep.trim() === "") {
+        return alert("O campo 'CEP' é obrigatório.");
+      }
+  
+      // Cria o objeto com os dados da loja
+      const dadosLoja = {
+        store_id: storeId,
+        store_name: storeName,
+        cep: cep,
+        street: street,
+        number: number,
+        is_matriz: isMatriz,
+      };
+      console.log(dadosLoja);  // Verifique se o valor está sendo capturado corretamente
 
-    salvarButton.addEventListener('click', async (event) => {
-        event.preventDefault(); 
-
-        // Seleciona os valores do formulário
-        const codigoLoja = document.querySelector('input[name="codigo-loja"]').value.trim();
-        const nome = document.querySelector('input[name="nome"]').value.trim();
-        const cep = document.querySelector('input[name="CEP"]').value.trim();
-        const rua = document.querySelector('input[name="rua"]').value.trim();
-        const numero = document.querySelector('input[name="numero"]').value.trim();
-
-        if (!codigoLoja || !nome || !cep || !rua || !numero) {
-            alert('Por favor, preencha todos os campos.');
-            return;
+      try {
+        // Envia os dados para o backend via POST
+        const response = await fetch('http://localhost:3000/store-register', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(dadosLoja), // Envia os dados em formato JSON
+        });
+  
+        // Processa a resposta do servidor
+        const result = await response.json();
+  
+        if (response.ok) {
+          alert('Loja cadastrada com sucesso!');
+          // Limpa o formulário após o cadastro
+          document.getElementById('cadastroLojaForm').reset();
+        } else {
+          alert('Erro ao cadastrar loja: ' + result.message);
         }
-
-        const novaLoja = {
-            store_id: codigoLoja,
-            store_name: nome,
-            cep: cep,
-            street: rua,
-            number: numero,
-        };
-
-        try {
-            const response = await fetch('/store-register', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(novaLoja),
-            });
-
-            const result = await response.json();
-
-            if (response.ok) {
-                alert('Loja criada com sucesso!');
-                // Limpa os campos do formulário
-                document.querySelector('input[name="codigo-loja"]').value = '';
-                document.querySelector('input[name="nome"]').value = '';
-                document.querySelector('input[name="CEP"]').value = '';
-                document.querySelector('input[name="rua"]').value = '';
-                document.querySelector('input[name="numero"]').value = '';
-            } else {
-                alert('Erro ao criar loja: ' + (result.message || 'Tente novamente mais tarde.'));
-            }
-        } catch (error) {
-            console.error('Erro ao criar loja:', error);
-            alert('Ocorreu um erro inesperado. Tente novamente mais tarde.');
-        }
+      } catch (error) {
+        console.error('Erro na requisição:', error);
+        alert('Erro ao cadastrar loja.');
+      }
     });
-});
+  });
+  
+
+  function voltarPagina() {
+    window.history.back();
+  }

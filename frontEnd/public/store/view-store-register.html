@@ -19,11 +19,11 @@
     <div class="row w-100">
       <div class="col-2 d-flex align-items-center">
         <button class="btn-menu">
-          <img src="../../img/btn-menu.png" alt="botão menu">
+          <img src="../img/btn-menu.png" alt="botão menu">
         </button>
       </div>
       <div class="col-8 d-flex justify-content-center align-items-center">
-        <img src="../../img/logo.png" alt="logo da Oferte e Ganhe">
+        <img src="../img/logo.png" alt="logo da Oferte e Ganhe">
       </div>
       <div class="col-2"></div>
     </div>
@@ -60,33 +60,41 @@
               <a href="talon/maintenance">Manutenção de Talões</a>
             </li>
           </ul>
-          <div class="container__botao-logout "> 
+          <div class="container__botao-logout ">
             <button class="btn-logout">Logout</button>
           </div>
         </div>
       </aside>
-      <div class=" container-global container__cadastro-loja formulario-padrao ">
+      <form id="cadastroLojaForm" class=" container-global container__cadastro-loja formulario-padrao ">
         <h1 class="titulo-principal titulo__cadastro-loja">Cadastro de Loja</h1>
+
         <label for="codigo-loja">Código da Loja</label>
-        <input type="text" name="codigo-loja">
+        <input type="text" name="codigo-loja" id="codigo-loja">
         <label for="nome">Nome da Loja</label>
-        <input type="text" name="nome">
+        <input type="text" name="nome" id="nome">
         <label for="CEP">CEP</label>
-        <input type="number" name="CEP">
+        <input type="number" name="CEP" id="CEP">
         <label for="rua">Rua</label>
-        <input type="text" name="rua">
+        <input type="text" name="rua"id="rua">
         <label for="numero">Número</label>
-        <input type="number" name="numero">
-        <button class="btn-padrao btn__voltar">Voltar</button>
+        <input type="number" name="numero"id="numero">
+        <div class="container__tipo-loja">
+          <div class="box-matriz">
+            <label for="matriz">Matriz</label>
+            <input type="checkbox" name="matriz"id="matriz">
+          </div>
+        </div>
+        <button class="btn-padrao btn__voltar" onclick="voltarPagina()">Voltar</button>
         <button class="btn-padrao btn__salvar">Salvar</button>
-      </div>
+        </form>
+        
     </div>
   </section>
 
   <div class="overlay"></div>
-  <script src="../scripts/menu/menu.js"></script>
-  <script type="module" src="/scripts/storeCreate.js"></script>
-  <script type="module" src="/scripts/credentialUser.js"></script>
+  <script type="module" src="../scripts/menu/menu.js"></script>
+  <script src="../scripts/edit/edit.js"></script>
+  <script type="module" src="../scripts/storeCreate.js"></script>
 
 </body>
 

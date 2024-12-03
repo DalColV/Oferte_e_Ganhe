@@ -5,8 +5,12 @@ const { sendSuccess } = require('../utils/responses');
 class StoreController {
     static async createStore(req, res) {
         const { store_id, store_name, street, cep, number, is_matriz } = req.body;
+        
+        // Converte o valor de is_matriz para booleano
+        const isMatriz = is_matriz === 'true';  // ou !!is_matriz se já for um valor booleano
+    
         try {
-            const newStore = await storeService.insertStore(store_id, store_name, street, cep, number, is_matriz);
+            const newStore = await storeService.insertStore(store_id, store_name, street, cep, number, isMatriz);
             sendSuccess(res, 201, "Store created successfully!", newStore);
         } catch (error) {
             handleError(res, error);
