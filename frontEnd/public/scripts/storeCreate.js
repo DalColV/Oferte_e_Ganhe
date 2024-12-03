@@ -13,11 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
   
       console.log("CEP capturado: ", cep); // Verifique se o valor de CEP está correto
   
-      // Valida o campo 'CEP' para garantir que não esteja vazio
-      if (!cep || cep.trim() === "") {
-        return alert("O campo 'CEP' é obrigatório.");
-      }
-  
+
       // Cria o objeto com os dados da loja
       const dadosLoja = {
         store_id: storeId,

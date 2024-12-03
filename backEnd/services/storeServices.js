@@ -1,11 +1,8 @@
 const Store  = require('../models/storeModel');
 
 // Função para criar uma nova loja
-async function insertStore(store_id, store_name, street, cep, number, is_matriz) {
+async function insertStore(store_id, store_name, street, cep, number, is_matriz = false) {
     try {
-        // Garante que is_matriz é um valor booleano
-        const isMatrizBoolean = is_matriz === 'true';  // Ou apenas is_matriz como booleano
-
         const newStore = await Store.create({
             store_id,
             store_name,
