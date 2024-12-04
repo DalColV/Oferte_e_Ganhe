@@ -65,23 +65,23 @@
         </div>
       </aside>
       <div class="col-lg-2"></div>
-      <form class="col-lg-8 container-global formulario-padrao formulario-editar">
+      <form id="submit-form" class="col-lg-8 container-global formulario-padrao formulario-editar">
         <h1 class="titulo-principal">Cadastrar Estoque</h1>
 
         <label for="loja">Loja</label>
-        <input type="text" name="loja" >
+        <input type="text" id="loja" name="loja" >
 
         <label for="qtd-recomendada">Qtd recomendada</label>
-        <input type="text" name="qtd-recomendada" >
+        <input type="text" id="qtd-recomendada" name="qtd-recomendada" >
 
         <label for="qtd-minima">Qtd Minima</label>
-        <input type="text" name="qtd-minima" >
+        <input type="text" id="qtd-minima" name="qtd-minima" >
 
         <label for="qtd-atual">Qtd atual</label>        
-        <input type="text" name="qtd-atual" >
+        <input type="text" id="qtd-atual" name="qtd-atual" >
 
         <button class="btn-padrao btn__voltar" onclick="voltarPagina(event)">Voltar</button>        
-        <button class="btn-padrao btn__salvar">Salvar</button>
+        <button class="btn-padrao btn__salvar" id="submit-form">Salvar</button>
 
       </form>
       <div class="col-lg-2"></div>
@@ -94,6 +94,8 @@
   <script src="../scripts/edit/edit.js"></script>
   <script type="module" src="/scripts/logout.js"></script>
   <script type="module" src="/scripts/credentialUser.js"></script>
+  <script type="module" src="/scripts/inventoryCreate.js"></script>
+
 </body>
 
 </html>
