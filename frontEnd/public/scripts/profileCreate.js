@@ -7,7 +7,6 @@ function preencherFormularioCriacao() {
   try {
       document.querySelector('input[name="perfil"]').value = ''; // Nome do perfil vazio
 
-      // checkboxes como desmarcados por padrão
       document.querySelector('input[name="gestao-usuario"]').checked = false;
       document.querySelector('input[name="gestao-perfis"]').checked = false;
       document.querySelector('input[name="gestao-estoque"]').checked = false;
@@ -27,7 +26,6 @@ function configurarEventos() {
   btnSalvar.addEventListener('click', async (event) => {
       event.preventDefault(); 
 
-      //  dados do formulário
       const profile_name = document.querySelector('input[name="perfil"]').value;
       const has_user_management = document.querySelector('input[name="gestao-usuario"]').checked;
       const has_profile_management = document.querySelector('input[name="gestao-perfis"]').checked;
@@ -75,4 +73,7 @@ function configurarEventos() {
   });
 }
 
-  
+function voltarPagina() {
+    window.location.href = '/profile-management';
+}
+window.voltarPagina = voltarPagina;

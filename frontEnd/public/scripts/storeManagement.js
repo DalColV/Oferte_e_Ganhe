@@ -123,9 +123,24 @@ document.addEventListener('DOMContentLoaded', () => {
     confirmDeleteButton.addEventListener('click', () => {
         const rowToHide = document.querySelector(`tr[data-store-id="${currentStoreId}"]`);
         if (rowToHide) {
-            rowToHide.classList.add('hidden-row'); // Oculta a linha adicionando uma classe
+            rowToHide.classList.add('hidden-row'); 
         }
-        modal.style.display = 'none'; // Fecha o modal
-        currentStoreId = null; // Reseta o ID
+        modal.style.display = 'none'; 
+        currentStoreId = null; 
     });
+});
+
+document.getElementById('campo__buscar-id').addEventListener('input', (event) => {
+    const searchValue = event.target.value.trim().toLowerCase(); 
+
+    const filteredStores = allStores.filter(store => {
+        return (
+            (store.store_id && store.store_id.toString().includes(searchValue)) ||
+            (store.store_name && store.store_name.toLowerCase().includes(searchValue)) ||
+            (store.street && store.street.toLowerCase().includes(searchValue)) ||
+            (store.cep && store.cep.includes(searchValue))
+        );
+    });
+
+    renderTabelaStores(filteredStores);
 });
