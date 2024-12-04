@@ -137,35 +137,32 @@ document.addEventListener('DOMContentLoaded', () => {
         currentUserId = null; // Limpa o ID armazenado
     });
 
-    // Confirmar a exclusão
     confirmDeleteButton.addEventListener('click', () => {
-        // Remover a chamada de window.confirm()
 
-        // Envia a requisição de deletação
         fetch(`/user-delete/${currentUserId}`, {
             method: 'DELETE',
             headers: { 'Content-Type': 'application/json' }
         })
         .then(response => response.json())
         .then(data => {
-            console.log('Resposta da API:', data); // Verifique a resposta completa da API
+            console.log('Resposta da API:', data); 
             if (data.message && data.message.includes("successfully")) {
-                // Remover a linha da tabela
-                const rowToDelete = document.querySelector(`tr[data-user-id="${currentUserId}"]`); // Encontra a linha (tr) correspondente
+                const rowToDelete = document.querySelector(`tr[data-user-id="${currentUserId}"]`);
+                location.reload(); 
                 if (rowToDelete) {
-                    rowToDelete.remove(); // Remove a linha da tabela
+                    rowToDelete.remove(); 
                 }
             } else {
                 alert("Erro ao deletar o usuário: " + data.message);
             }
-            modal.style.display = 'none'; // Fecha o modal
-            currentUserId = null; // Limpa o ID armazenado
+            modal.style.display = 'none'; 
+            currentUserId = null; 
         })
         .catch(error => {
             alert("Ocorreu um erro ao deletar o usuário.");
             console.error(error);
-            modal.style.display = 'none'; // Fecha o modal
-            currentUserId = null; // Limpa o ID armazenado
+            modal.style.display = 'none'; 
+            currentUserId = null; 
         });
     });
 });

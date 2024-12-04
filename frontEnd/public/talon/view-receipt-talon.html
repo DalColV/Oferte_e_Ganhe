@@ -17,17 +17,52 @@
     <div class="row w-100">
       <div class="col-2 d-flex align-items-center">
         <button class="btn-menu">
-          <img src="../../img/btn-menu.png" alt="botão menu">
+          <img src="../img/btn-menu.png" alt="botão menu">
         </button>
       </div>
       <div class="col-8 d-flex justify-content-center align-items-center">
-        <img src="../../img/logo.png" alt="logo da Oferte e Ganhe">
+        <img src="../img/logo.png" alt="logo da Oferte e Ganhe">
       </div>
       <div class="col-2"></div>
     </div>
   </header>
   <section class="container-fluid">
     <div class="row">
+      <aside class="menu-lateral">
+        <div class="container__menu-lateral">
+          <span class="fechar-menu">x</span>
+          <h2 class="titulo-secundario" id="profile_name">MÓDULOS</h2>
+          <ul class="lista-menu">
+            <li>
+              <a href="/dashboard">Home</a>
+            </li>
+            <li>
+              <a href="/user-management">Gestão de Usuários</a>
+            </li>
+            <li>
+              <a href="/profile-management">Gestão de Perfis </a>
+            </li>
+            <li>
+              <a href="/inventory-management">Gestão de Estoque</a>
+            </li>
+            <li>
+              <a href="store-management">Gestão de Lojas</a>
+            </li>
+            <li>
+              <a href="/talon/send">Envio de Talões</a>
+            </li>
+            <li>
+              <a href="/talon/receipt">Recimento de Talões</a>
+            </li>
+            <li>
+              <a href="talon/maintenance">Manutenção de Talões</a>
+            </li>
+          </ul>
+          <div class="container__botao-logout"> 
+            <button class="btn-logout">Logout</button>
+          </div>
+        </div>
+      </aside>
       <div class="col-sm-10 formulario-padrao container__taloes  ">
         <div class="input-wrapper input-wrapper__taloes">
           <input type="text" id="#" placeholder="Buscar">
@@ -57,9 +92,11 @@
                 <td>00/00/0000 - 00:00</td>
                 <td>00/00/0000 - 00:00</td>
                 <td>
-                  <button class="btn-tabela">Editar</button>
+                  <button class="btn-tabela__editar">
+                    <a href="./view-edit-receipt-talon.html">Editar</a>
+                  </button>
                   <button class="btn-tabela__deletar">
-                    <img src="../../img/icone_lixeira.png" alt="icone de lixeira" width="15px" height="15px">
+                    <img src="../img/icone_lixeira.png" alt="icone de lixeira" id="lixeira" width="15px" height="15px">
                   </button>
                 </td>
               </tr>
@@ -71,9 +108,11 @@
                 <td>00/00/0000 - 00:00</td>
                 <td>00/00/0000 - 00:00</td>
                 <td>
-                  <button class="btn-tabela">Editar</button>
+                  <button class="btn-tabela__editar">
+                    <a href="./view-edit-receipt-talon.html">Editar</a>
+                  </button>
                   <button class="btn-tabela__deletar">
-                    <img src="../../img/icone_lixeira.png" alt="icone de lixeira" width="15px" height="15px">
+                    <img src="../img/icone_lixeira.png" alt="icone de lixeira" id="lixeira" width="15px" height="15px">
                   </button>
                 </td>
               </tr>
@@ -85,9 +124,11 @@
                 <td>00/00/0000 - 00:00</td>
                 <td>00/00/0000 - 00:00</td>
                 <td>
-                  <button class="btn-tabela">Editar</button>
+                  <button class="btn-tabela__editar">
+                    <a href="./view-edit-receipt-talon.html">Editar</a>
+                  </button>
                   <button class="btn-tabela__deletar">
-                    <img src="../../img/icone_lixeira.png" alt="icone de lixeira" width="15px" height="15px">
+                    <img src="../img/icone_lixeira.png" alt="icone de lixeira" id="lixeira" width="15px" height="15px">
                   </button>
                 </td>
               </tr>
@@ -97,10 +138,9 @@
     </div>
     </div>
   </section>
-  <script type="module" src="/scripts/credentialUser.js"></script>
-
   </div>
-
+  <script src="../scripts/menu/menu.js"></script>
+  <script src="../scripts/edit/edit.js"></script>
 </body>
 
 </html>

@@ -102,7 +102,6 @@ document.addEventListener('DOMContentLoaded', () => {
     
     let currentStoreId = null;
 
-    // Evento de clique na tabela
     tableBody.addEventListener('click', function(event) {
         if (event.target.closest('.btn-tabela__deletar')) {
             const deleteButton = event.target.closest('.btn-tabela__deletar');
@@ -111,19 +110,16 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Fechar modal
     closeModal.addEventListener('click', () => {
         modal.style.display = 'none';
         currentStoreId = null;
     });
 
-    // Cancelar exclusão
     cancelDeleteButton.addEventListener('click', () => {
         modal.style.display = 'none';
         currentStoreId = null;
     });
 
-    // Confirmar exclusão e ocultar linha
     confirmDeleteButton.addEventListener('click', () => {
         const rowToHide = document.querySelector(`tr[data-store-id="${currentStoreId}"]`);
         if (rowToHide) {

@@ -46,6 +46,10 @@ router.get('/inventory-edit',authMiddleware,  permissionMiddleware("has_inventor
     res.sendFile(path.join(__dirname, '../../../frontEnd/public/inventory/view-edit-inventory-management.html'));
 });
 
+router.get('/inventory-register',authMiddleware,  permissionMiddleware("has_inventory_management"), (req, res) => {
+    res.sendFile(path.join(__dirname, '../../../frontEnd/public/inventory/view-register-inventory-management.html'));
+});
+
 //Profile Management 
 router.get('/profile-management', authMiddleware, permissionMiddleware("has_profile_management"), (req, res) => {
     res.sendFile(path.join(__dirname, '../../../frontEnd/public/management/view-profile-management.html'));
@@ -66,6 +70,10 @@ router.get('/store-register', authMiddleware, permissionMiddleware("has_store_ma
 
 router.get('/store-management', authMiddleware, permissionMiddleware("has_store_management"), (req, res) => {
     res.sendFile(path.join(__dirname, '../../../frontEnd/public/store/view-store-list.html'));
+});
+
+router.get('/store-edit', authMiddleware, permissionMiddleware("has_store_management"), (req, res) => {
+    res.sendFile(path.join(__dirname, '../../../frontEnd/public/store/view-store-edit.html'));
 });
 
 //Talon Management

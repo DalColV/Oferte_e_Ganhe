@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,9 +10,8 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
   <link rel="stylesheet" href="../styles/reset.css">
   <link rel="stylesheet" href="../styles/style.css">
-  <title>Gestão de Estoque</title>
+  <title>Editar Loja</title>
 </head>
-
 <body>
   <header class="container-fluid cabecalho">
     <div class="row w-100">
@@ -60,72 +58,39 @@
               <a href="talon/maintenance">Manutenção de Talões</a>
             </li>
           </ul>
-          <div class="container__botao-logout"> 
+          <div class="container__botao-logout "> 
             <button class="btn-logout">Logout</button>
           </div>
         </div>
       </aside>
-      <div class="col-sm-10 formulario-padrao container__gestao-estoque ">
-        <div class="input-wrapper container__input-gestao-estoque">
-          <input type="text" id="#" placeholder="Buscar pelo código da loja">
-          <i class="fa fa-search"></i>
-        </div>
-        <h1 class="titulo-principal">Gestão de Estoque</h1>
-        <button class="btn__exportar-csv">Exportar .csv</button>
-        <div class="card__gestao-estoque card__gestao-estoque-master" id="card_alerta">
-          <h2 class="titulo-secundario" id="">Solicitação de Talões</h2>
-          <div class="conteudo__card-master">
-            <h2 class="titulo-secundario">Lojas:</h2>
-            <span>001</span>
-            <span>002</span>
-            <span>003</span>
-            <span>004</span>
-            <span>005</span>
+      <form class=" container-global formulario-padrao ">
+        <h1 class="titulo-principal ">Editar Loja</h1>
+        <label for="recebimento">Código da Loja</label>
+        <input type="text" id="store-id" name="recebimento">
+        <label for="reebido">Nome da Loja</label>
+        <input type="text" id="store-name" name="recebido">
+        <label for="endereço">Rua</label>
+        <input type="text" id="rua" name="endereço">
+        <label for="cep">CEP</label>
+        <input type="text" id="cep" name="cep">
+        <label for="numero">Número</label>
+        <input type="text" id="numero" name="numero">
+        <div class="container__tipo-loja">
+          <div class="box-matriz">
+            <label for="matriz">Matriz</label>
+            <input type="checkbox" id="store-matriz" name="matriz">
           </div>
         </div>
-        <div class="container__estoque-imagem">
-          <h2 class="titulo-secundario">Cadastrar Estoque </h2>
-          <a href="/inventory-register" class="criar-perfil" title="Clique para cadastrar">
-            <img src="../img/icone-cruz.png" alt="imagem cruz verde" width="20px" height="20px" class="img-cruz">
-          </a>
-        </div>
-        <div class="table-container table-gestao-estoque">
-          <table>
-            <thead>
-              <tr>
-                <th>Loja</th>
-                <th>Estoque</th>
-                <th>Status</th>
-                <th>Qtd Recomendada</th>
-                <th>Qtd Atual</th>
-                <th>Ações</th>
-              </tr>
-            </thead>
-            <tbody>
-              
-            </tbody>
-          </table>
-        </div>
-        <button class="btn-padrao btn-solicitar-taloes" id="solicitaTalao">Solicitar Talões à Matriz</button>
-      </div>
-  </section>
-  <!-- Modal de Confirmação -->
-  <div id="deleteModal" class="modal">
-    <div class="modal-content">
-        <span class="modal-close">&times;</span>
-        <h3>ATENÇÃO! AÇÃO DE RISCO!</h3>
-        <p>Ao confirmar todos os registros relacionados à esse Estoque serão apagados permanentemente.</p>
-        <button id="cancelDelete">Cancelar</button>
-        <button id="confirmDelete">Excluir</button>
+        <button class="btn-padrao">Salvar</button>        
+      </form>
     </div>
-  </div>
+  </section>
+
   <div class="overlay"></div>
   <script src="../scripts/menu/menu.js"></script>
-  <script src="../scripts/modal/modal.js"></script>
-  <script type="module" src="/scripts/inventoryManagement.js"></script>
-  <script type="module" src="/scripts/logout.js"></script>
+  <script src="../scripts/edit/edit.js"></script>
+  <script type="module" src="/scripts/storeEdit.js"></script>
   <script type="module" src="/scripts/credentialUser.js"></script>
-
 </body>
 
 </html>

@@ -13,7 +13,7 @@ router.get('/user/profile', authMiddleware, UserController.getUserProfile);
 router.post('/register', UserController.registerUser);
 
 // GET - Consult all users
-router.get('/users', authMiddleware, permissionMiddleware("has_user_management"), UserController.consultAllUsers);
+router.get('/users', authMiddleware, UserController.consultAllUsers);
 
 // GET - Consult a specific user by registration
 router.get('/users/:registration', authMiddleware, permissionMiddleware("has_user_management"), UserController.consultUserByRegistration);
