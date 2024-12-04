@@ -23,7 +23,7 @@ document.getElementById("loginForm").addEventListener("submit", async function (
             const data = await response.json();
             sessionStorage.setItem("user", JSON.stringify(data));
 
-            window.location.href = "/dashboard"; 
+            window.location.href = "/home"; 
         }else{
             const errorData = await response.json();
             alert(errorData.message);

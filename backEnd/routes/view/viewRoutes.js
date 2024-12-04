@@ -4,6 +4,10 @@ const router = express.Router();
 const { permissionMiddleware} = require('../../middlewares/permissionMiddleware');
 const {authMiddleware} = require("../../middlewares/authMiddleware");
 
+// Home
+router.get('/home', (req, res) => {
+    res.sendFile(path.join(__dirname, '../../../frontEnd/public/home/home.html'));
+});
 
 //Login e Register
 router.get('/register', (req, res) => {
@@ -85,7 +89,7 @@ router.get('/talon-receipt', authMiddleware, permissionMiddleware("has_receiving
     res.sendFile(path.join(__dirname, '../../../frontEnd/public/talon/view-receipt-talon.html'));
 });
 
-router.get('/talon-maintenance', authMiddleware, permissionMiddleware("has_maintenence"), (req, res) => {
+router.get('/talon-maintenance', authMiddleware, (req, res) => {
     res.sendFile(path.join(__dirname, '../../../frontEnd/public/talon/view-maintenance-talon.html'));
 });
 
