@@ -7,12 +7,10 @@ class InventoryController {
     static async createInventory(req, res) {
         const { store_id, min_quantity, recommended_quantity, current_quantity } = req.body;
         try {
-            // Validação de parâmetros
             if (!store_id || !min_quantity || !recommended_quantity || !current_quantity) {
                 throw new AppError("All fields are required", 400);
             }
 
-            // Chamando o método de criação do service
             const newInventory = await inventoryService.setInventory(store_id, min_quantity, recommended_quantity, current_quantity);
             sendSuccess(res, 201, "Inventory created successfully!", newInventory);
         } catch (error) {
@@ -20,7 +18,6 @@ class InventoryController {
         }
     }
 
-    // Função para consultar todos os inventários
     static async consultInventories(req, res) {
         try {
             const inventories = await inventoryService.consultInventoryAll();
@@ -30,7 +27,6 @@ class InventoryController {
         }
     }
 
-    // Função para consultar um inventário por ID
     static async consultById(req, res) {
         const { inventory_id } = req.params;
         try {
