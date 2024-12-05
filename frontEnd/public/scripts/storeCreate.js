@@ -1,20 +1,17 @@
 document.addEventListener("DOMContentLoaded", function () {
-    // Evento para capturar o envio do formulário
     document.getElementById('cadastroLojaForm').addEventListener('submit', async function (e) {
-      e.preventDefault(); // Previne o envio padrão do formulário
+      e.preventDefault(); 
   
-      // Captura os valores dos campos do formulário
-      const storeId = document.getElementById('codigo-loja').value; // store_id
-      const storeName = document.getElementById('nome').value; // store_name
-      const cep = document.getElementById('CEP').value; // CEP
-      const street = document.getElementById('rua').value; // street
-      const number = document.getElementById('numero').value; // number
-      const isMatriz = document.getElementById('matriz').checked; // matriz
+      const storeId = document.getElementById('codigo-loja').value; 
+      const storeName = document.getElementById('nome').value; 
+      const cep = document.getElementById('CEP').value; 
+      const street = document.getElementById('rua').value; 
+      const number = document.getElementById('numero').value; 
+      const isMatriz = document.getElementById('matriz').checked; 
   
-      console.log("CEP capturado: ", cep); // Verifique se o valor de CEP está correto
+      console.log("CEP capturado: ", cep); 
   
 
-      // Cria o objeto com os dados da loja
       const dadosLoja = {
         store_id: storeId,
         store_name: storeName,
@@ -23,24 +20,21 @@ document.addEventListener("DOMContentLoaded", function () {
         number: number,
         is_matriz: isMatriz,
       };
-      console.log(dadosLoja);  // Verifique se o valor está sendo capturado corretamente
+      console.log(dadosLoja);  
 
       try {
-        // Envia os dados para o backend via POST
         const response = await fetch('http://localhost:3000/store-register', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify(dadosLoja), // Envia os dados em formato JSON
+          body: JSON.stringify(dadosLoja), 
         });
   
-        // Processa a resposta do servidor
         const result = await response.json();
   
         if (response.ok) {
           alert('Loja cadastrada com sucesso!');
-          // Limpa o formulário após o cadastro
           document.getElementById('cadastroLojaForm').reset();
         } else {
           alert('Erro ao cadastrar loja: ' + result.message);

@@ -28,23 +28,24 @@ async function fetchInventory(is_matriz, store_id) {
         toggleSolicitarTalaoButton(is_matriz);
         if (data && data.data) {
             const inventoryData = Array.isArray(data.data) ? data.data : [data.data];
-            allInventories = inventoryData;  // Armazena os dados na variável allInventories
-            renderTable(allInventories);  // Renderiza os dados na tabela
+            allInventories = inventoryData;  
+            renderTable(allInventories);  
         }
     } catch (error) {
         console.error('Erro ao carregar os dados do inventário:', error);
     }
 }
-
 function renderTable(inventoryData) {
     const tableBody = document.querySelector('table tbody');
+    const taloesCard = document.querySelector('#taloes-card'); // Supondo que o card tenha esse id
 
-    if (!tableBody) return;
+    if (!tableBody || !taloesCard) return;
 
     tableBody.innerHTML = '';
 
-    inventoryData.forEach(item => {
+    const storeIdsWithLowStock = []; // Lista para armazenar os IDs das lojas com estoque baixo
 
+    inventoryData.forEach(item => {
         const status = item.current_quantity < item.recommended_quantity ? "Baixo" : "Normal";
         const statusClass = status === "Baixo" ? "gestao-estoque-baixo" : "gestao-estoque-normal";
 
@@ -96,10 +97,34 @@ function renderTable(inventoryData) {
         row.appendChild(recommendedQuantityCell);
         row.appendChild(currentQuantityCell);
         row.appendChild(acoesCell);
-        
+
         tableBody.appendChild(row);
+
+        if (status === "Baixo") {
+            if (!storeIdsWithLowStock.includes(item.store_id)) {
+                storeIdsWithLowStock.push(item.store_id);
+            }
+        }
     });
+
+    taloesCard.innerHTML = storeIdsWithLowStock.length > 0
+        ? `Lojas: ${storeIdsWithLowStock.map(id => `<span class="store-id">${id}</span>`).join(' - ')}`
+        : 'Lojas:';
 }
+
+
+
+document.addEventListener('DOMContentLoaded', async () => {
+    const storeId = getStoreIdFromSession();
+    if (!storeId) return;
+    const stores = await fetch('/stores', { method: 'GET', credentials: 'include' });
+    const storesData = await stores.json();
+    const store = storesData.data.find(store => store.store_id === storeId);
+    const isMatriz = store && store.is_matriz;
+    toggleTaloesCard(isMatriz);
+    await fetchInventory(isMatriz, storeId);
+});
+
 
 document.addEventListener('DOMContentLoaded', async () => {
     const storeId = getStoreIdFromSession();

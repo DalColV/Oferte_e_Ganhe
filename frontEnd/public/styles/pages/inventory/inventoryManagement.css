@@ -40,7 +40,7 @@
   }
   
   .card__gestao-estoque h2 {
-    color: #e31013;
+    color: #080707;
   }
     
   .card__gestao-estoque span {
@@ -84,4 +84,19 @@
     min-height: 35vh !important;
   }
 
-  
+#taloes-card {
+    font-size: 16px;
+    text-align: center;
+    
+}
+
+#taloes-card .store-id {
+    margin: 0 5px; 
+    font-size: 20px;
+}
+
+
+#taloes-card span:last-child::after {
+    content: ""; 
+}
+

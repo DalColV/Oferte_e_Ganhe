@@ -76,14 +76,11 @@
         <h1 class="titulo-principal">Gestão de Estoque</h1>
         <button class="btn__exportar-csv">Exportar .csv</button>
         <div class="card__gestao-estoque card__gestao-estoque-master" id="card_alerta">
-          <h2 class="titulo-secundario" id="">Solicitação de Talões</h2>
+          <h2 class="titulo-secundario">Solicitação de Talões </h2>
           <div class="conteudo__card-master">
-            <h2 class="titulo-secundario">Lojas:</h2>
-            <span>001</span>
-            <span>002</span>
-            <span>003</span>
-            <span>004</span>
-            <span>005</span>
+            <h2 id="taloes-card" class="titulo-secundario"> </h2>
+        </div>
+        
           </div>
         </div>
         <div class="container__estoque-imagem">
@@ -108,9 +105,7 @@
               
             </tbody>
           </table>
-        </div>
-        <button class="btn-padrao btn-solicitar-taloes" id="solicitaTalao">Solicitar Talões à Matriz</button>
-      </div>
+        
   </section>
   <!-- Modal de Confirmação -->
   <div id="deleteModal" class="modal">
@@ -128,6 +123,8 @@
   <script type="module" src="/scripts/inventoryManagement.js"></script>
   <script type="module" src="/scripts/logout.js"></script>
   <script type="module" src="/scripts/credentialUser.js"></script>
+  <script type="module" src="/scripts/card.js"></script>
+
 
 </body>
 
