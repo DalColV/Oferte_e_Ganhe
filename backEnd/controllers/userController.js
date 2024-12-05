@@ -4,6 +4,7 @@ const TokenService = require('../services/authServices/tokenServices');
 const { AppError, handleError } = require('../utils/errors');
 const { sendSuccess } = require('../utils/responses');
 
+
 class UserController {
     //Pegar Perfil Do usuário 
     static async getUserProfile(req, res) {
@@ -146,6 +147,8 @@ class UserController {
             handleError(res, error);
         }
     }
+   
+
 }
 
 module.exports = UserController;

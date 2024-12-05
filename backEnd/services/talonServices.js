@@ -54,6 +54,20 @@ async function talonConsultById(talon_id) {
     }
 }
 
+//Função pra consultar registros de talao pelo estoque
+async function talonConsultByInventory(inventory_id) {
+    try {
+        const talon = await TalonLog.findByPk(inventory_id);
+        if (!talon) {
+            throw new Error(`Talon log with ID ${inventory_id} not found.`);
+        }
+        return talon;
+    } catch (error) {
+        console.error('Error fetching talon by ID:', error);
+        throw error;
+    }
+}
+
 // Função para atualizar um registro de Talon
 async function editTalon(talon_id, {
     inventory_id, 
@@ -110,5 +124,6 @@ module.exports = {
     talonConsultAll, 
     talonConsultById, 
     editTalon, 
-    deleteTalonLogs 
+    deleteTalonLogs,
+    talonConsultByInventory 
 };

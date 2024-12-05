@@ -16,6 +16,9 @@ router.get('/talon-logs/:talon_id', authMiddleware, permissionMiddleware("has_re
 // PUT - Route to update a Talon log
 router.put('/edit-talon/:talon_id', authMiddleware, permissionMiddleware(["has_receiving", "has_shipping", "has_maintenance"]), TalonController.updateTalon);
 
+// GET - Route to consult a specific Talon log by Inventory
+router.get('/talon-logs/:inventory_id', authMiddleware, permissionMiddleware("has_receiving"), TalonController.consultTalonById);
+
 // DELETE - Route to delete a Talon log
 router.delete('/delete-talon/:talon_id', authMiddleware, permissionMiddleware("has_shipping"), TalonController.deleteTalon);
 

@@ -33,6 +33,9 @@ router.post('/password-reset-request', requestPasswordReset);
 // POST - Alterar Senha
 router.post('/password-reset', resetPassword);
 
+//GET - Relatório
+router.post('/users-report-csv', authMiddleware);
+
 module.exports = router;
 
 

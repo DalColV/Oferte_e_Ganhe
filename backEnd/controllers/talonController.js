@@ -52,6 +52,20 @@ class TalonController {
             handleError(res, error);
         }
     }
+    // Consultar um registro de Talon por Inventory
+    static async consultTaloninventory(req, res) {
+        const { inventory_id } = req.params;
+        try {
+            if (!inventory_id) {
+                throw new AppError("Talon ID is required!", 400);
+            }
+
+            const talon = await talonService.talonConsultByInventory(inventory_id);
+            sendSuccess(res, 200, "Talon found", talon);
+        } catch (error) {
+            handleError(res, error);
+        }
+    }
 
     // Atualizar um registro de Talon
     static async updateTalon(req, res) {
