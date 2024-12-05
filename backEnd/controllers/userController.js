@@ -3,6 +3,7 @@ const { hasharPass } = require('../utils/password');
 const TokenService = require('../services/authServices/tokenServices');
 const { AppError, handleError } = require('../utils/errors');
 const { sendSuccess } = require('../utils/responses');
+const reportService = require('../services/reportServices');
 
 
 class UserController {
@@ -148,6 +149,15 @@ class UserController {
         }
     }
    
+    static async exportUserCSV(req, res){
+        try{
+            const csvFilePath = await reportService.exportUsersReport();
+            res.download(csvFilePath, 'usuarios.csv');
+        }catch(error){
+            console.error("Erro ao exportar CSV:", error);
+            res.status(500).json({ message: 'Error exporting CSV', error: error.message });
+        }
+    }
 
 }
 

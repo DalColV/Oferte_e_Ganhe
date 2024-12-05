@@ -34,7 +34,7 @@ router.post('/password-reset-request', requestPasswordReset);
 router.post('/password-reset', resetPassword);
 
 //GET - Relatório
-router.post('/users-report-csv', authMiddleware);
+router.get('/users-report-csv',  UserController.exportUserCSV);
 
 module.exports = router;
 
