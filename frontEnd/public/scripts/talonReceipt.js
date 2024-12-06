@@ -38,10 +38,10 @@ async function fetchInventory() {
             throw new Error('Store ID não encontrado na sessão');
         }
 
+        const isMatrizStore = await isMatriz(store_id);
+        console.log('Loja é matriz:', isMatrizStore);
 
-        const isMatrizStore = await isMatriz(store_id); 
-
-        const endpoint = isMatrizStore ? '/talon-logs' : `/inventory/${store_id}`; 
+        const endpoint = isMatrizStore ? '/talon-logs' : `/inventory/${store_id}`;
 
         const response = await fetch(endpoint, { method: 'GET', credentials: 'include' });
 
@@ -50,45 +50,46 @@ async function fetchInventory() {
         }
 
         const data = await response.json();
-        const id_inventario = data.data.inventory_id;
+        console.log('Dados do inventário:', data);
 
         let allTalon = [];
-
-        if (data.data && data.data.talon_id) {
-            allTalon = [data.data]; 
-        } else {
-            //console.warn('Formato inesperado de dados do talon:', data);
-        }
-
-        if (id_inventario) {
-            const talonLogsEndpoint = `/talon-logs/${id_inventario}`;
-
-            const talonLogsResponse = await fetch(talonLogsEndpoint, { method: 'GET', credentials: 'include' });
-
-            if (!talonLogsResponse.ok) {
-                throw new Error(`Erro ao buscar os registros de talon: ${talonLogsResponse.statusText}`);
-            }
-
-            const talonLogsData = await talonLogsResponse.json();
-
-            if (Array.isArray(talonLogsData.data)) {
-                allTalon = talonLogsData.data;  
-                console.log("Todos os dados de talon:", allTalon);
-            } else if (talonLogsData.data) {
-                allTalon = [talonLogsData.data];  
-                console.log("Dado de talon único:", allTalon);
+        if (isMatrizStore) {
+            if (Array.isArray(data.data)) {
+                allTalon = data.data; 
+                console.log("Dados de talons para matriz:", allTalon);
             } else {
-                console.warn('Nenhum dado de talon encontrado:', talonLogsData);
+                console.warn('Formato inesperado de dados para matriz:', data);
+            }
+        } else {
+            const id_inventario = data.data?.inventory_id;
+            console.log('ID do inventário:', id_inventario);
+
+            if (id_inventario) {
+                const talonLogsEndpoint = `/talon-logs/${id_inventario}`;
+                const talonLogsResponse = await fetch(talonLogsEndpoint, { method: 'GET', credentials: 'include' });
+
+                if (!talonLogsResponse.ok) {
+                    throw new Error(`Erro ao buscar os registros de talon: ${talonLogsResponse.statusText}`);
+                }
+
+                const talonLogsData = await talonLogsResponse.json();
+                console.log('Resposta de talon-logs:', talonLogsData);
+
+                if (Array.isArray(talonLogsData.data)) {
+                    allTalon = talonLogsData.data;
+                } else if (talonLogsData.data) {
+                    allTalon = [talonLogsData.data];
+                } else {
+                    console.warn('Nenhum dado de talon encontrado:', talonLogsData);
+                }
             }
         }
 
         renderTable(allTalon);
-
     } catch (error) {
         console.error("Erro ao carregar os dados do inventário:", error);
     }
 }
-
 
 
 function renderTable(data) {
