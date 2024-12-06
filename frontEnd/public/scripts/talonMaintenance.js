@@ -96,7 +96,7 @@ function renderTable(data) {
         tr.appendChild(createCell(item.store_id || 'N/A'));
         tr.appendChild(createCell(item.shipment || 'N/A'));
         tr.appendChild(createCell(item.talon_status || 'Indefinido'));
-        tr.appendChild(createCell(item.talon_quantity || 'N/A'));
+        tr.appendChild(createCell(item.talon_quantity || 'Indefinido'));
         tr.appendChild(createCell(item.send_date || 'N/A'));
         tr.appendChild(createCell(item.receive_date || 'N/A'));
 
@@ -119,7 +119,7 @@ document.getElementById('busca').addEventListener('input', (event) => {
     const searchValue = event.target.value.trim().toLowerCase();
     
     if (searchValue === '') {
-        renderTable(allTalon); // Se o campo de busca estiver vazio, renderiza todos os dados
+        renderTable(allTalon); 
         return;
     }
 

@@ -33,7 +33,7 @@
       <aside class="menu-lateral">
         <div class="container__menu-lateral menu-lateral__manutencao-taloes">
           <span class="fechar-menu">x</span>
-          <h2 class="titulo-secundario ">Caixa</h2>
+          <h2 class="titulo-secundario" id="profile-name">Caixa</h2>
           <ul class="lista-menu">
             <li>
               <a href="/home">Home</a>
@@ -70,7 +70,7 @@
       </aside>
       <div class="col-sm-10 formulario-padrao container__taloes  ">
         <div class="input-wrapper input-wrapper__taloes">
-          <input type="text" id="#" placeholder="Buscar">
+          <input type="text" id="busca" placeholder="Buscar por Loja, Remessa e Status">
           <i class="fa fa-search"></i>
         </div>
         <h1 class="titulo-principal taloes__titulo-principal">Manutenção de Talões</h1>
@@ -81,8 +81,8 @@
             <thead>
               <tr>
                 <th>Loja</th>
-                <th>Status</th>
                 <th>Remessa</th>
+                <th>Status</th>
                 <th>Nº Talões</th>
                 <th>Envio</th>
                 <th>Entrega</th>
@@ -90,43 +90,10 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>063</td>
-                <td class="taloes-enviados">Enviado</td>
-                <td>0001</td>
-                <td>1000</td>
-                <td>00/00/0000 - 00:00</td>
-                <td>00/00/0000 - 00:00</td>
-                <td>
-                  <button class="btn-tabela">Editar</button>
-                </td>
-              </tr>
-              <tr>
-                <td>063</td>
-                <td class="taloes-recebidos ">Recebido</td>
-                <td>0001</td>
-                <td>1000</td>
-                <td>00/00/0000 - 00:00</td>
-                <td>00/00/0000 - 00:00</td>
-                <td>
-                  <button class="btn-tabela">Editar</button>
-                </td>
-              </tr>
-              <tr>
-                <td>063</td>
-                <td class="taloes-enviados">Enviado</td>
-                <td>0001</td>
-                <td>1000</td>
-                <td>00/00/0000 - 00:00</td>
-                <td>00/00/0000 - 00:00</td>
-                <td>
-                  <button class="btn-tabela">Editar</button>
-                </td>
-              </tr>
+             
             </tbody>
           </table>
         </div>
-        <button class="btn-padrao btn__solicitar-taloes">Solictar Talões ao Gerente</button>
       </div>
     </div>
     </div>
@@ -135,6 +102,10 @@
   <div class="overlay"></div>
   <script src="../scripts/menu/menu.js"></script>
   <script type="module" src="/scripts/logout.js"></script>
+  <script type="module" src="/scripts/talonMaintenance.js"></script>  
+  <script type="module" src="/scripts/credentialUser.js"></script>
+
+
 
 </body>
 
