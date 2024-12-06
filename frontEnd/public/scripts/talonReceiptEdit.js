@@ -42,7 +42,6 @@ document.getElementById('form-editar-recebimento').addEventListener('submit', fu
         if (data.message === "Talon Updated Successfully!") {
             alert('Recebimento editado com sucesso!');
             window.location.href = '/talon-receipt';  
-            alert('Erro ao editar o recebimento!');
         }
     })
     .catch(error => {

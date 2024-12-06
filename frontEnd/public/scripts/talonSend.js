@@ -139,3 +139,11 @@ document.getElementById('busca').addEventListener('input', (event) => {
 document.addEventListener('DOMContentLoaded', () => {
     fetchInventory();
 });
+
+//botao de envio
+const botao = document.getElementById("novoEnvio");
+
+        botao.addEventListener("click", function() {
+            // Redireciona para outra página
+            window.location.href = "/talon-send-new"; // Altere para a URL desejada
+        });

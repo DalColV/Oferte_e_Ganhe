@@ -95,6 +95,11 @@ router.get('/talon-edit-send', authMiddleware, permissionMiddleware(["has_receiv
 
 })
 
+router.get('/talon-send-new', authMiddleware, permissionMiddleware(["has_receiving", "has_shpping", "has_maintenece"]), (req, res) => {
+    res.sendFile(path.join(__dirname, '../../../frontEnd/public/talon/view-create-talon.html'));
+
+})
+
 router.get('/talon-receipt', authMiddleware, permissionMiddleware("has_receiving"), (req, res) => {
     res.sendFile(path.join(__dirname, '../../../frontEnd/public/talon/view-receipt-talon.html'));
 });

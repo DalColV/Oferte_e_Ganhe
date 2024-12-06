@@ -8,10 +8,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
   <link rel="stylesheet" href="../styles/reset.css">
   <link rel="stylesheet" href="../styles/style.css">
-  <title>Cadastro de Lojas</title>
+  <title>Novo Envio de Talões</title>
 </head>
 
 <body>
@@ -33,68 +32,76 @@
       <aside class="menu-lateral">
         <div class="container__menu-lateral">
           <span class="fechar-menu">x</span>
-          <h2 class="titulo-secundario" id="profile-name">MÓDULOS</h2>
+          <h2 class="titulo-secundario">Master</h2>
           <ul class="lista-menu">
             <li>
               <a href="/dashboard">Home</a>
             </li>
             <li>
-              <a href="/user-management">Gestão de Usuários</a>
+              <a href="../management/view-user-management.html">Gestão de Usuários</a>
             </li>
             <li>
-              <a href="/profile-management">Gestão de Perfis </a>
+              <a href="../management/view-profile-management.html">Gestão de Perfis </a>
             </li>
             <li>
-              <a href="/inventory-management">Gestão de Estoque</a>
+              <a href="../talon/view-send-talon.html">Envio de Talões</a>
             </li>
             <li>
-              <a href="/store-management">Gestão de Lojas</a>
+              <a href="../talon/view-receipt-talon.html">Recimento de Talões</a>
             </li>
             <li>
-              <a href="/talon-send">Envio de Talões</a>
+              <a href="../inventory/view-inventory-management.html">Gestão de Estoque</a>
             </li>
             <li>
-              <a href="/talon-receipt">Recimento de Talões</a>
+              <a href="../store/view-store-register.html">Cadastrar Loja</a>
             </li>
             <li>
-              <a href="/talon-maintenance">Manutenção de Talões</a>
-            </li>
-            <li>
-            <a href="/dashboard">Relatórios</a>
+              <a href="../talon/view-maintenance-talon.html">Manutenção de Talões</a>
             </li>
           </ul>
-          <div class="container__botao-logout ">
-            <button class="btn-logout">Logout</button>
-          </div>
+          <button class="btn-logout">Logout</button>
         </div>
       </aside>
-      <div class=" container-global container__cadastro-loja formulario-padrao ">
-        <h1 class="titulo-principal titulo__cadastro-loja">Registrar Novo Envio de Talões</h1>
+      <div class="col-lg-2"></div>
+      <form class="col-lg-8 container-global formulario-padrao formulario-editar">
+        <h1 class="titulo-principal">Novo Envio de Talões</h1>
+        <label for="loja">Loja</label>
+        <select name="loja">
+          <option selected disabled></option>
+      
+        </select>
+        <label for="status">Status</label>
+        <select name="status">
+          <option selected disabled></option>
         
-        <label for="codigo-loja">Remessa</label>
-        <input type="text" name="remessa" id="remessa">
-        <label for="nome">Nome da Loja</label>
-        <input type="text" name="nome">
-        <label for="CEP">CEP</label>
-        <input type="number" name="CEP">
-        <label for="rua">Rua</label>
-        <input type="text" name="rua">
-        <label for="numero">Número</label>
-        <input type="number" name="numero">
-        <div class="container__tipo-loja">
-          <div class="box-matriz">
-            <label for="matriz">Matriz</label>
-            <input type="checkbox" name="matriz">
-          </div>          
-        </div>
-        <button class="btn-padrao btn__voltar" onclick="voltarPagina(event)">Voltar</button>
-        <button class="btn-padrao btn__salvar">Salvar</button>
-      </div>
+
+        </select>
+        <label for="remessa">Remessa</label>
+        <input type="text" name="remessa" id="">
+        <label for="num-de-taloes">Nº de Talões</label>
+        <input type="number" name="num-de-taloes" id="">        
+        <label for="pedido">Pedido</label>
+        <input type="text" name="pedido" id="">
+        <label for="envio">Envio</label>
+        <input type="text" name="envio" id="">
+        
+
+      </form>
+      <button class="btn-padrao btn__voltar" onclick="voltarPagina()">Voltar</button>
+      <button class="btn-padrao btn__salvar">Salvar</button>
+      <div class="col-lg-2"></div>
     </div>
   </section>
+  </div>
+
+  <dialog id="modal">
+    <h1>Você excedeu o número de tentativas</h1>
+    <p>Espere para tentar novamente</p>
+    <button type="button" class="btn-padrao btn-modal close-modal">OK</button>
+  </dialog>
 
   <div class="overlay"></div>
-  <script src="../../public/scripts/menu/menu.js"></script>
+  <script src="../scripts/menu/menu.js"></script>
   <script src="../scripts/edit/edit.js"></script>
 </body>
 
