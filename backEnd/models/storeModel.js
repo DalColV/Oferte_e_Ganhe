@@ -39,6 +39,7 @@ const Store = sequelize.define(
 Store.associate = (models) => {
   Store.hasMany(models.User, { foreignKey: 'store_id', as: 'users' });
   Store.hasOne(models.Inventory, { foreignKey: 'store_id', as: 'inventory' });
+  Store.hasMany(models.TalonLogs, { foreignKey: 'store_id', as: 'talonLogs' });
 };
 
 module.exports =  Store ;

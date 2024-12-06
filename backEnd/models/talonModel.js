@@ -29,10 +29,6 @@ const TalonLogs = sequelize.define(
       type: DataTypes.DATE,
       allowNull: false,
     },
-    order_date: {
-      type: DataTypes.DATE,
-      allowNull: false,
-    },
     talon_status: {
       type: DataTypes.ENUM('Sent', 'Received', 'Misplaced'),
       allowNull: false,
@@ -49,6 +45,14 @@ const TalonLogs = sequelize.define(
         key: 'registration',
       },
     },
+    store_id: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      references: {
+        model: 'store',
+        key: 'store_id'
+      }
+    },
   },
   {
     tableName: 'talon_logs',
@@ -59,6 +63,8 @@ const TalonLogs = sequelize.define(
 TalonLogs.associate = (models) => {
   TalonLogs.belongsTo(models.Inventory, { foreignKey: 'inventory_id', as: 'inventory' });
   TalonLogs.belongsTo(models.User, { foreignKey: 'registration', as: 'user' });
+  TalonLogs.belongsTo(models.Store, { foreignKey: 'store_id', as: 'store' });
+
 };
 
 module.exports = TalonLogs;

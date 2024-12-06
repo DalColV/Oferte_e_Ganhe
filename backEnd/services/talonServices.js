@@ -8,10 +8,12 @@ async function insertTalon({
     shipment, 
     talon_quantity, 
     send_date, 
-    order_date, 
+    order_date,
     talon_status, 
     receive_date, 
-    registration 
+    registration,
+    store_id,
+    expected_delivery 
 }) {
     try {
         const newTalon = await TalonLogs.create({
@@ -23,6 +25,8 @@ async function insertTalon({
             talon_status,
             receive_date,
             registration,
+            store_id,
+            expected_delivery,
         });
         return newTalon;
     } catch (error) {
@@ -61,8 +65,8 @@ async function getTalonsByStore(store_id) {
         const talons = await TalonLogs.findOne({
             include: {
                 model: Inventory,
-                where: { store_id }, // Filtra pelo store_id em Inventory
-                as: 'inventory', // Certifique-se de que o alias corresponde à associação definida
+                where: { store_id }, 
+                as: 'inventory', 
             },
         });
         
@@ -84,11 +88,13 @@ async function editTalon(talon_id, {
     inventory_id, 
     shipment, 
     talon_quantity, 
-    send_date, 
+    send_date,
     order_date, 
     talon_status, 
     receive_date, 
-    registration 
+    registration,
+    store_id,
+    
 }) {
     try {
         const talon = await TalonLogs.findByPk(talon_id);
@@ -105,6 +111,8 @@ async function editTalon(talon_id, {
             talon_status,
             receive_date,
             registration,
+            store_id,
+            
         });
 
         return talon;

@@ -183,7 +183,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 document.getElementById('campo__buscar-id').addEventListener('input', (event) => {
     const searchValue = event.target.value.trim().toLowerCase();
-    const filteredInventories = allTalon.filter(inventory => {
+    const filteredInventories = allInventories.filter(inventory => {
         return (
             (inventory.inventory_id && inventory.inventory_id.toString().toLowerCase().includes(searchValue)) ||
             (inventory.store_id && inventory.store_id.toString().toLowerCase().includes(searchValue))

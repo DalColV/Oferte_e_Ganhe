@@ -1,31 +1,42 @@
 let allTalon = [];
 
-// Função para obter o store_id da sessão
 function getStoreIdFromSession() {
     const sessionData = JSON.parse(sessionStorage.getItem('user'));
-    return sessionData && sessionData.user ? sessionData.user.store_id : null;
+    const storeId = sessionData && sessionData.user && sessionData.user.store_id ? sessionData.user.store_id : null;
+    return storeId;
 }
-
 async function isMatriz(store_id) {
+
     try {
-        if (!store_id) throw new Error('Store ID não encontrado na sessão');
+        if (!store_id) {
+            throw new Error('Store ID não encontrado na sessão');
+        }
 
         const response = await fetch(`/stores/${store_id}`, { method: 'GET', credentials: 'include' });
 
-        if (!response.ok) throw new Error(`Erro ao verificar matriz: ${response.statusText}`);
+        if (!response.ok) {
+            throw new Error(`Erro ao verificar matriz: ${response.statusText}`);
+        }
 
         const result = await response.json();
-        return result.data ? result.data.is_matriz : false;
+
+        if (!result.data || typeof result.data.is_matriz !== 'boolean') {
+            throw new Error("Resposta inesperada: 'is_matriz' não é um booleano ou está ausente");
+        }
+
+        return result.data.is_matriz;
     } catch (error) {
         console.error("Erro ao verificar se a loja é matriz:", error);
-        return false;
+        throw error; 
     }
 }
 
 async function fetchInventory() {
     try {
         const store_id = getStoreIdFromSession();
-        if (!store_id) throw new Error('Store ID não encontrado na sessão');
+        if (!store_id) {
+            throw new Error('Store ID não encontrado na sessão');
+        }
 
         const isMatrizStore = await isMatriz(store_id);
         console.log('Loja é matriz:', isMatrizStore);
@@ -34,13 +45,21 @@ async function fetchInventory() {
 
         const response = await fetch(endpoint, { method: 'GET', credentials: 'include' });
 
-        if (!response.ok) throw new Error(`Erro ao buscar os dados do inventário: ${response.statusText}`);
+        if (!response.ok) {
+            throw new Error(`Erro ao buscar os dados do inventário: ${response.statusText}`);
+        }
 
         const data = await response.json();
         console.log('Dados do inventário:', data);
 
+        let allTalon = [];
         if (isMatrizStore) {
-            allTalon = Array.isArray(data.data) ? data.data : [data.data];
+            if (Array.isArray(data.data)) {
+                allTalon = data.data; 
+                console.log("Dados de talons para matriz:", allTalon);
+            } else {
+                console.warn('Formato inesperado de dados para matriz:', data);
+            }
         } else {
             const id_inventario = data.data?.inventory_id;
             console.log('ID do inventário:', id_inventario);
@@ -49,12 +68,20 @@ async function fetchInventory() {
                 const talonLogsEndpoint = `/talon-logs/${id_inventario}`;
                 const talonLogsResponse = await fetch(talonLogsEndpoint, { method: 'GET', credentials: 'include' });
 
-                if (!talonLogsResponse.ok) throw new Error(`Erro ao buscar os registros de talon: ${talonLogsResponse.statusText}`);
+                if (!talonLogsResponse.ok) {
+                    throw new Error(`Erro ao buscar os registros de talon: ${talonLogsResponse.statusText}`);
+                }
 
                 const talonLogsData = await talonLogsResponse.json();
                 console.log('Resposta de talon-logs:', talonLogsData);
 
-                allTalon = Array.isArray(talonLogsData.data) ? talonLogsData.data : [talonLogsData.data];
+                if (Array.isArray(talonLogsData.data)) {
+                    allTalon = talonLogsData.data;
+                } else if (talonLogsData.data) {
+                    allTalon = [talonLogsData.data];
+                } else {
+                    console.warn('Nenhum dado de talon encontrado:', talonLogsData);
+                }
             }
         }
 
@@ -64,11 +91,10 @@ async function fetchInventory() {
     }
 }
 
-// Função para renderizar a tabela com os talões
-function renderTable(data) {
-    const tbody = document.querySelector('.tabela-taloes tbody');
-    if (!tbody) return;
 
+function renderTable(data) {
+
+    const tbody = document.querySelector('.tabela-taloes tbody');
     tbody.innerHTML = ''; 
 
     if (!data || data.length === 0) {
@@ -98,37 +124,51 @@ function renderTable(data) {
         tr.appendChild(createCell(item.talon_status || 'Indefinido'));
         tr.appendChild(createCell(item.talon_quantity || 'N/A'));
         tr.appendChild(createCell(item.send_date || 'N/A'));
-        tr.appendChild(createCell(item.receive_date || 'N/A'));
+        tr.appendChild(createCell(item.order_date || 'N/A'));
 
         const actionsCell = document.createElement('td');
+
+        // Botão Editar
         const editButton = document.createElement('button');
         editButton.classList.add('btn-tabela__editar');
         const editLink = document.createElement('a');
-        editLink.href = `./talon-edit-receiving?id=${item.talon_id || ''}`;
+        editLink.href = `./talon-edit-send?id=${item.talon_id || ''}`;
         editLink.textContent = 'Editar';
         editButton.appendChild(editLink);
-        actionsCell.appendChild(editButton);
 
+        // // Botão Excluir
+        // const deleteButton = document.createElement('button');
+        // deleteButton.classList.add('btn-tabela__deletar');
+        // deleteButton.setAttribute('data-talon-id', item.talon_id || ''); 
+        // const deleteImg = document.createElement('img');
+        // deleteImg.src = '../../img/icone_lixeira.png';
+        // deleteImg.alt = 'Ícone de lixeira';
+        // deleteImg.width = 15;
+        // deleteImg.height = 15;
+        // deleteButton.appendChild(deleteImg);
+
+        actionsCell.appendChild(editButton);
+        //actionsCell.appendChild(deleteButton);
         tr.appendChild(actionsCell);
+
         tbody.appendChild(tr);
     });
 }
 
-// Função de filtro para o campo de busca
-document.getElementById('busca').addEventListener('input', (event) => {
-    const searchValue = event.target.value.trim().toLowerCase();
-    const filteredTalon = allTalon.filter(talon => {
-        return (
-            (talon.talon_id && talon.talon_id.toString().toLowerCase().includes(searchValue)) ||
-            (talon.store_id && talon.store_id.toString().toLowerCase().includes(searchValue)) ||
-            (talon.shipment && talon.shipment.toLowerCase().includes(searchValue)) ||
-            (talon.talon_status && talon.talon_status.toLowerCase().includes(searchValue))
-        );
+// Função para filtrar os dados da tabela
+function filtrarTabela() {
+    const buscaFiltro = document.getElementById('busca').value.toLowerCase();
+  
+    const dadosFiltrados = allTalon.filter(item => {
+        const correspondeRemessa = item.shipment?.toLowerCase().includes(buscaFiltro);
+        const correspondeStatus = item.talon_status?.toLowerCase().includes(buscaFiltro);
+        return (correspondeRemessa || correspondeStatus || buscaFiltro === '');
     });
-    renderTable(filteredTalon);
+  
+    renderTable(dadosFiltrados);  
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    fetchInventory(); 
 });
 
-// Chamada para carregar os dados após o DOM ser carregado
-document.addEventListener('DOMContentLoaded', () => {
-    fetchInventory();
-});

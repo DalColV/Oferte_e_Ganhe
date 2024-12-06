@@ -5,9 +5,9 @@ const { sendSuccess } = require('../utils/responses');
 class TalonController {
     // Criar um novo registro de Talon
     static async createTalon(req, res) {
-        const { inventory_id, shipment, talon_quantity, send_date, order_date, talon_status, receive_date, registration } = req.body;
+        const { inventory_id, shipment, talon_quantity, send_date, order_date, talon_status, receive_date, registration, store_id } = req.body;
         try {
-            if (!inventory_id || !shipment || !talon_quantity || !talon_status || !registration) {
+            if (!inventory_id || !shipment || !talon_quantity || !talon_status || !registration || store_id) {
                 throw new AppError("Required fields are missing!", 400);
             }
 
@@ -18,9 +18,10 @@ class TalonController {
                 send_date,
                 order_date,
                 talon_status,
-                
                 receive_date,
                 registration,
+                store_id,
+                expected_delivery,
             });
 
             sendSuccess(res, 201, "Talon Created Successfully!", newTalon);
@@ -75,7 +76,7 @@ class TalonController {
     // Atualizar um registro de Talon
     static async updateTalon(req, res) {
         const { talon_id } = req.params;
-        const { inventory_id, shipment, talon_quantity, send_date, order_date, talon_status, receive_date, registration } = req.body;
+        const { inventory_id, shipment, talon_quantity, send_date, order_date, talon_status, receive_date, registration, store_id } = req.body;
         try {
             if (!talon_id) {
                 throw new AppError("Talon ID is required!", 400);
@@ -90,6 +91,8 @@ class TalonController {
                 talon_status,
                 receive_date,
                 registration,
+                store_id,
+                
             });
 
             sendSuccess(res, 200, "Talon Updated Successfully!", updatedTalon);
