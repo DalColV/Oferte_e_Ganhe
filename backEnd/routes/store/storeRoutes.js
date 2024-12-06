@@ -13,7 +13,7 @@ router.post('/store-register', authMiddleware, permissionMiddleware("has_store_m
 router.get('/stores', StoreController.consultStores);
 
 // GET - Route to consult a specific store by ID
-router.get('/stores/:store_id', authMiddleware, permissionMiddleware("has_store_management"), StoreController.consultById);
+router.get('/stores/:store_id', authMiddleware, permissionMiddleware(["has_store_management", "has_receiving", "has_shipping", "has_maintenece"]), StoreController.consultById);
 
 // PUT - Route to update a store
 router.put('/store-edit/:store_id', authMiddleware, permissionMiddleware("has_store_management"), StoreController.updateStore);

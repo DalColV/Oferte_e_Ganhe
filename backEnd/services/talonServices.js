@@ -1,4 +1,6 @@
-const TalonLog  = require('../models/talonModel');
+const TalonLogs  = require('../models/talonModel');
+const Inventory = require('../models/inventoryModel');
+const Store = require('../models/storeModel');
 
 // Função para criar um novo registro de Talon
 async function insertTalon({ 
@@ -12,7 +14,7 @@ async function insertTalon({
     registration 
 }) {
     try {
-        const newTalon = await TalonLog.create({
+        const newTalon = await TalonLogs.create({
             inventory_id,
             shipment,
             talon_quantity,
@@ -32,7 +34,7 @@ async function insertTalon({
 // Função para consultar todos os registros de Talon
 async function talonConsultAll() {
     try {
-        const talons = await TalonLog.findAll();
+        const talons = await TalonLogs.findAll();
         return talons;
     } catch (error) {
         console.error('Error fetching all talons:', error);
@@ -43,7 +45,7 @@ async function talonConsultAll() {
 // Função para consultar um registro de Talon por ID
 async function talonConsultById(talon_id) {
     try {
-        const talon = await TalonLog.findByPk(talon_id);
+        const talon = await TalonLogs.findByPk(talon_id);
         if (!talon) {
             throw new Error(`Talon log with ID ${talon_id} not found.`);
         }
@@ -54,19 +56,28 @@ async function talonConsultById(talon_id) {
     }
 }
 
-//Função pra consultar registros de talao pelo estoque
-async function talonConsultByInventory(inventory_id) {
+async function getTalonsByStore(store_id) {
     try {
-        const talon = await TalonLog.findByPk(inventory_id);
-        if (!talon) {
-            throw new Error(`Talon log with ID ${inventory_id} not found.`);
+        const talons = await TalonLogs.findOne({
+            include: {
+                model: Inventory,
+                where: { store_id }, // Filtra pelo store_id em Inventory
+                as: 'inventory', // Certifique-se de que o alias corresponde à associação definida
+            },
+        });
+        
+        if (!talons.length) {
+            throw new Error(`No talons found for store_id: ${store_id}`);
         }
-        return talon;
+
+        return talons;
     } catch (error) {
-        console.error('Error fetching talon by ID:', error);
+        console.error('Erro ao buscar talons:', error);
         throw error;
     }
 }
+
+
 
 // Função para atualizar um registro de Talon
 async function editTalon(talon_id, {
@@ -80,7 +91,7 @@ async function editTalon(talon_id, {
     registration 
 }) {
     try {
-        const talon = await TalonLog.findByPk(talon_id);
+        const talon = await TalonLogs.findByPk(talon_id);
         if (!talon) {
             throw new Error(`Talon log with ID ${talon_id} not found.`);
         }
@@ -106,7 +117,7 @@ async function editTalon(talon_id, {
 // Função para deletar um registro de Talon
 async function deleteTalonLogs(talon_id) {
     try {
-        const talon = await TalonLog.findByPk(talon_id);
+        const talon = await TalonLogs.findByPk(talon_id);
         if (!talon) {
             throw new Error(`Talon log with ID ${talon_id} not found.`);
         }
@@ -125,5 +136,5 @@ module.exports = {
     talonConsultById, 
     editTalon, 
     deleteTalonLogs,
-    talonConsultByInventory 
+    getTalonsByStore 
 };

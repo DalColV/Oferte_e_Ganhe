@@ -37,7 +37,7 @@ const Inventory = sequelize.define(
 // Associações
 Inventory.associate = (models) => {
   Inventory.belongsTo(models.Store, { foreignKey: 'store_id', as: 'store' });
-  Inventory.hasMany(models.TalonLog, { foreignKey: 'inventory_id', as: 'talonLogs' });
+  Inventory.hasMany(models.TalonLogs, { foreignKey: 'inventory_id', as: 'talonLogs' });
 };
 
 module.exports =  Inventory ;

@@ -85,6 +85,11 @@ router.get('/talon-send',authMiddleware, permissionMiddleware("has_shipping"), (
     res.sendFile(path.join(__dirname, '../../../frontEnd/public/talon/view-send-talon.html'));
 });
 
+router.get('/talon-edit', authMiddleware, permissionMiddleware(["has_receiving", "has_shpping", "has_maintenece"]), (req, res) => {
+    res.sendFile(path.join(__dirname, '../../../frontEnd/public/talon/view-edit-receipt-talon.html'));
+
+})
+
 router.get('/talon-receipt', authMiddleware, permissionMiddleware("has_receiving"), (req, res) => {
     res.sendFile(path.join(__dirname, '../../../frontEnd/public/talon/view-receipt-talon.html'));
 });

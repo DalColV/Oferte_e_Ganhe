@@ -18,6 +18,7 @@ class TalonController {
                 send_date,
                 order_date,
                 talon_status,
+                
                 receive_date,
                 registration,
             });
@@ -52,20 +53,24 @@ class TalonController {
             handleError(res, error);
         }
     }
-    // Consultar um registro de Talon por Inventory
-    static async consultTaloninventory(req, res) {
-        const { inventory_id } = req.params;
+    // Consultar um registro de Talon por Store
+    static async consultTalonByStore(req, res) {
+        const { store_id } = req.params;
+        console.log('Store ID recebido:', store_id);
+
         try {
-            if (!inventory_id) {
-                throw new AppError("Talon ID is required!", 400);
+            if (!store_id) {
+                throw new Error("Store ID is required!");
             }
 
-            const talon = await talonService.talonConsultByInventory(inventory_id);
-            sendSuccess(res, 200, "Talon found", talon);
+            // Chama o serviço para buscar os talons
+            const talons = await talonService.getTalonsByStore(store_id);
+            sendSuccess(res, 200, "Talons found", talons);
         } catch (error) {
             handleError(res, error);
         }
     }
+
 
     // Atualizar um registro de Talon
     static async updateTalon(req, res) {

@@ -37,13 +37,12 @@ async function fetchInventory(is_matriz, store_id) {
 }
 function renderTable(inventoryData) {
     const tableBody = document.querySelector('table tbody');
-    const taloesCard = document.querySelector('#taloes-card'); // Supondo que o card tenha esse id
-
+    const taloesCard = document.querySelector('#taloes-card'); 
     if (!tableBody || !taloesCard) return;
 
     tableBody.innerHTML = '';
 
-    const storeIdsWithLowStock = []; // Lista para armazenar os IDs das lojas com estoque baixo
+    const storeIdsWithLowStock = []; 
 
     inventoryData.forEach(item => {
         const status = item.current_quantity < item.recommended_quantity ? "Baixo" : "Normal";
@@ -184,7 +183,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 document.getElementById('campo__buscar-id').addEventListener('input', (event) => {
     const searchValue = event.target.value.trim().toLowerCase();
-    const filteredInventories = allInventories.filter(inventory => {
+    const filteredInventories = allTalon.filter(inventory => {
         return (
             (inventory.inventory_id && inventory.inventory_id.toString().toLowerCase().includes(searchValue)) ||
             (inventory.store_id && inventory.store_id.toString().toLowerCase().includes(searchValue))

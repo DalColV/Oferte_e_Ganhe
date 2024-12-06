@@ -14,7 +14,10 @@ router.get('/talon-logs', authMiddleware, permissionMiddleware("has_receiving"),
 router.get('/talon-logs/:talon_id', authMiddleware, permissionMiddleware("has_receiving"), TalonController.consultTalonById);
 
 // PUT - Route to update a Talon log
-router.put('/edit-talon/:talon_id', authMiddleware, permissionMiddleware(["has_receiving", "has_shipping", "has_maintenance"]), TalonController.updateTalon);
+router.put('/talon-edit/:talon_id', authMiddleware, permissionMiddleware(["has_shipping", "has_receiving", "has_maintenece"]), TalonController.updateTalon)
+
+// GET - Route to consult talon by store
+router.get('/talon/:store_id', authMiddleware, TalonController.consultTalonByStore);
 
 // GET - Route to consult a specific Talon log by Inventory
 router.get('/talon-logs/:inventory_id', authMiddleware, permissionMiddleware("has_receiving"), TalonController.consultTalonById);
