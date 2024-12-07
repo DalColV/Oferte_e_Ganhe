@@ -135,12 +135,11 @@ document.getElementById('busca').addEventListener('input', (event) => {
     renderTable(filteredTalon);
 });
 
-// Chamada para carregar os dados após o DOM ser carregado
 document.addEventListener('DOMContentLoaded', () => {
     fetchInventory();
 });
 
-//botao de envio
+
 const botao = document.getElementById("novoEnvio");
 
         botao.addEventListener("click", function() {

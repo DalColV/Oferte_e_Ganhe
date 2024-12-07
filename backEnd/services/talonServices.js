@@ -12,8 +12,7 @@ async function insertTalon({
     talon_status, 
     receive_date, 
     registration,
-    store_id,
-    expected_delivery 
+    store_id, 
 }) {
     try {
         const newTalon = await TalonLogs.create({
@@ -26,7 +25,6 @@ async function insertTalon({
             receive_date,
             registration,
             store_id,
-            expected_delivery,
         });
         return newTalon;
     } catch (error) {

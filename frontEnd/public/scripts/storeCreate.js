@@ -9,8 +9,6 @@ document.addEventListener("DOMContentLoaded", function () {
       const number = document.getElementById('numero').value; 
       const isMatriz = document.getElementById('matriz').checked; 
   
-      console.log("CEP capturado: ", cep); 
-  
 
       const dadosLoja = {
         store_id: storeId,

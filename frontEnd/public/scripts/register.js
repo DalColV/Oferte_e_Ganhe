@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         stores.forEach((store) => {
             const option = document.createElement('option');
             option.value = store.store_id;
-            option.textContent = store.store_name;
+            option.textContent = store.store_id;
             storeSelect.appendChild(option);
         });
     } catch (error) {

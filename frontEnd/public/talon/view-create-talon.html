@@ -32,7 +32,7 @@
       <aside class="menu-lateral">
         <div class="container__menu-lateral">
           <span class="fechar-menu">x</span>
-          <h2 class="titulo-secundario">Master</h2>
+          <h2 class="titulo-secundario" id="profile-name">Master</h2>
           <ul class="lista-menu">
             <li>
               <a href="/dashboard">Home</a>
@@ -63,32 +63,39 @@
         </div>
       </aside>
       <div class="col-lg-2"></div>
-      <form class="col-lg-8 container-global formulario-padrao formulario-editar">
-        <h1 class="titulo-principal">Novo Envio de Talões</h1>
-        <label for="loja">Loja</label>
-        <select name="loja">
+      <form id="cadastroTalaoForm" class="col-lg-8 container-global formulario-padrao formulario-editar">
+        <h1 class="titulo-principal">Regitrar Novo Envio de Talões</h1>
+        <label for="matricula">Sua Matrícula</label>
+        <input type="text" name="matricula" id="matricula">
+        <label for="loja" >Loja</label>
+        <select name="loja" id="loja">
           <option selected disabled></option>
       
         </select>
         <label for="status">Status</label>
-        <select name="status">
+        <select name="status" id="status">
           <option selected disabled></option>
-        
+          <option value="recebido">Recebido</option>
+          <option value="enviado" >Enviado</option>
+          <option value="extraviado" >Extraviado</option>
 
         </select>
         <label for="remessa">Remessa</label>
-        <input type="text" name="remessa" id="">
+        <input type="text" name="remessa" id="remessa">
         <label for="num-de-taloes">Nº de Talões</label>
-        <input type="number" name="num-de-taloes" id="">        
-        <label for="pedido">Pedido</label>
-        <input type="text" name="pedido" id="">
-        <label for="envio">Envio</label>
-        <input type="text" name="envio" id="">
-        
+        <input type="number" name="num-de-taloes" id="quantidade"> 
+        <label for="envio">Data Envio</label>
+        <input type="datetime-local" name="envio" id="envio">       
+        <label for="pedido">Entrega Prevista</label>
+        <input type="datetime-local" name="pedido" id="entrega">
 
+        <!-- Campo oculto para o id_estoque -->
+        <input type="hidden" name="id_estoque" id="id_estoque">
+        
+        <button class="btn-padrao btn__voltar" id="voltar" onclick="voltarPagina()">Voltar</button>
+        <button class="btn-padrao btn__salvar">Salvar</button>
       </form>
-      <button class="btn-padrao btn__voltar" onclick="voltarPagina()">Voltar</button>
-      <button class="btn-padrao btn__salvar">Salvar</button>
+      
       <div class="col-lg-2"></div>
     </div>
   </section>
@@ -102,7 +109,11 @@
 
   <div class="overlay"></div>
   <script src="../scripts/menu/menu.js"></script>
-  <script src="../scripts/edit/edit.js"></script>
+  <script src="../scripts/edit/edit.js"></script>  
+  <script type="module" src="/scripts/talonCreateNew.js"></script>  
+  <script type="module" src="/scripts/credentialUser.js"></script>
+  <script type="module" src="/scripts/logout.js"></script>
+
 </body>
 
 </html>

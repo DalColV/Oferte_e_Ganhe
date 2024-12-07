@@ -7,7 +7,7 @@ class TalonController {
     static async createTalon(req, res) {
         const { inventory_id, shipment, talon_quantity, send_date, order_date, talon_status, receive_date, registration, store_id } = req.body;
         try {
-            if (!inventory_id || !shipment || !talon_quantity || !talon_status || !registration || store_id) {
+            if ( !shipment || !talon_quantity || !talon_status || !registration || !store_id) {
                 throw new AppError("Required fields are missing!", 400);
             }
 
@@ -21,7 +21,7 @@ class TalonController {
                 receive_date,
                 registration,
                 store_id,
-                expected_delivery,
+                
             });
 
             sendSuccess(res, 201, "Talon Created Successfully!", newTalon);
