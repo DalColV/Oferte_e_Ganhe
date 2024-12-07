@@ -1,4 +1,5 @@
 let allStores = [];
+let currentStoreId = null;
 
 // Função para buscar as Lojas do sistema
 async function getStores() {
@@ -41,6 +42,7 @@ function renderTabelaStores(stores) {
         const cepCell = document.createElement('td');
         cepCell.textContent = store.cep || 'CEP não disponível';
 
+
         // Célula de Ações
         const acoesCell = document.createElement('td');
         const editButton = document.createElement('button');
@@ -72,7 +74,55 @@ function renderTabelaStores(stores) {
         tableBody.appendChild(row);
     });
 }
+// Evento para o botão de deletar (abertura do modal)
+document.addEventListener('DOMContentLoaded', () => {
+    const tableBody = document.querySelector('tbody');
+    const modal = document.getElementById('deleteModal');
+    const closeModal = document.querySelector('.modal-close');
+    const confirmDeleteButton = document.getElementById('confirmDelete');
+    const cancelDeleteButton = document.getElementById('cancelDelete');
 
+    tableBody.addEventListener('click', function(event) {
+        if (event.target.closest('.btn-tabela__deletar')) {
+            const deleteButton = event.target.closest('.btn-tabela__deletar');
+            currentStoreId = deleteButton.getAttribute('data-store-id');  // Pega o ID da loja
+            modal.style.display = 'flex';  // Abre o modal
+        }
+    });
+
+    // Fechar o modal
+    closeModal.addEventListener('click', () => {
+        modal.style.display = 'none';
+        currentStoreId = null;
+    });
+
+    // Cancelar a exclusão
+    cancelDeleteButton.addEventListener('click', () => {
+        modal.style.display = 'none';
+        currentStoreId = null;
+    });
+
+    // Confirmar a exclusão da loja
+    confirmDeleteButton.addEventListener('click', async () => {
+        try {
+            // Chamar a API para excluir a loja
+            const response = await fetch(`/store-delete/${currentStoreId}`, {
+                method: 'DELETE',
+            });
+
+            if (response.ok) {
+                // Recarregar as lojas após a exclusão
+                getStores();
+                modal.style.display = 'none';  // Fechar o modal
+                currentStoreId = null;  // Resetar o ID da loja
+            } else {
+                console.error('Erro ao excluir loja');
+            }
+        } catch (error) {
+            console.error('Erro ao deletar a loja:', error);
+        }
+    });
+});
 
 // Evento de busca na tabela
 document.getElementById('campo__buscar-id').addEventListener('input', (event) => {
@@ -89,58 +139,4 @@ document.getElementById('campo__buscar-id').addEventListener('input', (event) =>
 document.addEventListener('DOMContentLoaded', () => {
     console.log("Página carregada, chamando a função getUsers");
     getStores();
-});
-
-//Deleção de Loja
-
-document.addEventListener('DOMContentLoaded', () => {
-    const tableBody = document.querySelector('tbody');
-    const modal = document.getElementById('deleteModal');
-    const closeModal = document.querySelector('.modal-close');
-    const confirmDeleteButton = document.getElementById('confirmDelete');
-    const cancelDeleteButton = document.getElementById('cancelDelete');
-    
-    let currentStoreId = null;
-
-    tableBody.addEventListener('click', function(event) {
-        if (event.target.closest('.btn-tabela__deletar')) {
-            const deleteButton = event.target.closest('.btn-tabela__deletar');
-            currentStoreId = deleteButton.getAttribute('data-store-id'); 
-            modal.style.display = 'flex'; 
-        }
-    });
-
-    closeModal.addEventListener('click', () => {
-        modal.style.display = 'none';
-        currentStoreId = null;
-    });
-
-    cancelDeleteButton.addEventListener('click', () => {
-        modal.style.display = 'none';
-        currentStoreId = null;
-    });
-
-    confirmDeleteButton.addEventListener('click', () => {
-        const rowToHide = document.querySelector(`tr[data-store-id="${currentStoreId}"]`);
-        if (rowToHide) {
-            rowToHide.classList.add('hidden-row'); 
-        }
-        modal.style.display = 'none'; 
-        currentStoreId = null; 
-    });
-});
-
-document.getElementById('campo__buscar-id').addEventListener('input', (event) => {
-    const searchValue = event.target.value.trim().toLowerCase(); 
-
-    const filteredStores = allStores.filter(store => {
-        return (
-            (store.store_id && store.store_id.toString().includes(searchValue)) ||
-            (store.store_name && store.store_name.toLowerCase().includes(searchValue)) ||
-            (store.street && store.street.toLowerCase().includes(searchValue)) ||
-            (store.cep && store.cep.includes(searchValue))
-        );
-    });
-
-    renderTabelaStores(filteredStores);
 });

@@ -1,4 +1,5 @@
 let allTalon = [];
+let talonIdToDelete = null;
 
 // Função para obter o store_id da sessão
 function getStoreIdFromSession() {
@@ -99,19 +100,41 @@ function renderTable(data) {
         tr.appendChild(createCell(item.talon_quantity || 'N/A'));
         tr.appendChild(createCell(item.send_date || 'N/A'));
         tr.appendChild(createCell(item.receive_date || 'N/A'));
+        tr.appendChild(createCell(item.registration|| 'N/A'));
+
 
         const actionsCell = document.createElement('td');
+
         const editButton = document.createElement('button');
         editButton.classList.add('btn-tabela__editar');
         const editLink = document.createElement('a');
         editLink.href = `./talon-edit-receiving?id=${item.talon_id || ''}`;
         editLink.textContent = 'Editar';
         editButton.appendChild(editLink);
+
+        const deleteButton = document.createElement('button');
+        deleteButton.classList.add('btn-tabela__deletar');
+        deleteButton.setAttribute('data-talon-id', item.talon_id || ''); 
+
+        const deleteImg = document.createElement('img');
+        deleteImg.src = '../../img/icone_lixeira.png'; 
+        deleteImg.alt = 'icone de lixeira';
+        deleteImg.width = 15;
+        deleteImg.height = 15;
+
+        deleteButton.appendChild(deleteImg);
+        deleteButton.addEventListener('click', (event) => {
+            talonIdToDelete = event.target.closest('button').getAttribute('data-talon-id');
+            showDeleteModal(); // Exibe o modal de confirmação
+        });
+
         actionsCell.appendChild(editButton);
+        actionsCell.appendChild(deleteButton);
 
         tr.appendChild(actionsCell);
+
         tbody.appendChild(tr);
-    });
+            });
 }
 
 // Função de filtro para o campo de busca
@@ -128,7 +151,40 @@ document.getElementById('busca').addEventListener('input', (event) => {
     renderTable(filteredTalon);
 });
 
-// Chamada para carregar os dados após o DOM ser carregado
+function showDeleteModal() {
+    const modal = document.getElementById('deleteModal');
+    modal.style.display = 'flex'; 
+}
+
+function closeDeleteModal() {
+    const modal = document.getElementById('deleteModal');
+    modal.style.display = 'none';  
+    talonIdToDelete = null;  
+}
+
+async function confirmDelete() {
+    try {
+        const response = await fetch(`/delete-talon/${talonIdToDelete}`, {
+            method: 'DELETE',
+        });
+
+        if (response.ok) {
+            fetchInventory(); 
+            closeDeleteModal(); 
+        } else {
+            console.error('Erro ao excluir talão');
+        }
+    } catch (error) {
+        console.error('Erro ao deletar talão:', error);
+    }
+}
+
+document.querySelector('.modal-close').addEventListener('click', closeDeleteModal);
+document.getElementById('cancelDelete').addEventListener('click', closeDeleteModal);
+document.getElementById('confirmDelete').addEventListener('click', confirmDelete);
+
+
 document.addEventListener('DOMContentLoaded', () => {
     fetchInventory();
 });
+
