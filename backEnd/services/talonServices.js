@@ -1,6 +1,5 @@
 const TalonLogs  = require('../models/talonModel');
 const Inventory = require('../models/inventoryModel');
-const Store = require('../models/storeModel');
 
 // Função para criar um novo registro de Talon
 async function insertTalon({ 

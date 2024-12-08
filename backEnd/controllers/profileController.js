@@ -1,6 +1,7 @@
 const profileService = require('../services/profileServices');
 const { AppError, handleError } = require('../utils/errors');
 const { sendSuccess } = require('../utils/responses');
+const reportService = require('../services/reportProfileServices');
 
 class ProfileController {
     static async createProfile(req, res) {
@@ -81,6 +82,16 @@ class ProfileController {
             }
         } catch (error) {
             handleError(res, error);
+        }
+    }
+
+    static async exportProfileCSV(req, res){
+        try{
+            const csvFilePath = await reportService.exportProfilesReport();
+            res.download(csvFilePath, 'profiles.csv');
+        }catch(error){
+            console.error("Erro ao exportar CSV:", error);
+            res.status(500).json({ message: 'Error exporting CSV', error: error.message });
         }
     }
 }

@@ -3,7 +3,7 @@ const { hasharPass } = require('../utils/password');
 const TokenService = require('../services/authServices/tokenServices');
 const { AppError, handleError } = require('../utils/errors');
 const { sendSuccess } = require('../utils/responses');
-const reportService = require('../services/reportServices');
+const reportService = require('../services/reportUserServices');
 
 
 class UserController {

@@ -28,7 +28,7 @@ router.get('/reset-password', (req, res) => {
 });
 
 //Dashboard 
-router.get('/dashboard', authMiddleware, (req, res) => {
+router.get('/dashboard', authMiddleware, permissionMiddleware(["has_user_management", "has_profile_management"]), (req, res) => {
     res.sendFile(path.join(__dirname, '../../../frontEnd/public/dashboard/dashboard.html'));
 });
 

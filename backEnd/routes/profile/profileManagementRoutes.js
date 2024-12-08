@@ -22,4 +22,7 @@ router.put('/profile-edit/:profile_id', authMiddleware, permissionMiddleware("ha
 // DELETE - Delete a Profile
 router.delete('/profile-delete/:profile_id', authMiddleware, permissionMiddleware("has_profile_management"), ProfileController.deleteProfile);
 
+//GET - Relatório
+router.get('/profile-report-csv',  ProfileController.exportProfileCSV);
+
 module.exports = router;

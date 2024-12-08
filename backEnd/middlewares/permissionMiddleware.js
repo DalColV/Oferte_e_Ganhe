@@ -15,7 +15,6 @@ const permissionMiddleware = (requiredPermissions) => {
                 return res.status(403).json({ error: "Access denied. Profile not found." });
             }
 
-            // Converte requiredPermissions para array, caso seja string
             const permissions = Array.isArray(requiredPermissions)
                 ? requiredPermissions
                 : [requiredPermissions];
