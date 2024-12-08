@@ -25,4 +25,7 @@ router.get('/talon-logs/:inventory_id', authMiddleware, permissionMiddleware("ha
 // DELETE - Route to delete a Talon log
 router.delete('/delete-talon/:talon_id', authMiddleware, permissionMiddleware("has_shipping"), TalonController.deleteTalon);
 
+// GET - Relatorios
+router.get('/send-report-csv', TalonController.exportSendCSV);
+
 module.exports = router;

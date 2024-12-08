@@ -1,6 +1,8 @@
 const talonService = require('../services/talonServices');
 const { AppError, handleError } = require('../utils/errors');
 const { sendSuccess } = require('../utils/responses');
+const reportService = require('../services/reportSendServices');
+
 
 class TalonController {
     // Criar um novo registro de Talon
@@ -113,6 +115,15 @@ class TalonController {
             sendSuccess(res, 200, "Talon deleted successfully", deletedTalon);
         } catch (error) {
             handleError(res, error);
+        }
+    }
+    static async exportSendCSV(req, res){
+        try{
+            const csvFilePath = await reportService.exportSendReport();
+            res.download(csvFilePath, 'envioTaloes.csv');
+        }catch(error){
+            console.error("Erro ao exportar CSV:", error);
+            res.status(500).json({ message: 'Error exporting CSV', error: error.message });
         }
     }
 }
