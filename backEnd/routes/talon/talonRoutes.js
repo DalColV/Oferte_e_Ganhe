@@ -27,5 +27,7 @@ router.delete('/delete-talon/:talon_id', authMiddleware, permissionMiddleware("h
 
 // GET - Relatorios
 router.get('/send-report-csv', TalonController.exportSendCSV);
+router.get('/receipt-report-csv', TalonController.exportReceiptCSV);
+
 
 module.exports = router;
