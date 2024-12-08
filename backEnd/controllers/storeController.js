@@ -1,6 +1,8 @@
 const storeService = require('../services/storeServices');
 const { AppError, handleError } = require('../utils/errors');
 const { sendSuccess } = require('../utils/responses');
+const reportService = require('../services/reportStoreServices');
+
 
 class StoreController {
     static async createStore(req, res) {
@@ -63,6 +65,15 @@ class StoreController {
             }
         } catch (error) {
             handleError(res, error);
+        }
+    }
+    static async exportStoreCSV(req, res){
+        try{
+            const csvFilePath = await reportService.exportStoresReport();
+            res.download(csvFilePath, 'profiles.csv');
+        }catch(error){
+            console.error("Erro ao exportar CSV:", error);
+            res.status(500).json({ message: 'Error exporting CSV', error: error.message });
         }
     }
 }

@@ -1,0 +1,18 @@
+store_id,store_name,street,cep,number
+7,Loja G,Rua 7,12345-006,107
+8,Loja H,Rua 8,12345-007,108
+9,Loja I,Rua 9,12345-008,109
+10,Loja J,Rua 10,12345-009,110
+500,Paraná,Carochinhas,44444444,4444
+100,2222,Carochinhas,2222,2222
+566,Paraná,Carochinhas,4444,666
+3333,3333,gfdgfg,3333,33333
+800,87867,Carochinhas,76867867,78678
+250,Sobral,Qualquer,89520263,45
+700,Santa Catarina,Qualquer,78852692,333
+1,Loja A,Rua 1,12345-000,101
+5,Loja E,Rua 5,12345-004,105
+3,Balneário,Rua 30,12345-002,105
+2,Loja B,Rua 2,12345-001,102
+4,Loja D,Rua 4,12345-003,104
+6,Loja F,Rua 6,12345-005,106
