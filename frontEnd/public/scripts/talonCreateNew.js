@@ -92,7 +92,8 @@ document.getElementById('cadastroTalaoForm').addEventListener('submit', async (e
         if (response.ok) {
             alert('Talão cadastrado com sucesso!');
             document.getElementById('cadastroTalaoForm').reset();
-            console.log('Formulário resetado.');
+            window.location.href = '/talon-send';
+
         } else {
             alert('Erro: ' + result.message);
         }

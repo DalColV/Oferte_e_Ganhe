@@ -135,11 +135,43 @@ async function deleteTalonLogs(talon_id) {
     }
 }
 
+async function updateCurrentQuantity(talon_id) {
+    try {
+        // Buscar o registro na tabela talon_logs com o talon_id fornecido
+        const talonLog = await TalonLogs.findOne({ where: { talon_id } });
+
+        if (!talonLog) {
+            throw new Error('Talon log not found');
+        }
+
+        const { inventory_id, talon_quantity } = talonLog;
+
+        // Buscar o registro correspondente na tabela inventory
+        const inventoryRecord = await Inventory.findOne({ where: { inventory_id } });
+
+        if (!inventoryRecord) {
+            throw new Error('Inventory not found');
+        }
+
+        // Atualizar o current_quantity somando o talon_quantity
+        const newQuantity = inventoryRecord.current_quantity + talon_quantity;
+
+        await Inventory.update(
+            { current_quantity: newQuantity },
+            { where: { inventory_id } }
+        );
+
+        return { message: 'Current quantity updated successfully', newQuantity };
+    } catch (error) {
+        throw error;
+    }}
+
 module.exports = { 
     insertTalon, 
     talonConsultAll, 
     talonConsultById, 
     editTalon, 
     deleteTalonLogs,
-    getTalonsByStore 
+    getTalonsByStore,
+    updateCurrentQuantity 
 };

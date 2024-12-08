@@ -137,6 +137,28 @@ class TalonController {
             res.status(500).json({ message: 'Error exporting CSV', error: error.message });
         }
     }
+
+    static async updateCurrentQuantity(req, res) {
+        const { talon_id } = req.params;
+
+        try {
+            const result = await talonService.updateCurrentQuantity(talon_id);
+
+            return res.status(200).json(result);
+        } catch (error) {
+            if (error.message === 'Talon log not found') {
+                return res.status(404).json({ message: error.message });
+            }
+
+            if (error.message === 'Inventory not found') {
+                return res.status(404).json({ message: error.message });
+            }
+
+            console.error(error);
+            return res.status(500).json({ message: 'Internal server error' });
+        }
+    }
+      
 }
 
 module.exports = TalonController;

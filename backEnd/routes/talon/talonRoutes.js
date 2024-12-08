@@ -29,5 +29,8 @@ router.delete('/delete-talon/:talon_id', authMiddleware, permissionMiddleware("h
 router.get('/send-report-csv', TalonController.exportSendCSV);
 router.get('/receipt-report-csv', TalonController.exportReceiptCSV);
 
+// PUT - Route to update Talon Qunatity
+router.put('/update-current-quantity/:talon_id', TalonController.updateCurrentQuantity);
+
 
 module.exports = router;

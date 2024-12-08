@@ -1,3 +1,28 @@
+// Função separada para atualizar o estoque
+async function updateStock(talonId) {
+    try {
+        const response = await fetch(`/update-current-quantity/${talonId}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ talon_quantity: 1 }) // Ajuste conforme necessário
+        });
+
+        const data = await response.json();
+        console.log("Resposta da API de estoque:", data);
+
+        if (data.message === "Current quantity updated successfully") {
+            alert('Estoque atualizado com sucesso!');
+        } else {
+            alert('Erro ao atualizar estoque.');
+        }
+    } catch (error) {
+        console.error('Erro ao enviar dados de estoque:', error);
+        alert('Erro interno ao atualizar estoque!');
+    }
+}
+
 document.getElementById('form-editar-recebimento').addEventListener('submit', function(event) {
     event.preventDefault(); 
     
@@ -9,7 +34,7 @@ document.getElementById('form-editar-recebimento').addEventListener('submit', fu
 
     console.log("ID do recebimento:", idRecebimento);
 
-    let status = document.getElementById('status').value;
+    let status = document.getElementById('status').value; // Capturar status
     const recebimento = document.getElementById('recebimento').value; 
     const recebidoPor = document.getElementById('recebido').value;
 
@@ -40,6 +65,13 @@ document.getElementById('form-editar-recebimento').addEventListener('submit', fu
         console.log("Resposta da API:", data);
         if (data.message === "Talon Updated Successfully!") {
             alert('Recebimento editado com sucesso!');
+
+            // Verificar se o status é "recebido"
+            if (status.toLowerCase() === 'recebido') {
+                console.log("Chamando função de atualização de estoque...");
+                updateStock(idRecebimento);
+            }
+
             window.location.href = '/talon-receipt';  
         }
     })
