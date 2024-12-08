@@ -1,6 +1,8 @@
 const inventoryService = require('../services/inventoryServices');
 const { AppError, handleError } = require('../utils/errors');
 const { sendSuccess } = require('../utils/responses');
+const reportService = require('../services/reportInventoryServices');
+
 
 class InventoryController {
     // Função para criar um inventário
@@ -108,6 +110,15 @@ class InventoryController {
             }
         } catch (error) {
             handleError(res, error);
+        }
+    }
+    static async exportInventoryCSV(req, res){
+        try{
+            const csvFilePath = await reportService.exportInventoryReport();
+            res.download(csvFilePath, 'inventory.csv');
+        }catch(error){
+            console.error("Erro ao exportar CSV:", error);
+            res.status(500).json({ message: 'Error exporting CSV', error: error.message });
         }
     }
 }

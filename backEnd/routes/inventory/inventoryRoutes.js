@@ -28,6 +28,8 @@ router.delete('/inventory-delete/:inventory_id', authMiddleware, permissionMiddl
 // DELETE - Rota para deletar um inventário pela Loja
 router.delete('/inventory-delete/:stpre_id', authMiddleware, permissionMiddleware("has_inventory_management"), InventoryController.removeInventory);
 
+// GET - Relatorios
+router.get('/inventory-report-csv', InventoryController.exportInventoryCSV)
 
 module.exports = router;
 
