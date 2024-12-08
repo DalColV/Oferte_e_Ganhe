@@ -1,0 +1,5 @@
+profile_id,profile_name,has_profile_management,has_user_management,has_inventory_management,has_maintenance,has_store_management,has_shipping,has_receiving
+1,Administrador do Sistema,True,True,True,True,True,True,True
+3,Caixa de Loja,False,False,False,True,False,False,False
+4,Sem Acesso,False,False,False,False,False,False,False
+2,Gerente de Loja,False,False,True,True,False,False,True

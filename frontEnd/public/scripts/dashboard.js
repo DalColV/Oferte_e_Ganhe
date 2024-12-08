@@ -36,14 +36,13 @@ async function getUsuarios() {
 // Função para consultar todos os talões e atualizar os status
 async function getTaloes() {
     try {
-        const response = await fetch('/talon-logs'); // Rota para consultar todos os talões
-        const result = await response.json(); // Resposta da API
+        const response = await fetch('/talon-logs'); 
+        const result = await response.json(); 
 
         if (Array.isArray(result.data)) {
-            // Filtra os talões pelos seus status (agora usando 'talon_status')
-            const enviados = result.data.filter(talao => talao.talon_status === 'Sent');
-            const pendentes = result.data.filter(talao => talao.talon_status === 'Misplaced');
-            const recebidos = result.data.filter(talao => talao.talon_status === 'Received');
+            const enviados = result.data.filter(talao => talao.talon_status === 'enviado');
+            const pendentes = result.data.filter(talao => talao.talon_status === 'extraviado');
+            const recebidos = result.data.filter(talao => talao.talon_status === 'recebido');
 
             document.getElementById('Sent').textContent = enviados.length > 0 ? enviados.length : '00';
             document.getElementById('Misplaced').textContent = pendentes.length > 0 ? pendentes.length : '00';
@@ -55,7 +54,7 @@ async function getTaloes() {
         }
     } catch (error) {
         console.error('Erro ao buscar talões:', error);
-        // Caso ocorra erro na requisição, coloca "00" em todas as legendas
+        
         document.getElementById('Sent').textContent = '00';
         document.getElementById('Misplaced').textContent = '00';
         document.getElementById('Received').textContent = '00';

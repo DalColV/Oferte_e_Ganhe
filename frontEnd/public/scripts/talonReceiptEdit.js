@@ -10,7 +10,6 @@ document.getElementById('form-editar-recebimento').addEventListener('submit', fu
     console.log("ID do recebimento:", idRecebimento);
 
     let status = document.getElementById('status').value;
-    const statusCapitalizado = status.charAt(0).toUpperCase() + status.slice(1);
     const recebimento = document.getElementById('recebimento').value; 
     const recebidoPor = document.getElementById('recebido').value;
 
