@@ -6,6 +6,9 @@
   padding: 6.25rem;
 }
 
+.listagem {
+ margin-top: 2rem;
+}
 .btn__csv-loja {
   margin-top: 24px;
   margin-bottom: 31px;
@@ -13,9 +16,8 @@
 
 .container__loja-titulo-img{
   display: flex;
-  justify-content: center;
   align-items: center;
-  margin-top: 4.0625rem;
+  margin-top: 0; 
 }
 .container__loja-titulo-img img{
   margin-bottom: 20px;
@@ -33,3 +35,7 @@
   display: none;
 }
 
+#img-cruz-store {
+  margin-top: 32px;
+  margin-left: -20px;
+}
