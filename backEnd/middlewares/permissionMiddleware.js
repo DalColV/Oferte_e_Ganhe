@@ -6,12 +6,20 @@ const permissionMiddleware = (requiredPermissions) => {
             const { profile_id } = req.user;
 
             if (!profile_id) {
+                // Para requisições HTML, redirecione
+                if (req.accepts('html')) {
+                    return res.redirect('/403');
+                }
+                // Para requisições JSON, envie status 403
                 return res.status(403).json({ error: "Access denied. Profile ID is missing." });
             }
 
             const profile = await Profile.findByPk(profile_id);
 
             if (!profile) {
+                if (req.accepts('html')) {
+                    return res.redirect('/403');
+                }
                 return res.status(403).json({ error: "Access denied. Profile not found." });
             }
 
@@ -23,6 +31,9 @@ const permissionMiddleware = (requiredPermissions) => {
             const hasAllPermissions = permissions.some(permission => profile[permission]);
 
             if (!hasAllPermissions) {
+                if (req.accepts('html')) {
+                    return res.redirect('/403');
+                }
                 return res.status(403).json({ 
                     error: `Access denied. At least one of the following permissions is required: ${permissions.join(", ")}.`  
                 });
@@ -31,6 +42,9 @@ const permissionMiddleware = (requiredPermissions) => {
             next();
         } catch (error) {
             console.error("Error in Permission Middleware:", error);
+            if (req.accepts('html')) {
+                return res.redirect('/500'); // Opcional: página de erro interno
+            }
             return res.status(500).json({ error: "Internal server error. Please try again later." });
         }
     };

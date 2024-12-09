@@ -104,7 +104,7 @@ function renderTable(data) {
         const editButton = document.createElement('button');
         editButton.classList.add('btn-tabela__editar');
         const editLink = document.createElement('a');
-        editLink.href = `./talon-edit-receiving?id=${item.talon_id || ''}`;
+        editLink.href = `./talon-edit-send?id=${item.talon_id || ''}`;
         editLink.textContent = 'Editar';
         editButton.appendChild(editLink);
         actionsCell.appendChild(editButton);
@@ -119,7 +119,7 @@ document.getElementById('busca').addEventListener('input', (event) => {
     const searchValue = event.target.value.trim().toLowerCase();
     
     if (searchValue === '') {
-        renderTable(allTalon); // Se o campo de busca estiver vazio, renderiza todos os dados
+        renderTable(allTalon); 
         return;
     }
 

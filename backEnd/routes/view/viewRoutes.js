@@ -108,4 +108,10 @@ router.get('/talon-maintenance', authMiddleware, (req, res) => {
     res.sendFile(path.join(__dirname, '../../../frontEnd/public/talon/view-maintenance-talon.html'));
 });
 
+//403
+
+router.get('/403', (req, res) => {
+    res.sendFile(path.join(__dirname, '../../../frontEnd/public/error/restrict-403.html'));
+})
+
 module.exports = router;
