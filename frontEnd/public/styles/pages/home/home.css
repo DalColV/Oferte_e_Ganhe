@@ -17,6 +17,7 @@
     display: grid;
     grid-template-columns: 1fr;
     margin-top: 4rem;
+    padding-bottom: 4rem;
     gap: 1rem;
     justify-content: center;
   }

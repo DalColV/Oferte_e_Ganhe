@@ -1,0 +1,81 @@
+* {
+    box-sizing: border-box;
+  }
+  
+  .borda-verde {
+    width: 100%;
+    height: 91.5vh;
+    border: 10px solid #168405;
+    margin: 0 auto;
+  }
+  
+  .borda-amarela {
+    border: 10px solid #FFE071;
+    margin: 0 auto;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .borda-amarela img {
+    width: 60%;
+    margin: 3.125rem 0;
+  }
+  
+  .box-mensagem-erro {
+    width: 90%;
+    height: 50%;
+    margin: 0 auto;
+    border: 1px solid #158F42;
+    box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.5);
+  }
+  
+  .box-mensagem-erro p {
+    line-height: 1.5rem;
+    text-align: center;
+    margin: 2rem 1.5rem;
+    font-size: 1rem;
+    font-weight: bold;
+  }
+  
+  .box-mensagem-erro a {
+    text-decoration: none;
+    color: rgba(0, 0, 0, 0.5);
+    font-size: 0.8rem;
+  }
+  
+  @media (min-width: 425px) {
+    .borda-amarela img {
+      width: 50%;
+      margin: 2rem 0;
+    }
+    .box-mensagem-erro p {
+      font-size: 1.2rem;
+      line-height: 1.8rem;
+    }
+    .box-mensagem-erro a {
+      font-size: 1rem;
+    }
+  }
+  
+  @media (min-width: 640px) {
+    .borda-amarela img {
+      width: 35%;
+    }
+  }
+  
+  @media (min-width: 768px) {
+    .borda-amarela img {
+      max-width: 21.5625rem;
+    }
+    .box-mensagem-erro {
+      max-width: 41rem;
+      max-height: 12rem;
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    .box-mensagem-erro p {
+      margin: 2rem;
+      font-size: 1.5rem;
+    }
+  }

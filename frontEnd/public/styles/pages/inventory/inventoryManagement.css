@@ -65,7 +65,7 @@
   /* Master */
   .card__gestao-estoque-master {
     display: block;
-    width: 20rem;
+    width: 18rem;
     height: 6.5rem;
   }
   
@@ -100,3 +100,7 @@
     content: ""; 
 }
 
+#img-cruz-estoque {
+  margin-top: 32px;
+  margin-left: 10px;
+}

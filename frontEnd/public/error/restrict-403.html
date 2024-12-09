@@ -1,57 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simple Page</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-        }
-        header {
-            background-color: #007bff;
-            color: white;
-            padding: 1rem;
-        }
-        main {
-            padding: 2rem;
-        }
-        button {
-            background-color: #007bff;
-            color: white;
-            padding: 0.5rem 1rem;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #0056b3;
-        }
-        footer {
-            margin-top: 2rem;
-            padding: 1rem;
-            background-color: #333;
-            color: white;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../styles/reset.css">
+  <link rel="stylesheet" href="../styles/style.css">
+  <title>Error 403</title>
 </head>
-<body>
-    <header>
-        <h1>Welcome to My Simple Page</h1>
-    </header>
-    <main>
-        <p>This is a simple HTML page with minimal styling.</p>
-        <button onclick="alert('Button clicked!')">Click Me</button>
-    </main>
-    <footer>
-        <p>&copy; 2024 Simple Page. All rights reserved.</p>
-    </footer>
+<header class="container-fluid cabecalho">
+  <div class="row w-100">    
+    <div class="col-8 d-flex justify-content-center align-items-center">
+      <img src="../img/logo.png" alt="logo da Oferte e Ganhe">
+    </div>
+    <div class="col-2"></div>
+  </div>
+</header>
+<body>  
+  <div class="borda-verde">
+    <div class="borda-amarela">
+      <img src="../img/error403.png" alt="">
+      <div class="box-mensagem-erro">
+        <p>Acesso restrito à matriz ou aos gerentes. <br> Por favor, entre em contato com seu superior.</p>
+        <a href="">Clique aqui para ser redirecionado</a>
+      </div>
+    </div>
+  </div>
+<script src="../scripts/menu/menu.js"></script>
 </body>
+
 </html>

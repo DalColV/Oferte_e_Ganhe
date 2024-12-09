@@ -14,6 +14,8 @@ document.getElementById('resetPasswordRequestForm').addEventListener('submit', a
 
       const data = await response.json();
       alert(data.message);
+      window.location.href = '../login';
+
   } catch (error) {
       console.error(error);
       alert('Erro ao enviar o e-mail.');

@@ -51,6 +51,7 @@ td {
 .btn-tabela__deletar {
   border: none;
   cursor: pointer;
+  background-color: transparent;
 }
 /* Estilo para a coluna de ações */
 table td:last-child {

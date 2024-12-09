@@ -30,3 +30,5 @@
 @import url(./pages/talon/talon.css);
 /* Menu Lateral */
 @import url(./components/menu.css);
+/*403*/
+@import url(./pages/403/restrict-403.css);
