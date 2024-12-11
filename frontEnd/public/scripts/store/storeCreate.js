@@ -34,6 +34,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (response.ok) {
           alert('Loja cadastrada com sucesso!');
           document.getElementById('cadastroLojaForm').reset();
+          window.location.href = '/store-management'
         } else {
           alert('Erro ao cadastrar loja: ' + result.message);
         }

@@ -7,13 +7,13 @@ const reportService = require('../services/reportInventoryServices');
 class InventoryController {
     // Função para criar um inventário
     static async createInventory(req, res) {
-        const { store_id, min_quantity, recommended_quantity, current_quantity } = req.body;
+        const { inventory_id, store_id, min_quantity, recommended_quantity, current_quantity } = req.body;
         try {
-            if (!store_id || !min_quantity || !recommended_quantity || !current_quantity) {
+            if (!inventory_id || !store_id || !min_quantity || !recommended_quantity || !current_quantity) {
                 throw new AppError("All fields are required", 400);
             }
 
-            const newInventory = await inventoryService.setInventory(store_id, min_quantity, recommended_quantity, current_quantity);
+            const newInventory = await inventoryService.setInventory(inventory_id, store_id, min_quantity, recommended_quantity, current_quantity);
             sendSuccess(res, 201, "Inventory created successfully!", newInventory);
         } catch (error) {
             handleError(res, error);

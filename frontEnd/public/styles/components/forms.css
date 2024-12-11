@@ -57,8 +57,9 @@ select {
 /* Estilos telas maiores*/
 @media (min-width: 640px) {
   .formulario-padrao {
-    background-color: #F2FBF5;
+    background-color: #d1cfcf21;
     padding: 20px;
     border-radius: 8px; 
   }
 }
+
