@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', async () => {
-    const form = document.querySelector('.formulario-editar');
-    const inventoryId = new URLSearchParams(window.location.search).get('id'); // Obtém o ID do estoque da URL
+    const form = document.querySelector('.container__gestao-estoque');
+    const inventoryId = new URLSearchParams(window.location.search).get('id'); 
 
     if (!inventoryId) {
         alert('ID do estoque não encontrado!');
