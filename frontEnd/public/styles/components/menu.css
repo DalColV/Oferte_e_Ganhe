@@ -54,6 +54,10 @@
   padding: 3px;
 }
 
+.lista-menu li:hover {
+  background-color: rgb(91, 197, 162);
+}
+
 .lista-menu li button {
   background: transparent;
   border: none;
@@ -156,11 +160,16 @@
   .lista-menu li {
     padding: 5px;
     font-size: 14px;
+    transition: all 0.3s ease;
+
   }
 
   .lista-menu li button {
     padding: 3px;
+    transition: all 0.3s ease; 
+    
   }
+  
 
   .btn-logout {    
     padding: 5px;

@@ -29,7 +29,6 @@ async function fetchInventory() {
         if (!store_id) throw new Error('Store ID não encontrado na sessão');
 
         const isMatrizStore = await isMatriz(store_id);
-        console.log('Loja é matriz:', isMatrizStore);
 
         const endpoint = isMatrizStore ? '/talon-logs' : `/inventory/${store_id}`;
 
@@ -38,13 +37,11 @@ async function fetchInventory() {
         if (!response.ok) throw new Error(`Erro ao buscar os dados do inventário: ${response.statusText}`);
 
         const data = await response.json();
-        console.log('Dados do inventário:', data);
 
         if (isMatrizStore) {
             allTalon = Array.isArray(data.data) ? data.data : [data.data];
         } else {
             const id_inventario = data.data?.inventory_id;
-            console.log('ID do inventário:', id_inventario);
 
             if (id_inventario) {
                 const talonLogsEndpoint = `/talon-logs/${id_inventario}`;
@@ -53,7 +50,6 @@ async function fetchInventory() {
                 if (!talonLogsResponse.ok) throw new Error(`Erro ao buscar os registros de talon: ${talonLogsResponse.statusText}`);
 
                 const talonLogsData = await talonLogsResponse.json();
-                console.log('Resposta de talon-logs:', talonLogsData);
 
                 allTalon = Array.isArray(talonLogsData.data) ? talonLogsData.data : [talonLogsData.data];
             }
@@ -85,56 +81,64 @@ function renderTable(data) {
 
     data.forEach(item => {
         const tr = document.createElement('tr');
-        const statusClass = item.talon_status?.toLowerCase() || 'status-indefinido';
-        tr.classList.add(statusClass);
-
-        const createCell = (text) => {
+    
+        const createCell = (text, className = '') => {
             const td = document.createElement('td');
             td.textContent = text;
+            if (className) td.classList.add(className);
             return td;
         };
-
+    
         tr.appendChild(createCell(item.store_id || 'N/A'));
         tr.appendChild(createCell(item.shipment || 'N/A'));
-        tr.appendChild(createCell(item.talon_status || 'Indefinido'));
+    
+        const statusClass = (() => {
+            if (!item.talon_status) return '';
+            const statusLowerCase = item.talon_status.toLowerCase();
+            if (statusLowerCase === 'extraviado') return 'status-extraviado';
+            if (statusLowerCase === 'recebido') return 'status-recebido';
+            if (statusLowerCase === 'enviado') return 'status-enviado';
+            return '';
+        })();
+        tr.appendChild(createCell(item.talon_status || 'Indefinido', statusClass));
+    
         tr.appendChild(createCell(item.talon_quantity || 'N/A'));
         tr.appendChild(createCell(item.send_date || 'N/A'));
         tr.appendChild(createCell(item.receive_date || 'N/A'));
-        tr.appendChild(createCell(item.registration|| 'N/A'));
-
-
+        tr.appendChild(createCell(item.registration || 'N/A'));
+    
         const actionsCell = document.createElement('td');
-
+    
         const editButton = document.createElement('button');
         editButton.classList.add('btn-tabela__editar');
         const editLink = document.createElement('a');
         editLink.href = `./talon-edit-receiving?id=${item.talon_id || ''}`;
         editLink.textContent = 'Editar';
         editButton.appendChild(editLink);
-
+    
         const deleteButton = document.createElement('button');
         deleteButton.classList.add('btn-tabela__deletar');
-        deleteButton.setAttribute('data-talon-id', item.talon_id || ''); 
-
+        deleteButton.setAttribute('data-talon-id', item.talon_id || '');
+    
         const deleteImg = document.createElement('img');
-        deleteImg.src = '../../img/icone_lixeira.png'; 
+        deleteImg.src = '../../img/icone_lixeira.png';
         deleteImg.alt = 'icone de lixeira';
         deleteImg.width = 15;
         deleteImg.height = 15;
-
+    
         deleteButton.appendChild(deleteImg);
         deleteButton.addEventListener('click', (event) => {
-            talonIdToDelete = event.target.closest('button').getAttribute('data-talon-id');
-            showDeleteModal(); // Exibe o modal de confirmação
+            const talonIdToDelete = event.target.closest('button').getAttribute('data-talon-id');
+            showDeleteModal(); 
         });
-
+    
         actionsCell.appendChild(editButton);
         actionsCell.appendChild(deleteButton);
-
         tr.appendChild(actionsCell);
-
+    
         tbody.appendChild(tr);
-            });
+    });
+    
 }
 
 // Função de filtro para o campo de busca

@@ -84,24 +84,36 @@ function renderTable(data) {
 
     data.forEach(item => {
         const tr = document.createElement('tr');
-        const statusClass = item.talon_status?.toLowerCase() || 'status-indefinido';
-        tr.classList.add(statusClass);
-
-        const createCell = (text) => {
+    
+        const createCell = (text, className = '') => {
             const td = document.createElement('td');
             td.textContent = text;
+            if (className) td.classList.add(className);
             return td;
         };
-
+    
+        // Adiciona células normalmente
         tr.appendChild(createCell(item.store_id || 'N/A'));
         tr.appendChild(createCell(item.shipment || 'N/A'));
-        tr.appendChild(createCell(item.talon_status || 'Indefinido'));
+    
+        // Célula de status com lógica de cor
+        const statusClass = (() => {
+            if (!item.talon_status) return '';
+            const statusLowerCase = item.talon_status.toLowerCase();
+            if (statusLowerCase === 'extraviado') return 'status-extraviado';
+            if (statusLowerCase === 'recebido') return 'status-recebido';
+            if (statusLowerCase === 'enviado') return 'status-enviado';
+            return '';
+        })();
+        tr.appendChild(createCell(item.talon_status || 'Indefinido', statusClass));
+    
+        // Adiciona as outras células
         tr.appendChild(createCell(item.talon_quantity || 'Indefinido'));
         tr.appendChild(createCell(item.send_date || 'N/A'));
         tr.appendChild(createCell(item.receive_date || 'N/A'));
         tr.appendChild(createCell(item.registration || 'N/A'));
-
-
+    
+        // Célula de ações
         const actionsCell = document.createElement('td');
         const editButton = document.createElement('button');
         editButton.classList.add('btn-tabela__editar');
@@ -110,10 +122,11 @@ function renderTable(data) {
         editLink.textContent = 'Editar';
         editButton.appendChild(editLink);
         actionsCell.appendChild(editButton);
-
+    
         tr.appendChild(actionsCell);
         tbody.appendChild(tr);
     });
+    
 }
 
 // Função de filtro para o campo de busca

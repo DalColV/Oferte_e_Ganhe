@@ -22,13 +22,18 @@
   background: transparent;
 }
 
-.taloes-enviados {
-  color: #F48815;
+.status-enviado {
+  color: #cfcd36;
   font-weight: bold;
 }
 
-.taloes-recebidos {
+.status-recebido {
   color: #06A561;
+  font-weight: bold;
+}
+
+.status-extraviado {
+  color: red;
   font-weight: bold;
 }
 
