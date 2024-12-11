@@ -17,6 +17,7 @@ document.getElementById('resetPasswordForm').addEventListener('submit', async (e
 
     if (response.ok) {
         alert('Senha redefinida com sucesso!');
+        window.location = '/login'
     } else {
         alert(result.message || 'Erro ao redefinir a senha');
     }

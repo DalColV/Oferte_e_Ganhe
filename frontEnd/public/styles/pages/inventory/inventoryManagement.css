@@ -1,12 +1,10 @@
 .container__gestao-estoque {
-  margin-top: 0;
-  /* background: #ffffff; */
+  margin: 0 auto;
+  width: 100%;
 }
 
-.container__input-gestao-estoque {
-  margin-top: 21px;
-  margin-bottom: 21px;
-  max-width: 70%;
+.container__pag-gestao-estoque {
+  background: #ffffff;
 }
 
 .container__gestao-estoque h1 {
@@ -100,11 +98,12 @@
 }
 
 #img-cruz-estoque {
-  margin-top: 26px;
-  margin-left: -15px;
+  margin-top: 32px;
+  margin-left: 10px;
 }
 
 /* Telas maiores */
+
 @media (min-width: 1024px) {
   .container__gestao-estoque {
     min-width: 70%;
@@ -112,7 +111,6 @@
   .btn-menu {
     display: none;
   }
-
   .container__gestao-estoque input,
   .container__gestao-estoque label{
   margin: 0 auto;
