@@ -5,12 +5,15 @@ function getStoreIdFromSession() {
     return sessionData && sessionData.user ? sessionData.user.store_id : null; 
 }
 
-function toggleSolicitarTalaoButton(isMatriz) {
-    const talaoButton = document.getElementById('solicitaTalao');
-    if (talaoButton) {
-        talaoButton.style.display = isMatriz ? 'none' : 'block';
-    }
+function toggleCreate(isMatriz, elementIds) {
+    elementIds.forEach(id => {
+        const element = document.getElementById(id);
+        if (element) {
+            element.style.display = isMatriz ? 'none' : 'block';
+        }
+    });
 }
+
 
 function toggleTaloesCard(isMatriz) {
     const taloesCard = document.getElementById('card_alerta');
@@ -19,13 +22,14 @@ function toggleTaloesCard(isMatriz) {
     }
 }
 
+
 async function fetchInventory(is_matriz, store_id) {
     try {
         const endpoint = is_matriz ? '/inventory' : `/inventory/${store_id}`;
         const response = await fetch(endpoint, { method: 'GET', credentials: 'include' });
         if (!response.ok) throw new Error('Erro ao buscar os dados do inventário');
         const data = await response.json();
-        toggleSolicitarTalaoButton(is_matriz);
+        toggleCreate(!is_matriz, ['criarEstoque', 'img-cruz-estoque']);
         if (data && data.data) {
             const inventoryData = Array.isArray(data.data) ? data.data : [data.data];
             allInventories = inventoryData;  
