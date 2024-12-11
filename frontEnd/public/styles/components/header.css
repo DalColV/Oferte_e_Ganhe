@@ -17,4 +17,8 @@
   .btn-menu {
     display: none;
   }
+  .cabecalho {  
+    padding-left: 14rem;
+  }
+
 }

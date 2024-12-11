@@ -1,106 +1,123 @@
 .container__gestao-estoque {
-    margin-top: 0;
-    background: #ffffff;
-  }
-  
-  .container__input-gestao-estoque {
-    margin-top: 21px;
-    margin-bottom: 21px;
-  }
-  
-  .container__gestao-estoque h1 {
-    margin-bottom: 8px;
-  }
-  
-  .card__gestao-estoque {
-    width: 300px;
-    height: 70px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    text-align: center;
-    padding: 20px;
-    border: 1px solid #e31013;
-    border-radius: 10px;
-    background-color: #eaf6ef;
-    margin: 23px auto;
-    background: #ffffff;
-  }
+  margin-top: 0;
+  background: #ffffff;
+}
 
-  .container__estoque-imagem {
-    display: flex;
-    align-items: center;
-    margin-top: 2rem;
-    margin-bottom: 1rem;
-    height: 40px;
-  }
+.container__input-gestao-estoque {
+  margin-top: 21px;
+  margin-bottom: 21px;
+  max-width: 70%;
+}
 
-  .container__estoque-imagem a {
-    margin-bottom: 2rem;   
-  }
-  
-  .card__gestao-estoque h2 {
-    color: #080707;
-  }
-    
-  .card__gestao-estoque span {
-    font-size: 2.25rem;
-    font-weight: bold;
-    color: #979797;
-  }
-  
-  .gestao-estoque-baixo {
-    background-color: #e83213;
-    color: white;
-  }
-  
-  .gestao-estoque-normal {
-    color: #06a561;
-  }
-  
-  .celula-menor {
-    width: 80px;
-  }
-  
-  /* Master */
-  .card__gestao-estoque-master {
-    display: block;
-    width: 18rem;
-    height: 6.5rem;
-  }
-  
-  .conteudo__card-master h2 {
-    margin-top: 1.625rem;
-    display: inline-block;
-    font-size: 14px;
-  }
-  
-  .conteudo__card-master span {
-    font-size: 14px;
-    margin-left: 0.75rem;
-  }
-  
-  .container__botao-logout-estoque {
-    min-height: 35vh !important;
-  }
+.container__gestao-estoque h1 {
+  margin: 2rem 0;
+}
+
+.card__gestao-estoque {
+  width: 300px;
+  height: 70px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+  border: 1px solid #e31013;
+  border-radius: 10px;
+  background-color: #eaf6ef;
+  margin: 2rem auto;
+  background: #ffffff;
+}
+
+.container__estoque-imagem {
+  display: flex;
+  align-items: center;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  height: 40px;
+}
+
+.container__estoque-imagem a {
+  margin-bottom: 2rem;
+}
+
+.card__gestao-estoque h2 {
+  color: #080707;
+}
+
+.card__gestao-estoque span {
+  font-size: 2.25rem;
+  font-weight: bold;
+  color: #979797;
+}
+
+.gestao-estoque-baixo {
+  background-color: #e83213;
+  color: white;
+}
+
+.gestao-estoque-normal {
+  color: #06a561;
+}
+
+.celula-menor {
+  width: 80px;
+}
+
+/* Master */
+.card__gestao-estoque-master {
+  display: block;
+  width: 18rem;
+  height: 6.5rem;
+}
+
+.conteudo__card-master h2 {
+  margin-top: 1.625rem;
+  display: inline-block;
+  font-size: 14px;
+}
+
+.conteudo__card-master span {
+  font-size: 14px;
+  margin-left: 0.75rem;
+}
+
+.container__botao-logout-estoque {
+  min-height: 35vh !important;
+}
 
 #taloes-card {
-    font-size: 16px;
-    text-align: center;
-    
+  font-size: 16px;
+  text-align: center;
 }
 
 #taloes-card .store-id {
-    margin: 0 5px; 
-    font-size: 20px;
+  margin: 0 5px;
+  font-size: 20px;
 }
 
-
 #taloes-card span:last-child::after {
-    content: ""; 
+  content: '';
 }
 
 #img-cruz-estoque {
   margin-top: 32px;
   margin-left: 10px;
+}
+
+/* Telas maiores */
+@media (min-width: 1024px) {
+  .container__gestao-estoque {
+    min-width: 70%;
+  }
+  .btn-menu {
+    display: none;
+  }
+
+  .container__gestao-estoque input,
+  .container__gestao-estoque label{
+  margin: 0 auto;
+  margin-bottom: 0.5rem  ;
+  min-width: 70%;
+}
+
 }

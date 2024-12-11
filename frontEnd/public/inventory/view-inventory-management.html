@@ -15,9 +15,9 @@
 </head>
 
 <body>
-  <header class="container-fluid cabecalho">
+  <header class="container-fluid cabecalho ">
     <div class="row w-100">
-      <div class="col-2 d-flex align-items-center">
+      <div class="col-2  d-flex align-items-center">
         <button class="btn-menu">
           <img src="../img/btn-menu.png" alt="botão menu">
         </button>
@@ -28,7 +28,7 @@
       <div class="col-2"></div>
     </div>
   </header>
-  <section class="container-fluid ">
+  <section class="container-fluid">
     <div class="row">
       <aside class="menu-lateral">
         <div class="container__menu-lateral">
@@ -63,13 +63,14 @@
               <a href="/dashboard">Relatórios</a>
             </li>
           </ul>
-          <div class="container__botao-logout"> 
+          <div class="container__botao-logout">
             <button class="btn-logout">Logout</button>
           </div>
         </div>
       </aside>
-      <div class="col-sm-10 formulario-padrao container__gestao-estoque ">
-        <div class="input-wrapper">
+      <div class="col-2"></div>
+      <div class="col-8 formulario-padrao container__gestao-estoque">
+        <div class="input-wrapper container__input-gestao-estoque">
           <input type="text" id="campo__buscar-id" placeholder="Buscar Estoque">
           <i class="fa fa-search"></i>
         </div>
@@ -78,11 +79,9 @@
         <div class="card__gestao-estoque card__gestao-estoque-master" id="card_alerta">
           <h2 class="titulo-secundario">Solicitação de Talões </h2>
           <div class="conteudo__card-master">
-            <h2 id="taloes-card" class="titulo-secundario"> </h2>
-        </div>
-        
+            <h2 id="taloes-card" class="titulo-secundario"></h2>
           </div>
-        </div>
+        </div> 
         <div class="container__estoque-imagem">
           <h2 class="titulo-secundario">Cadastrar Estoque </h2>
           <a href="/inventory-register" class="criar-perfil" title="Clique para cadastrar">
@@ -102,19 +101,22 @@
               </tr>
             </thead>
             <tbody>
-              
-            </tbody>
-          </table>
-        
+              <!-- Dados inseridos dinamicamente -->
+            </tbody> 
+          </table> 
+        </div> 
+      </div>
+      <div class="col-2"></div>
+    </div>
   </section>
   <!-- Modal de Confirmação -->
   <div id="deleteModal" class="modal">
     <div class="modal-content">
-        <span class="modal-close">&times;</span>
-        <h3>ATENÇÃO! AÇÃO DE RISCO!</h3>
-        <p>Ao confirmar todos os registros relacionados à esse Estoque serão apagados permanentemente.</p>
-        <button id="cancelDelete">Cancelar</button>
-        <button id="confirmDelete">Excluir</button>
+      <span class="modal-close">&times;</span>
+      <h3>ATENÇÃO! AÇÃO DE RISCO!</h3>
+      <p>Ao confirmar todos os registros relacionados à esse Estoque serão apagados permanentemente.</p>
+      <button id="cancelDelete">Cancelar</button>
+      <button id="confirmDelete">Excluir</button>
     </div>
   </div>
   <div class="overlay"></div>
@@ -125,9 +127,6 @@
   <script type="module" src="/scripts/credentialUser.js"></script>
   <script type="module" src="/scripts/inventory/card.js"></script>
   <script type="module" src="/scripts/report-inventory.js"></script>
-
-
-
 </body>
 
 </html>

@@ -1,10 +1,5 @@
-
-.table-container {
-  padding-bottom: 4rem;
-}
-
 .container__gestao {
-  min-width: 70%;
+  min-width: 60%;
   margin-top: 1.4375rem;
 }
 
@@ -22,6 +17,9 @@
   margin-bottom: 1rem;
 }
 
+.table-container {
+  padding-bottom: 4rem;
+}
 /* Estilos para telas maiores*/
 @media(min-width: 375px) {
   .container__gestao input::placeholder {

@@ -33,9 +33,19 @@
   border: 1px solid #D7DBEC;
   color: #06A561;
   font-size: 12px;
+  margin-top: 2rem !important ;
 }
 
 .btn__salvar {
   margin-top: 0;
   font-size: 12px;
+}
+
+@media(min-width: 1024px) {
+  .btn__voltar,
+  .btn__salvar {
+    width: 50%;
+    margin: 8px auto;
+  }
+    
 }
