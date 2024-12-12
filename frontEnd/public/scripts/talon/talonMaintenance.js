@@ -30,10 +30,8 @@ async function fetchInventory() {
 
         // Verificando se a loja é matriz
         const isMatrizStore = await isMatriz(store_id);
-        console.log("A loja é matriz?", isMatrizStore);
 
         const endpoint = isMatrizStore ? '/talon-logs' : `/talon/${store_id}`;
-        console.log("Endpoint que será chamado:", endpoint);
 
         const response = await fetch(endpoint, { method: 'GET', credentials: 'include' });
 

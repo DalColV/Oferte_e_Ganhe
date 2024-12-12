@@ -18,6 +18,7 @@ async function exportReceiptReport() {
             pythonOptions: ['-u'],
         });
 
+
         let stdout = [];
         let stderr = [];
 
