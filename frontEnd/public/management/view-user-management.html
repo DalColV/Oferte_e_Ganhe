@@ -19,57 +19,40 @@
     <div class="row w-100">
       <div class="col-2 d-flex align-items-center">
         <button class="btn-menu">
-          <img src="../../img/btn-menu.png" alt="botão menu">
+          <img src="../img/btn-menu.png" alt="botão menu">
         </button>
       </div>
       <div class="col-8 d-flex justify-content-center align-items-center">
-        <img src="../../img/logo.png" alt="logo da Oferte e Ganhe">
+        <img src="../img/logo.png" alt="logo da Oferte e Ganhe">
       </div>
       <div class="col-2"></div>
     </div>
   </header>
-  <section class="container-fluid ">
+  <section class="container-fluid">
     <div class="row">
       <aside class="menu-lateral">
         <div class="container__menu-lateral">
           <span class="fechar-menu">x</span>
           <h2 class="titulo-secundario" id="profile-name">MÓDULOS</h2>
           <ul class="lista-menu">
-            <li>
-              <a href="/home">Home</a>
-            </li>
-            <li>
-              <a href="/user-management">Gestão de Usuários</a>
-            </li>
-            <li>
-              <a href="/profile-management">Gestão de Perfis </a>
-            </li>
-            <li>
-              <a href="/inventory-management">Gestão de Estoque</a>
-            </li>
-            <li>
-              <a href="/store-management">Gestão de Lojas</a>
-            </li>
-            <li>
-              <a href="/talon-send">Envio de Talões</a>
-            </li>
-            <li>
-              <a href="/talon-receipt">Recimento de Talões</a>
-            </li>
-            <li>
-              <a href="/talon-maintenance">Manutenção de Talões</a>
-            </li>
-            <li>
-              <a href="/dashboard">Relatórios</a>
-            </li>
+            <li><a href="/home">Home</a></li>
+            <li><a href="/user-management">Gestão de Usuários</a></li>
+            <li><a href="/profile-management">Gestão de Perfis </a></li>
+            <li><a href="/inventory-management">Gestão de Estoque</a></li>
+            <li><a href="/store-management">Gestão de Lojas</a></li>
+            <li><a href="/talon-send">Envio de Talões</a></li>
+            <li><a href="/talon-receipt">Recimento de Talões</a></li>
+            <li><a href="/talon-maintenance">Manutenção de Talões</a></li>
+            <li><a href="/dashboard">Relatórios</a></li>
           </ul>
           <div class="container__botao-logout"> 
             <button class="btn-logout">Logout</button>
           </div>
         </div>
       </aside>
-      <div class="container__gestao  formulario-padrao">
-        <div class="input-wrapper" >
+      <div class="col-lg-2"></div>
+      <div class="col-lg-8 container__gestao formulario-padrao">
+        <div class="input-wrapper">
           <input type="text" id="search-user" placeholder="Buscar pela Matrícula do Usuário">
           <i class="fa fa-search"></i>
         </div>
@@ -89,27 +72,15 @@
             </thead>
             <tbody>
               <tr>
-                <td>
-                  <button class="btn-tabela__editar">
-                    <a href="./view-edit-user.html">Editar</a>
-                  </button>
-                  <button class="btn-tabela__deletar">
-                    <img src="../../img/icone_lixeira.png" alt="icone de lixeira" id="lixeira" width="15px" height="15px">
-                  </button>
-                </td>
-              </tr>
-              <tr>
                 <td>Beltrano de tal</td>
                 <td>1234856</td>
                 <td>063</td>
                 <td>beltrano@gmail.com</td>
                 <td>estoque</td>
                 <td>
-                  <button class="btn-tabela__editar">
-                    <a href="./view-edit-user.html">Editar</a>
-                  </button>
+                  <button class="btn-tabela__editar"><a href="./view-edit-user.html">Editar</a></button>
                   <button class="btn-tabela__deletar">
-                    <img src="../../img/icone_lixeira.png" alt="icone de lixeira" id="lixeira" width="15px" height="15px">
+                    <img src="../img/icone_lixeira.png" alt="icone de lixeira" id="lixeira" width="15px" height="15px">
                   </button>
                 </td>
               </tr>
@@ -120,45 +91,35 @@
                 <td>ciclano@gmail.com</td>
                 <td>estoque</td>
                 <td>
-                  <button class="btn-tabela__editar">
-                    <a href="./view-edit-user.html">Editar</a>
-                  </button>
+                  <button class="btn-tabela__editar"><a href="./view-edit-user.html">Editar</a></button>
                   <button class="btn-tabela__deletar" data-user-id="1234856">
-                    <img src="../../img/icone_lixeira.png" alt="icone de lixeira" id="lixeira" width="15px" height="15px">
-                  </button>                  
+                    <img src="../img/icone_lixeira.png" alt="icone de lixeira" id="lixeira" width="15px" height="15px">
+                  </button>
                 </td>
               </tr>
             </tbody>
           </table>
         </div>
       </div>
-    </div>
-    </div>
+      <div class="col-lg-2"></div>
     </div>
   </section>
-  </div>
   <!-- Modal de Confirmação -->
   <div id="deleteModal" class="modal">
     <div class="modal-content">
-        <span class="modal-close">&times;</span>
-        <h3>Deseja deletar usuário?</h3>
-        <p>Essa ação será permanente!</p>
-        <button id="cancelDelete">Cancelar</button>
-        <button id="confirmDelete">Excluir</button>
+      <span class="modal-close">&times;</span>
+      <h3>Deseja deletar usuário?</h3>
+      <p>Essa ação será permanente!</p>
+      <button id="cancelDelete">Cancelar</button>
+      <button id="confirmDelete">Excluir</button>
     </div>
-</div>
-
-</div>
+  </div>
   <div class="overlay"></div>
   <script src="../scripts/menu/menu.js"></script>
   <script type="module" src="/scripts/users/userManagement.js"></script>
   <script type="module" src="/scripts/credentialUser.js"></script>
   <script type="module" src="/scripts/logout.js"></script>
   <script type="module" src="/scripts/report-user.js"></script>
-
-
-
-
 </body>
 
 </html>

@@ -1,5 +1,3 @@
-console.log("Arquivo JavaScript carregado com sucesso!");
-
 let allUsers = [];
 
 // Função para buscar os usuários do sistema
@@ -8,13 +6,12 @@ async function getUsers() {
         const response = await fetch('/users'); 
         const result = await response.json(); 
 
-        console.log('Resposta da API de Usuários:', result); 
 
         if (Array.isArray(result.data)) {
             allUsers = result.data; 
             renderTabelaUsuarios(allUsers); 
         } else {
-            console.error('Esperado um array de usuários, mas a resposta foi:', result);
+            //console.error('Esperado um array de usuários, mas a resposta foi:', result);
         }
     } catch (error) {
         console.error('Erro ao buscar usuários:', error);
@@ -60,7 +57,6 @@ function renderTabelaUsuarios(users) {
         const deleteButton = document.createElement('button');
         deleteButton.classList.add('btn-tabela__deletar');
         deleteButton.setAttribute('data-user-id', user.registration); // Atribuindo o data-user-id
-        console.log('Criando botão de deletar para o usuário com ID:', user.registration); // Verifique os IDs
         const deleteImg = document.createElement('img');
         deleteImg.src = '../../img/icone_lixeira.png';
         deleteImg.alt = 'icone de lixeira';
@@ -99,7 +95,6 @@ document.getElementById('search-user').addEventListener('input', (event) => {
 
 // Inicializa a página carregando os usuários
 document.addEventListener('DOMContentLoaded', () => {
-    console.log("Página carregada, chamando a função getUsers");
     getUsers();
 });
 
@@ -119,7 +114,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (event.target.closest('.btn-tabela__deletar')) {
             const deleteButton = event.target.closest('.btn-tabela__deletar'); // Encontra o botão de deletar
             currentUserId = deleteButton.getAttribute('data-user-id'); // Obtém o ID do usuário
-            console.log("ID do usuário a ser deletado:", currentUserId); // Verifique se o ID está correto
 
             // Exibe o modal
             modal.style.display = 'flex'; 
@@ -145,7 +139,6 @@ document.addEventListener('DOMContentLoaded', () => {
         })
         .then(response => response.json())
         .then(data => {
-            console.log('Resposta da API:', data); 
             if (data.message && data.message.includes("successfully")) {
                 const rowToDelete = document.querySelector(`tr[data-user-id="${currentUserId}"]`);
                 location.reload(); 
@@ -160,7 +153,6 @@ document.addEventListener('DOMContentLoaded', () => {
         })
         .catch(error => {
             alert("Ocorreu um erro ao deletar o usuário.");
-            console.error(error);
             modal.style.display = 'none'; 
             currentUserId = null; 
         });

@@ -19,11 +19,11 @@
     <div class="row w-100">
       <div class="col-2 d-flex align-items-center">
         <button class="btn-menu">
-          <img src="../../img/btn-menu.png" alt="botão menu">
+          <img src="../img/btn-menu.png" alt="botão menu">
         </button>
       </div>
       <div class="col-8 d-flex justify-content-center align-items-center">
-        <img src="../../img/logo.png" alt="logo da Oferte e Ganhe">
+        <img src="../img/logo.png" alt="logo da Oferte e Ganhe">
       </div>
       <div class="col-2"></div>
     </div>
@@ -63,12 +63,13 @@
               <a href="/dashboard">Relatórios</a>
             </li>
           </ul>
-          <div class="container__botao-logout"> 
+          <div class="container__botao-logout">
             <button class="btn-logout">Logout</button>
           </div>
         </div>
       </aside>
-      <div class=" formulario-padrao container-global container__gestao gestao-perfis ">
+      <div class="col-lg-2"></div>
+      <div class="col-lg-8 formulario-padrao container-global container__gestao gestao-perfis ">
         <div class="input-wrapper ">
           <input type="text" id="search-profile" placeholder="Buscar por Nome">
           <i class="fa fa-search"></i>
@@ -76,40 +77,39 @@
         <h1 class="titulo-principal">Gestão de Perfis</h1>
         <button class="btn__exportar-csv exportar-csv-gestao" id="exportar">Exportar .csv</button>
         <div class="container__perfis-imagem">
-          <h2 class="titulo-secundario">Cadastrar Novo Perfil</h2>
+          <h2 class="titulo-secundario">Perfis Cadastrados</h2>
           <a href="./profile-new" class="criar-perfil">
             <img src="../img/icone-cruz.png" alt="imagem cruz verde" width="20px" height="20px" id="img-cruz">
           </a>
         </div>
         <div class="table-container" id="table-profile">
           <table>
-              <thead>
-                  <tr>
-                      <th>Perfil</th>
-                      <th>Acesso</th>
-                      <th>ID Perfil</th>
-                      <th>Ações</th>
-                  </tr>
-              </thead>
-              <tbody id="perfil-table-body"> 
-              </tbody>
+            <thead>
+              <tr>
+                <th>Perfil</th>
+                <th>Acesso</th>
+                <th>ID Perfil</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody id="perfil-table-body">
+            </tbody>
           </table>
+        </div>
       </div>
-      </div>
-    </div>
-    </div>
+      <div class="col-lg-2"></div>
     </div>
   </section>
   <!-- Modal de Confirmação -->
   <div id="deleteModal" class="modal">
     <div class="modal-content">
-        <span class="modal-close">&times;</span>
-        <h3>Deseja deletar Perfil?</h3>
-        <p>Essa ação será permanente!</p>
-        <button id="cancelDelete">Cancelar</button>
-        <button id="confirmDelete">Excluir</button>
+      <span class="modal-close">&times;</span>
+      <h3>Deseja deletar Perfil?</h3>
+      <p>Essa ação será permanente!</p>
+      <button id="cancelDelete">Cancelar</button>
+      <button id="confirmDelete">Excluir</button>
     </div>
-</div>
+  </div>
   </div>
   <div class="overlay"></div>
   <script src="../scripts/menu/menu.js"></script>

@@ -1,6 +1,6 @@
 .container__gestao {
-  min-width: 60%;
-  margin-top: 1.4375rem;
+  margin: 0 auto;
+  min-width: 70%;
 }
 
 .container__gestao input::placeholder {
@@ -33,5 +33,7 @@
   }
    .exportar-csv-gestao {
     margin-bottom: 2.5rem;
+    margin-top: 2.5rem;
   }  
 }
+

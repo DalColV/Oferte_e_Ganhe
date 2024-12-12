@@ -6,8 +6,6 @@ async function getPerfis() {
         const response = await fetch('/profiles'); 
         const result = await response.json(); 
 
-        console.log('Resposta da API de Perfis:', result); 
-
         if (Array.isArray(result.data)) {
             allProfiles = result.data; 
             renderTabelaPerfis(allProfiles); 
@@ -19,7 +17,7 @@ async function getPerfis() {
     }
 }
 
-// Função para renderizar a tabela com os perfis fornecidos
+// Função para renderizar a tabela com os perfis 
 function renderTabelaPerfis(perfis) {
     const tableBody = document.getElementById('perfil-table-body');
     tableBody.innerHTML = '';
@@ -89,7 +87,6 @@ document.getElementById('search-profile').addEventListener('input', (event) => {
 });
 
 document.addEventListener('DOMContentLoaded', () => {
-    console.log("Página carregada, chamando a função getPerfis");
     getPerfis();
 });
 
