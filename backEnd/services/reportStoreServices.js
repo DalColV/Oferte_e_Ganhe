@@ -11,7 +11,6 @@ PythonShell.defaultOptions = {
 };
 
 async function exportStoresReport(storeId) {
-    // Verificação básica para garantir que storeId seja válido
     if (!storeId || isNaN(storeId)) {
         return Promise.reject(new Error('storeId inválido.'));
     }
@@ -24,7 +23,7 @@ async function exportStoresReport(storeId) {
     return new Promise((resolve, reject) => {
         const pythonProcess = new PythonShell(scriptPath, {
             pythonOptions: ['-u'],
-            args: [storeId], // Passa o store_id como argumento
+            args: [storeId], 
         });
 
         let stdout = [];

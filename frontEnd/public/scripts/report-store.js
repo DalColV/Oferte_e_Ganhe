@@ -1,7 +1,31 @@
 document.addEventListener("click", async (event) => {
     const exportCsvBtn = event.target.closest("#exportar");
     if (exportCsvBtn) {
-        const storeId = prompt("Digite o Cógido da loja que deseja exportar o relatório:");
+        // Usando SweetAlert2 para capturar o store_id
+        const { value: storeId } = await Swal.fire({
+            title: 'Digite o código da loja',
+            input: 'text',
+            inputPlaceholder: 'Digite o código da loja',
+            showCancelButton: true,
+            background: '#f1f8f6',
+            cancelButtonColor: '#f44336',
+            confirmButtonText: 'Exportar',
+            cancelButtonText: 'Cancelar',
+            inputValidator: (value) => {
+                if (!value) {
+                    return 'Você deve digitar um código de loja!';
+                }
+            },
+            customClass: {
+                container: 'my-swal-container',  
+                popup: 'my-swal-popup',          
+                title: 'my-swal-title',          
+                input: 'my-swal-input',          
+                confirmButton: 'my-swal-confirm-button', 
+                cancelButton: 'my-swal-cancel-button'
+            }
+        });
+
         if (!storeId) {
             console.error("Nenhum ID de loja fornecido.");
             return;

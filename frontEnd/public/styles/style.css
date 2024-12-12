@@ -32,3 +32,5 @@
 @import url(./components/menu.css);
 /*403*/
 @import url(./pages/403/restrict-403.css);
+/*alerts*/
+@import url(./components/alerts.css);

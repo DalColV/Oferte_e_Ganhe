@@ -84,7 +84,7 @@ class StoreController {
             res.setHeader('Content-Disposition', `attachment; filename=loja_${store_id}.csv`);
     
             const fileStream = fs.createReadStream(csvFilePath);
-            fileStream.pipe(res); // Envia o arquivo como um stream para o cliente
+            fileStream.pipe(res); 
         } catch (error) {
             console.error("Erro ao exportar CSV:", error);
             res.status(500).json({ message: 'Error exporting CSV', error: error.message });
