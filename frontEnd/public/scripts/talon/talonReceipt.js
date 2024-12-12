@@ -32,7 +32,10 @@ async function fetchInventory() {
         // Verificando se a loja é matriz
         const isMatrizStore = await isMatriz(store_id);
 
-         const endpoint = isMatrizStore ? `/talon-logs` : `/talon/${store_id}`;
+        // Chama a função para mostrar/ocultar o botão "exportar" com base em ser matriz ou não
+        toggleExportButton(isMatrizStore);
+
+        const endpoint = isMatrizStore ? `/talon-logs` : `/talon/${store_id}`;
 
         const response = await fetch(endpoint, { method: 'GET', credentials: 'include' });
 
@@ -45,6 +48,14 @@ async function fetchInventory() {
         renderTable(allTalon);
     } catch (error) {
         console.error("Erro ao carregar os dados do inventário:", error);
+    }
+}
+
+// Função para alternar a visibilidade do botão "exportar"
+function toggleExportButton(isMatriz) {
+    const exportButton = document.getElementById('exportar'); // ID do botão "exportar"
+    if (exportButton) {
+        exportButton.style.display = isMatriz ? 'block' : 'none'; // Exibe se for matriz, oculta caso contrário
     }
 }
 

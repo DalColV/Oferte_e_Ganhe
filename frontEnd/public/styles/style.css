@@ -23,7 +23,7 @@
 @import url(./shared/edit-and-create.css);
 /* Loja*/
 @import url(./pages/store/store-list.css);
-@import url(./pages/store/store-edit-and-register.css);
+@import url(./pages/store/store-register.css);
 /* Modal CSS */
 @import url(./components/modal.css);
 /* Talões */

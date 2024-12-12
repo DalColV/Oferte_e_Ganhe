@@ -10,19 +10,25 @@ PythonShell.defaultOptions = {
     pythonPath: pythonExecutable,
 };
 
-async function exportStoresReport() {
+async function exportStoresReport(storeId) {
+    // Verificação básica para garantir que storeId seja válido
+    if (!storeId || isNaN(storeId)) {
+        return Promise.reject(new Error('storeId inválido.'));
+    }
+
     const scriptPath = path.join(__dirname, '../reports/export_stores.py');
+
+    console.log("Executando script Python em:", scriptPath);
+    console.log("Passando store_id para o script:", storeId);
 
     return new Promise((resolve, reject) => {
         const pythonProcess = new PythonShell(scriptPath, {
             pythonOptions: ['-u'],
+            args: [storeId], // Passa o store_id como argumento
         });
 
         let stdout = [];
         let stderr = [];
-
-        console.log(`Executando script Python em: ${scriptPath}`);
-        console.log(`Usando Python executável: ${pythonExecutable}`);
 
         pythonProcess.on('message', (message) => {
             console.log(`stdout: ${message}`);
@@ -39,18 +45,20 @@ async function exportStoresReport() {
         });
 
         pythonProcess.end((err, code, signal) => {
-            if(err){
+            if (err) {
                 console.error(`Erro no processo Python: ${err.message}`);
                 return reject(new Error(`Erro inesperado no processo Python: ${err.message}`));
             }
-            console.log(`Código de saída do Python: ${code}`);
+
             const output = stdout.join('\n');
-            if(code === 0 && output.includes("STATUS: SUCCESS")){
-                console.log("Processo Python concluído com sucesso.");
-                resolve(path.join(__dirname, '../../relatorios/lojas.csv'));
-            }else{
+            if (code === 0 && output.includes("STATUS: SUCCESS")) {
+                // Caminho do arquivo CSV exportado pelo Python
+                const csvPath = path.join(__dirname, '../../relatorios/loja_' + storeId + '.csv');
+                console.log("Arquivo CSV exportado com sucesso:", csvPath);
+                resolve(csvPath);
+            } else {
                 console.error(`Erro no script Python: ${stderr.join('\n')}`);
-                reject(new Error(`Erro ao exportar CSV: saída não reconhecida ou código de erro ${code}.`));
+                reject(new Error(`Erro ao exportar relatório: saída não reconhecida ou código de erro ${code}.`));
             }
         });
     });

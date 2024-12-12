@@ -1,0 +1,24 @@
+store_id;store_name;street;cep;number
+5;Loja E;Rua 5;12345-004;105
+inventory_id;store_id;min_quantity;recommended_quantity;current_quantity
+5;5;12;45;57378
+registration;username;email;profile_id
+9802;Carolina;gerente@gmail.com;2
+2424;Admin Sistema;admin@gmail.com;1
+2525;Gerente;gerente@gmail.com;2
+3030;Carolina;carolinadalcolana@gmail.com;3
+talon_id;shipment;inventory_id;talon_quantity;send_date;talon_status;receive_date;registration;order_date
+16;7777;5;700;2024-12-06;recebido;2024-12-07;2311;
+17;400;5;400;2024-12-07;recebido;2024-12-08;2311;
+18;1111;5;200;2024-12-06;recebido;2024-12-07;2020;
+19;1111;5;500;2024-12-07;recebido;2024-12-07;2311;
+20;5555;5;500;2024-12-07;recebido;2024-12-07;2311;
+21;800;5;800;2024-12-07;recebido;2024-12-07;2311;
+22;300;5;300;2024-12-07;recebido;2024-12-07;2020;
+23;800;5;500;2024-12-08;recebido;2024-12-08;2020;
+25;5555;5;9000;2024-12-08;recebido;2024-12-08;2020;
+24;1111;5;1000;2024-12-08;recebido;2024-12-08;2020;
+34;7777;5;573376;2024-12-12;enviado;;2020;
+35;7777;5;77777;2024-12-12;enviado;;242424;
+37;435435;5;53737;2024-12-12;enviado;;242424;
+38;57587;5;57377;2024-12-19;recebido;2024-12-12;242424;

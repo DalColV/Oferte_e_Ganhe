@@ -1,0 +1,12 @@
+store_id,store_name,street,cep,number
+3333,3333,gfdgfg,3333,33333
+inventory_id,store_id,min_quantity,recommended_quantity,current_quantity
+3333,3333,20,100,855
+registration,username,email,profile_id
+talon_id,shipment,inventory_id,talon_quantity,send_date,talon_status,receive_date,registration,order_date
+28,3333,3333,850,2024-12-12,recebido,2024-12-12,242424,
+29,555,3333,500,2024-12-12,enviado,,242424,
+30,2222,3333,22222,2024-12-12,enviado,,242424,
+31,1111111,3333,111111,2024-12-12,enviado,,2020,
+32,3333,3333,578752,2024-12-12,enviado,,242424,
+33,52453,3333,534534,2024-12-12,enviado,,242424,

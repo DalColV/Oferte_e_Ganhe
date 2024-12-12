@@ -2,7 +2,7 @@ const storeService = require('../services/storeServices');
 const { AppError, handleError } = require('../utils/errors');
 const { sendSuccess } = require('../utils/responses');
 const reportService = require('../services/reportStoreServices');
-
+const fs = require('fs');
 
 class StoreController {
     static async createStore(req, res) {
@@ -67,15 +67,31 @@ class StoreController {
             handleError(res, error);
         }
     }
-    static async exportStoreCSV(req, res){
-        try{
-            const csvFilePath = await reportService.exportStoresReport();
-            res.download(csvFilePath, 'profiles.csv');
-        }catch(error){
+    static async exportStoreCSV(req, res) {
+        try {
+            const { store_id } = req.body;
+            console.log("Recebido store_id no controlador:", store_id);
+    
+            if (!store_id) {
+                console.error("O campo store_id não foi fornecido.");
+                return res.status(400).json({ message: 'O campo store_id é obrigatório.' });
+            }
+    
+            const csvFilePath = await reportService.exportStoresReport(store_id);
+            console.log("Relatório gerado com sucesso. Caminho do arquivo:", csvFilePath);
+    
+            res.setHeader('Content-Type', 'text/csv');
+            res.setHeader('Content-Disposition', `attachment; filename=loja_${store_id}.csv`);
+    
+            const fileStream = fs.createReadStream(csvFilePath);
+            fileStream.pipe(res); // Envia o arquivo como um stream para o cliente
+        } catch (error) {
             console.error("Erro ao exportar CSV:", error);
             res.status(500).json({ message: 'Error exporting CSV', error: error.message });
         }
     }
+    
+    
 }
 
 module.exports = StoreController;

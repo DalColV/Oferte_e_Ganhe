@@ -22,6 +22,6 @@ router.put('/store-edit/:store_id', authMiddleware, permissionMiddleware("has_st
 router.delete('/store-delete/:store_id', authMiddleware, permissionMiddleware("has_store_management"), StoreController.deleteStore);
 
 // GET - Relatorios
-router.get('/stores-report-csv', StoreController.exportStoreCSV);
+router.post('/stores-report-csv', StoreController.exportStoreCSV);
 
 module.exports = router;
