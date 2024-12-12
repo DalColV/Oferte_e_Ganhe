@@ -26,11 +26,10 @@ async function isMatriz(store_id) {
 async function fetchInventory() {
     try {
         const store_id = getStoreIdFromSession();
+
         if (!store_id) throw new Error('Store ID não encontrado na sessão');
 
-        const isMatrizStore = await isMatriz(store_id);
-
-        const endpoint = isMatrizStore ? '/talon-logs' : `/inventory/${store_id}`;
+        const endpoint = `/talon/${store_id}`;
 
         const response = await fetch(endpoint, { method: 'GET', credentials: 'include' });
 
@@ -38,28 +37,14 @@ async function fetchInventory() {
 
         const data = await response.json();
 
-        if (isMatrizStore) {
-            allTalon = Array.isArray(data.data) ? data.data : [data.data];
-        } else {
-            const id_inventario = data.data?.inventory_id;
-
-            if (id_inventario) {
-                const talonLogsEndpoint = `/talon-logs/${id_inventario}`;
-                const talonLogsResponse = await fetch(talonLogsEndpoint, { method: 'GET', credentials: 'include' });
-
-                if (!talonLogsResponse.ok) throw new Error(`Erro ao buscar os registros de talon: ${talonLogsResponse.statusText}`);
-
-                const talonLogsData = await talonLogsResponse.json();
-
-                allTalon = Array.isArray(talonLogsData.data) ? talonLogsData.data : [talonLogsData.data];
-            }
-        }
+        allTalon = Array.isArray(data.data) ? data.data : [data.data];
 
         renderTable(allTalon);
     } catch (error) {
         console.error("Erro ao carregar os dados do inventário:", error);
     }
 }
+
 
 // Função para renderizar a tabela com os talões
 function renderTable(data) {

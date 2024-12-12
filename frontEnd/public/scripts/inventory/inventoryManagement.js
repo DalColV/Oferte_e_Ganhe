@@ -29,7 +29,7 @@ async function fetchInventory(is_matriz, store_id) {
         const response = await fetch(endpoint, { method: 'GET', credentials: 'include' });
         if (!response.ok) throw new Error('Erro ao buscar os dados do inventário');
         const data = await response.json();
-        toggleCreate(!is_matriz, ['criarEstoque', 'img-cruz-estoque']);
+        toggleCreate(!is_matriz, ['criarEstoque', 'img-cruz-estoque', 'exportar']);
         if (data && data.data) {
             const inventoryData = Array.isArray(data.data) ? data.data : [data.data];
             allInventories = inventoryData;  

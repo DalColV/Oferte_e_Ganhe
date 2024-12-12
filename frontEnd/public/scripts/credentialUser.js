@@ -11,7 +11,6 @@ async function getProfileName() {
                 const profileData = await response.json();
 
                 const profileName = profileData.data.profile_name;
-                console.log("Profile Name:", profileName); 
                 const profileNameElement = document.getElementById("profile-name");
                 if (profileNameElement) {
                     profileNameElement.textContent = profileName; 

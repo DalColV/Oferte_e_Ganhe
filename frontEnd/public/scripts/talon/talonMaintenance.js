@@ -25,38 +25,18 @@ async function isMatriz(store_id) {
 async function fetchInventory() {
     try {
         const store_id = getStoreIdFromSession();
+
         if (!store_id) throw new Error('Store ID não encontrado na sessão');
 
-        const isMatrizStore = await isMatriz(store_id);
-        console.log('Loja é matriz:', isMatrizStore);
-
-        const endpoint = isMatrizStore ? '/talon-logs' : `/inventory/${store_id}`;
+        const endpoint = `/talon/${store_id}`;
 
         const response = await fetch(endpoint, { method: 'GET', credentials: 'include' });
 
         if (!response.ok) throw new Error(`Erro ao buscar os dados do inventário: ${response.statusText}`);
 
         const data = await response.json();
-        console.log('Dados do inventário:', data);
 
-        if (isMatrizStore) {
-            allTalon = Array.isArray(data.data) ? data.data : [data.data];
-        } else {
-            const id_inventario = data.data?.inventory_id;
-            console.log('ID do inventário:', id_inventario);
-
-            if (id_inventario) {
-                const talonLogsEndpoint = `/talon-logs/${id_inventario}`;
-                const talonLogsResponse = await fetch(talonLogsEndpoint, { method: 'GET', credentials: 'include' });
-
-                if (!talonLogsResponse.ok) throw new Error(`Erro ao buscar os registros de talon: ${talonLogsResponse.statusText}`);
-
-                const talonLogsData = await talonLogsResponse.json();
-                console.log('Resposta de talon-logs:', talonLogsData);
-
-                allTalon = Array.isArray(talonLogsData.data) ? talonLogsData.data : [talonLogsData.data];
-            }
-        }
+        allTalon = Array.isArray(data.data) ? data.data : [data.data];
 
         renderTable(allTalon);
     } catch (error) {
@@ -153,55 +133,4 @@ document.getElementById('busca').addEventListener('input', (event) => {
 // Chamada para carregar os dados após o DOM ser carregado
 document.addEventListener('DOMContentLoaded', () => {
     fetchInventory();
-});
-
-document.getElementById('form-editar-recebimento').addEventListener('submit', function(event) {
-    event.preventDefault(); 
-    
-    let idRecebimento = new URLSearchParams(window.location.search).get('id');  
-    if (!idRecebimento) {
-        const pathArray = window.location.pathname.split('/');
-        idRecebimento = pathArray[pathArray.length - 1]; 
-    }
-
-    console.log("ID do recebimento:", idRecebimento);
-
-    let status = document.getElementById('status').value;
-    const recebimento = document.getElementById('recebimento').value; 
-    const recebidoPor = document.getElementById('recebido').value;
-
-    console.log("Dados do formulário:", { status, recebimento, recebidoPor });
-
-    const formattedRecebimento = new Date(recebimento).toISOString(); 
-
-    const dados = {
-        talon_status: status, 
-        receive_date: formattedRecebimento, 
-        registration: recebidoPor
-    };
-
-    if (!idRecebimento) {
-        alert('Erro: ID não encontrado na URL!');
-        return;
-    }
-
-    fetch(`/talon-edit/${idRecebimento}`, {
-        method: 'PUT',  
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(dados)
-    })
-    .then(response => response.json())
-    .then(data => {
-        console.log("Resposta da API:", data);
-        if (data.message === "Talon Updated Successfully!") {
-            alert('Recebimento editado com sucesso!');
-            window.location.href = '/talon-receipt';  
-        }
-    })
-    .catch(error => {
-        console.error('Erro:', error);
-        alert('Erro ao enviar os dados.');
-    });
 });

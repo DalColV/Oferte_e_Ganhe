@@ -58,22 +58,29 @@ class TalonController {
         }
     }
     // Consultar um registro de Talon por Store
-    static async consultTalonByStore(req, res) {
-        const { store_id } = req.params;
-        console.log('Store ID recebido:', store_id);
+static async consultTalonByStore(req, res) {
+    const { store_id } = req.params;
 
-        try {
-            if (!store_id) {
-                throw new Error("Store ID is required!");
-            }
+    console.log('Store ID recebido:', store_id);
 
-            // Chama o serviço para buscar os talons
-            const talons = await talonService.getTalonsByStore(store_id);
-            sendSuccess(res, 200, "Talons found", talons);
-        } catch (error) {
-            handleError(res, error);
+    try {
+        if (!store_id) {
+            throw new Error("Store ID is required!");
         }
+
+        // Valida se o store_id é válido (por exemplo, numérico)
+        if (isNaN(Number(store_id))) {
+            throw new Error("Invalid Store ID format!");
+        }
+
+        // Chama o serviço para buscar os talons
+        const talons = await talonService.getTalonsByStore(store_id);
+
+        sendSuccess(res, 200, "Talons found", talons);
+    } catch (error) {
+        handleError(res, error);
     }
+}
 
 
     // Atualizar um registro de Talon

@@ -59,15 +59,11 @@ async function talonConsultById(talon_id) {
 
 async function getTalonsByStore(store_id) {
     try {
-        const talons = await TalonLogs.findOne({
-            include: {
-                model: Inventory,
-                where: { store_id }, 
-                as: 'inventory', 
-            },
+        const talons = await TalonLogs.findAll({
+            where: { store_id },
         });
-        
-        if (!talons.length) {
+
+        if (!talons || talons.length === 0) {
             throw new Error(`No talons found for store_id: ${store_id}`);
         }
 

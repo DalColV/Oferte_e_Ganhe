@@ -112,7 +112,8 @@
     display: none;
   }
   .container__gestao-estoque input,
-  .container__gestao-estoque label{
+  .container__gestao-estoque label,
+  .container__gestao-estoque select{
   margin: 0 auto;
   margin-bottom: 0.5rem  ;
   min-width: 70%;
