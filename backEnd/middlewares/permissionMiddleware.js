@@ -38,7 +38,7 @@ const permissionMiddleware = (requiredPermissions) => {
                     error: `Access denied. At least one of the following permissions is required: ${permissions.join(", ")}.`  
                 });
             }
-
+            req.user.permissions = profile.get();
             next();
         } catch (error) {
             console.error("Error in Permission Middleware:", error);

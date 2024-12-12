@@ -3,9 +3,10 @@ const path = require('path');
 const router = express.Router();
 const { permissionMiddleware} = require('../../middlewares/permissionMiddleware');
 const {authMiddleware} = require("../../middlewares/authMiddleware");
+const { addPermissionsToRequest } = require('../../middlewares/permissionCards');
 
 // Home
-router.get('/home', (req, res) => {
+router.get('/home', authMiddleware, addPermissionsToRequest, (req, res) => {
     res.sendFile(path.join(__dirname, '../../../frontEnd/public/home/home.html'));
 });
 

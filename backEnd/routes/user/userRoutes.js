@@ -5,6 +5,8 @@ const{requestPasswordReset} = require('../../controllers/passwordController/requ
 const router = express.Router();
 const {authMiddleware} = require("../../middlewares/authMiddleware");
 const { permissionMiddleware } = require("../../middlewares/permissionMiddleware");
+const { addPermissionsToRequest } = require('../../middlewares/permissionCards');
+
 
 //GET - Consult ID from profile
 router.get('/user/profile', authMiddleware, UserController.getUserProfile);
@@ -35,6 +37,11 @@ router.post('/password-reset', resetPassword);
 
 //GET - Relatório
 router.get('/users-report-csv',  UserController.exportUserCSV);
+
+// GET - Permissão Home
+router.get('/user-permissions', authMiddleware, addPermissionsToRequest, (req, res) => {
+    res.json(req.user.permissions);
+});
 
 module.exports = router;
 
