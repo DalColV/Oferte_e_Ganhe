@@ -46,16 +46,16 @@
               <a href="/inventory-management">Gestão de Estoque</a>
             </li>
             <li>
-              <a href="store-management">Gestão de Lojas</a>
+              <a href="/store-management">Gestão de Lojas</a>
             </li>
             <li>
-              <a href="/talon/send">Envio de Talões</a>
+              <a href="/talon-send">Envio de Talões</a>
             </li>
             <li>
-              <a href="/talon/receipt">Recimento de Talões</a>
+              <a href="/talon-receipt">Recimento de Talões</a>
             </li>
             <li>
-              <a href="talon/maintenance">Manutenção de Talões</a>
+              <a href="/talon-maintenance">Manutenção de Talões</a>
             </li>
             <li>
               <a href="/dashboard">Relatórios</a>
@@ -66,16 +66,17 @@
           </div>
         </div>
       </aside>
-      <form class=" container-global formulario-padrao ">
-        <h1 class="titulo-principal ">Editar Loja</h1>
+      <div class="col-lg-2"></div>
+      <form class="col-lg-8 container-global formulario-padrao container__editar-cadastrar-loja ">
+        <h1 class="titulo-principal titulo__editar-cadastrar-loja ">Editar Loja</h1>
         <label for="recebimento">Código da Loja</label>
         <input type="text" id="store-id" name="recebimento">
         <label for="reebido">Nome da Loja</label>
         <input type="text" id="store-name" name="recebido">
-        <label for="endereço">Rua</label>
-        <input type="text" id="rua" name="endereço">
         <label for="cep">CEP</label>
         <input type="text" id="cep" name="cep">
+        <label for="endereço">Rua</label>
+        <input type="text" id="rua" name="endereço">
         <label for="numero">Número</label>
         <input type="text" id="numero" name="numero">
         <div class="container__tipo-loja">
@@ -85,9 +86,10 @@
           </div>
         </div>
         <button class="btn-padrao btn__voltar" onclick="voltarPagina()">Voltar</button>        
-        <button class="btn-padrao">Salvar</button>        
+        <button class="btn-padrao btn__salvar">Salvar</button>        
       </form>
     </div>
+    <div class="col-lg-2"></div>
   </section>
 
   <div class="overlay"></div>

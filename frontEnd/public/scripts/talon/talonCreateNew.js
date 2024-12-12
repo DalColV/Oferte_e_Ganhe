@@ -3,20 +3,16 @@ document.addEventListener('DOMContentLoaded', async () => {
     const estoqueInput = document.getElementById('id_estoque'); // Campo oculto para id_estoque
 
     if (!storeSelect || !estoqueInput) {
-        console.error("Elemento 'loja' ou 'id_estoque' não encontrado no DOM.");
         return;
     }
 
     // Carregar lojas no seletor
     try {
-        console.log('Iniciando busca das lojas...');
         const response = await fetch('http://localhost:3000/stores');
-        console.log('Resposta da API (lojas):', response);
 
         if (!response.ok) throw new Error('Erro ao buscar lojas');
 
         const result = await response.json();
-        console.log('Dados recebidos (lojas):', result);
 
         const stores = result.data;
         stores.forEach((store) => {
@@ -26,7 +22,6 @@ document.addEventListener('DOMContentLoaded', async () => {
             storeSelect.appendChild(option);
         });
 
-        console.log('Lojas carregadas com sucesso.');
     } catch (error) {
         console.error('Erro ao carregar lojas:', error);
         alert('Erro ao carregar lojas. Tente novamente mais tarde.');
@@ -35,14 +30,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Buscar o id_estoque ao selecionar uma loja
     storeSelect.addEventListener('change', async (e) => {
         const storeId = e.target.value;
-        console.log('Loja selecionada (store_id):', storeId);
     
         try {
             const response = await fetch(`/inventory/${storeId}`);
             if (!response.ok) throw new Error('Erro ao buscar estoque');
     
             const result = await response.json();
-            console.log('Resposta da API (estoque):', result);
     
             if (result && result.data) {
                 const estoqueId = result.data.inventory_id;  
@@ -52,7 +45,6 @@ document.addEventListener('DOMContentLoaded', async () => {
                 console.error('Estoque não encontrado no retorno da API.');
             }
         } catch (error) {
-            console.error('Erro ao buscar id_estoque:', error);
             alert('Erro ao buscar id_estoque.');
         }
     });
@@ -102,3 +94,4 @@ document.getElementById('cadastroTalaoForm').addEventListener('submit', async (e
         alert('Erro ao cadastrar talão.');
     }
 });
+

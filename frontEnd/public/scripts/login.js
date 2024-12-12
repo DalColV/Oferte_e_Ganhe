@@ -1,6 +1,6 @@
 let attemptCount = 0;
-const maxAttempts = 4;
-const lockoutTime = 20; // segundos
+const maxAttempts = 3;
+const lockoutTime = 5; // segundos
 
 const modal = document.getElementById("modal");
 const closeModalButton = document.getElementById("ok");

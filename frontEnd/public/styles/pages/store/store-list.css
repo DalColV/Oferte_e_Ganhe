@@ -1,5 +1,6 @@
 .container__listagem-lojas {
-  margin-top: 28px;
+  margin: 0 auto;
+  min-width: 70%;
 }
 
 .container__listagem-lojas input::placeholder {

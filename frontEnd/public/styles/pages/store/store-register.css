@@ -1,12 +1,21 @@
-.titulo__cadastro-loja {
-  margin-bottom: 1.875rem;
+.container__editar-cadastrar-loja {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  min-width: 70%;
 }
 
-.container__cadastro-loja {
-  background-color: #ffffff;
-  max-width: 30rem;
+.container__tipo-loja {
+  display: flex;
 }
 
+.titulo__editar-cadastrar-loja {
+  margin: 2rem 0;
+}
+
+.box-matriz label {
+  margin-right: 0;
+}
 
 .container__menu-lateral {
   margin-top: 4.5rem;

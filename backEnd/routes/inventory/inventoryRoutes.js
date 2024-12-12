@@ -3,15 +3,15 @@ const router = express.Router();
 const InventoryController = require('../../controllers/inventoryController');
 const {authMiddleware} = require("../../middlewares/authMiddleware");
 const { permissionMiddleware} = require('../../middlewares/permissionMiddleware');
-
+const {sessionTimeoutMiddleware} =require('../../middlewares/timeoutMiddleware')
 
 //CRUD 
 
 // POST - Rota para criar inventário
-router.post('/inventory', authMiddleware, permissionMiddleware("has_inventory_management"), InventoryController.createInventory);
+router.post('/inventory', authMiddleware, sessionTimeoutMiddleware, permissionMiddleware("has_inventory_management"), InventoryController.createInventory);
 
 // GET - Rota para consultar todos os inventários
-router.get('/inventory', authMiddleware, permissionMiddleware("has_inventory_management"), InventoryController.consultInventories);
+router.get('/inventory', authMiddleware, sessionTimeoutMiddleware, permissionMiddleware("has_inventory_management"), InventoryController.consultInventories);
 
 // GET - Rota para consultar inventário por ID
 router.get('/inventory/:inventory_id', authMiddleware, permissionMiddleware("has_inventory_management"), InventoryController.consultById);
