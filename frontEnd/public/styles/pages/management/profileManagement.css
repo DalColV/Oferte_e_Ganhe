@@ -2,6 +2,10 @@
   margin: 0;
 }
 
+.container-editar {
+  background-color: #f2fbf5a2 !important;
+}
+
 .gestao-perfis h2 {
   text-align: left;
   margin-top: 18px;

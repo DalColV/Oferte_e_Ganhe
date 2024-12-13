@@ -1,7 +1,6 @@
 let allTalon = [];
 let talonIdToDelete = null;
 
-// Função para obter o store_id da sessão
 function getStoreIdFromSession() {
     const sessionData = JSON.parse(sessionStorage.getItem('user'));
     return sessionData && sessionData.user ? sessionData.user.store_id : null;
@@ -29,12 +28,9 @@ async function fetchInventory() {
 
         if (!store_id) throw new Error('Store ID não encontrado na sessão');
 
-        // Verificando se a loja é matriz
         const isMatrizStore = await isMatriz(store_id);
 
-        // Chama a função para mostrar/ocultar o botão "exportar" com base em ser matriz ou não
         toggleExportButton(isMatrizStore);
-
         const endpoint = isMatrizStore ? `/talon-logs` : `/talon/${store_id}`;
 
         const response = await fetch(endpoint, { method: 'GET', credentials: 'include' });
@@ -46,17 +42,25 @@ async function fetchInventory() {
         allTalon = Array.isArray(data.data) ? data.data : [data.data];
 
         renderTable(allTalon);
+        toggleDeleteButtons(isMatrizStore);
+
     } catch (error) {
         console.error("Erro ao carregar os dados do inventário:", error);
     }
 }
 
-// Função para alternar a visibilidade do botão "exportar"
 function toggleExportButton(isMatriz) {
-    const exportButton = document.getElementById('exportar'); // ID do botão "exportar"
+    const exportButton = document.getElementById('exportar'); 
     if (exportButton) {
-        exportButton.style.display = isMatriz ? 'block' : 'none'; // Exibe se for matriz, oculta caso contrário
+        exportButton.style.display = isMatriz ? 'block' : 'none'; 
     }
+}
+
+function toggleDeleteButtons(isMatriz) {
+    const deleteButtons = document.querySelectorAll('.btn-tabela__deletar');
+    deleteButtons.forEach(button => {
+        button.style.display = isMatriz ? 'inline-block' : 'none'; 
+    });
 }
 
 function renderTable(data) {
@@ -81,14 +85,14 @@ function renderTable(data) {
 
     data.forEach(item => {
         const tr = document.createElement('tr');
-    
+
         const createCell = (text, className = '') => {
             const td = document.createElement('td');
             td.textContent = text;
             if (className) td.classList.add(className);
             return td;
         };
-    
+
         tr.appendChild(createCell(item.store_id || 'N/A'));
         tr.appendChild(createCell(item.shipment || 'N/A'));
 
@@ -134,7 +138,7 @@ function renderTable(data) {
         deleteButton.appendChild(deleteImg);
         deleteButton.addEventListener('click', (event) => {
             const talonIdToDelete = event.target.closest('button').getAttribute('data-talon-id');
-            showDeleteModal(); 
+            showDeleteModal(talonIdToDelete); 
         });
 
         actionsCell.appendChild(editButton);
@@ -148,3 +152,45 @@ function renderTable(data) {
 document.addEventListener('DOMContentLoaded', () => {
     fetchInventory();
 });
+
+async function deleteTalon(talonId) {
+    try {
+        console.log("Iniciando exclusão do talão com ID:", talonId);
+        const response = await fetch(`/delete-talon/${talonId}`, {
+            method: 'DELETE',
+            credentials: 'include',
+        });
+
+        if (!response.ok) throw new Error(`Erro ao deletar talão: ${response.statusText}`);
+
+        // Atualiza a tabela após a exclusão
+        allTalon = allTalon.filter(talon => talon.talon_id !== talonId);
+        renderTable(allTalon);
+
+    } catch (error) {
+        console.error("Erro ao deletar talão:", error);
+        alert("Erro ao tentar deletar o talão. Tente novamente.");
+    }
+}
+
+function showDeleteModal(talonId) {
+    const modal = document.getElementById('deleteModal');
+    const confirmButton = document.getElementById('confirmDelete');
+    const cancelButton = document.getElementById('cancelDelete');
+    const closeModalButton = modal.querySelector('.modal-close');
+
+
+    // Exibe o modal
+    modal.style.display = 'block';
+
+    // Adiciona o evento para confirmar a exclusão
+    confirmButton.onclick = () => {
+        deleteTalon(talonId); // Chama a função para deletar
+        modal.style.display = 'none'; // Fecha o modal
+    };
+
+    // Fecha o modal ao clicar no botão de cancelar ou no botão de fechar
+    cancelButton.onclick = closeModalButton.onclick = () => {
+        modal.style.display = 'none'; // Fecha o modal
+    };
+}

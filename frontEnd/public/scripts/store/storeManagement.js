@@ -90,31 +90,26 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Fechar o modal
     closeModal.addEventListener('click', () => {
         modal.style.display = 'none';
         currentStoreId = null;
     });
 
-    // Cancelar a exclusão
     cancelDeleteButton.addEventListener('click', () => {
         modal.style.display = 'none';
         currentStoreId = null;
     });
 
-    // Confirmar a exclusão da loja
     confirmDeleteButton.addEventListener('click', async () => {
         try {
-            // Chamar a API para excluir a loja
             const response = await fetch(`/store-delete/${currentStoreId}`, {
                 method: 'DELETE',
             });
 
             if (response.ok) {
-                // Recarregar as lojas após a exclusão
                 getStores();
-                modal.style.display = 'none';  // Fechar o modal
-                currentStoreId = null;  // Resetar o ID da loja
+                modal.style.display = 'none';  
+                currentStoreId = null;  
             } else {
                 console.error('Erro ao excluir loja');
             }
@@ -129,7 +124,11 @@ document.getElementById('campo__buscar-id').addEventListener('input', (event) =>
     const searchValue = event.target.value.toLowerCase(); 
 
     const filteredStores = allStores.filter(store => {
-        return store.store_id.toLowerCase().includes(searchValue);
+        return (
+            String(store.store_id).toLowerCase().includes(searchValue) ||   
+            store.store_name.toLowerCase().includes(searchValue) ||         
+            store.street.toLowerCase().includes(searchValue)                
+        );
     });
 
     renderTabelaStores(filteredStores); 

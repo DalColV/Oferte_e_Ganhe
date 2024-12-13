@@ -1,5 +1,6 @@
 .container__taloes {
-  margin-top: 0;
+  margin: 0 auto;
+  min-width: 70%;
   background-color: #ffffff;
 }
 
@@ -8,8 +9,7 @@
 }
 
 .taloes__titulo-principal {
-  margin-top: 1.5rem;
-  margin-bottom: 2rem;
+  margin: 2rem 0; 
 }
 
 .taloes__titulo-secundario {
@@ -50,9 +50,9 @@ select option[data-status="recebido"] {
 
 /* Editar recebimento de talões */
 .recebimento-taloes__editar-status {
-  margin: 4rem 0 0 2rem;
+  margin-left: 2rem;
   display: flex;
-  align-items: center;
+  flex-direction: column;
   gap: 0.5rem;
 }
 
@@ -68,17 +68,11 @@ select option[data-status="recebido"] {
 }
 
 @media(min-width: 641px) {
-  .container__taloes {
-    min-width: 50%;
-  }
-  .taloes__exportar-csv{
-    display: none;
-  }
   .taloes__exportar-csv{
     display: block;
     margin-top: 1.5rem;
     margin-bottom: 3.8rem;
-  }
+  } 
 }
 
 @media(max-width: 640px) {
