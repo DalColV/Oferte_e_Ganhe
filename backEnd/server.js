@@ -10,7 +10,6 @@ sequelize.authenticate()
       .then(() => {
         console.log('Modelos sincronizados com o banco de dados.');
         
-        // Inicia o servidor
         app.listen(PORT, () => {
           console.log(`Servidor rodando na porta ${PORT}`);
         });
@@ -21,6 +20,5 @@ sequelize.authenticate()
       });
   })
   .catch((err) => {
-    console.error('Erro ao conectar ao banco de dados:', err);
     process.exit(1); 
   });

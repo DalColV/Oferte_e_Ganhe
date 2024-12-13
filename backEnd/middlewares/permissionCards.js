@@ -14,8 +14,7 @@ const addPermissionsToRequest = async (req, res, next) => {
             return res.status(403).json({ error: "Access denied. Profile not found." });
         }
 
-        // Adiciona as permissões no objeto req para serem usadas na rota
-        req.user.permissions = profile.get(); // ou ajuste conforme seu modelo
+        req.user.permissions = profile.get(); 
         next();
     } catch (error) {
         console.error("Error in addPermissionsToRequest middleware:", error);

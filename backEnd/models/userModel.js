@@ -42,7 +42,6 @@ const User = sequelize.define(
     timestamps: false,
   }
 );
-// Associações
 User.associate = (models) => {
   User.belongsTo(models.Profile, { foreignKey: 'profile_id', as: 'profile' });
   User.belongsTo(models.Store, { foreignKey: 'store_id', as: 'store' });

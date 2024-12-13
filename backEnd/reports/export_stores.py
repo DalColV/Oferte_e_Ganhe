@@ -58,12 +58,12 @@ def export_store_data(store_id):
             """
         }
 
-        # Caminho salvar o relatório
+        # salvar o rel
         project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../'))
         reports_folder = os.path.join(project_root, 'relatorios')
         os.makedirs(reports_folder, exist_ok=True)
 
-        # D caminho do  CSV
+        #  caminho CSV
         csv_path = os.path.join(reports_folder, f'loja_{store_id}.csv')
 
         with open(csv_path, 'w', encoding='utf-8') as csvfile:
@@ -84,7 +84,7 @@ def export_store_data(store_id):
         sys.exit(1)
 
 if __name__ == '__main__':
-    # Captura o argumento store_id da linha de comando
+    # Captura store_id 
     if len(sys.argv) < 2:
         print("Erro: O argumento 'store_id' é obrigatório.")
         print("STATUS: ERROR")

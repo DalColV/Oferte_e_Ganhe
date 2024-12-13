@@ -129,17 +129,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 
 
-document.addEventListener('DOMContentLoaded', async () => {
-    const storeId = getStoreIdFromSession();
-    if (!storeId) return;
-    const stores = await fetch('/stores', { method: 'GET', credentials: 'include' });
-    const storesData = await stores.json();
-    const store = storesData.data.find(store => store.store_id === storeId);
-    const isMatriz = store && store.is_matriz;
-    toggleTaloesCard(isMatriz);
-    await fetchInventory(isMatriz, storeId);
-});
-
 document.addEventListener('DOMContentLoaded', () => {
     const tableBody = document.querySelector('tbody');
     const modal = document.getElementById('deleteModal');

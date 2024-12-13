@@ -8,10 +8,10 @@ const path = require('path');
 app.use(express.json()); 
 app.use(cookieParser());
 
-//Middlewares para servir arquivos estáticos (CSS e JS)
+// para servir arquivos estáticos (CSS e JS)
 app.use(express.static(path.join(__dirname, '../frontEnd/public')));
 
-//Middleware cors global
+//cors global
 const corsMiddleware = require('./middlewares/corsMiddleware');
 
 const viewRoutes = require('./routes/view/viewRoutes');
@@ -26,7 +26,6 @@ const authRoutes = require('./routes/auth/authRoutes');
 app.use(corsMiddleware);
 
 
-// Rotas para as páginas HTML
 app.use('/', storeRoutes);
 app.use('/', viewRoutes);
 app.use('/', inventoryRoutes);

@@ -35,7 +35,7 @@ const Store = sequelize.define(
   }
 );
 
-// Associações
+
 Store.associate = (models) => {
   Store.hasMany(models.User, { foreignKey: 'store_id', as: 'users' });
   Store.hasOne(models.Inventory, { foreignKey: 'store_id', as: 'inventory' });

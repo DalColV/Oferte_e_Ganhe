@@ -38,7 +38,6 @@ async function getUserEmailByEmail(email) {
 // Função para inserir um novo usuário
 const insertUser = async (registration, username, store_id, profile_id, email, password) => {
   try {
-    // Verifica se o usuário já existe antes de criar um novo
     const existingUser = await User.findOne({ where: { registration } });
     if (existingUser) {
       throw new Error('User with this registration already exists');
@@ -100,7 +99,7 @@ const deleteUser = async (registration) => {
     }
 
     await User.destroy({ where: { registration } });
-    return user; // Retorna os dados do usuário excluído
+    return user; 
   } catch (error) {
     console.error('Error while deleting user:', error.message);
     throw error;

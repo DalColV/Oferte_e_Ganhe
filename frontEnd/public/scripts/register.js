@@ -28,14 +28,12 @@ document.addEventListener('DOMContentLoaded', async () => {
 document.querySelector('.btn-padrao').addEventListener('click', async (event) => {
     event.preventDefault();
   
-    // Capturar valores dos campos
     const username = document.getElementById('nome').value;
     const email = document.getElementById('email').value;
     const store_id = document.getElementById('loja').value;
     const registration = document.getElementById('matricula').value;
     const password = document.getElementById('senha').value;
   
-    // Montar o payload para envio ao backend
     const userData = {
       registration: registration,
       username: username,
@@ -44,7 +42,7 @@ document.querySelector('.btn-padrao').addEventListener('click', async (event) =>
       password: password,
     };
   
-    // Enviar os dados ao backend
+    //dados ao back
     try {
       const response = await fetch('/register', {
         method: 'POST',

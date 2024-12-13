@@ -6,7 +6,7 @@ const RESET_PASSWORD_SECRET_KEY = process.env.RESET_PASSWORD_SECRET_KEY;
 function generateResetToken(email) {
   const payload = { 
       email,
-      exp: Math.floor(Date.now() / 1000) + (60 * 60) // expiração de 1 hora
+      exp: Math.floor(Date.now() / 1000) + (60 * 60) 
   };
   const secretKey = process.env.RESET_PASSWORD_SECRET_KEY;
 
@@ -14,7 +14,7 @@ function generateResetToken(email) {
 }
 
 
-// Função para verificar e decodificar o token
+// verificar e decodificar  token
 function verifyResetToken(token) {
   try {
       console.log('Verificando token:', token); 
