@@ -67,6 +67,10 @@ select option[data-status="recebido"] {
   border: 1px solid #D7DBEC;
 }
 
+#form-editar-recebimento{
+  background-color: #f2fbf5a2 ;
+}
+
 @media(min-width: 641px) {
   .taloes__exportar-csv{
     display: block;
