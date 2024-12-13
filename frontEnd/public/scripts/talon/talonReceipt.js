@@ -190,3 +190,24 @@ function showDeleteModal(talonId) {
         modal.style.display = 'none';
     };
 }
+
+// Função de filtro para o campo de busca
+document.getElementById('busca').addEventListener('input', (event) => {
+    const searchValue = event.target.value.trim().toLowerCase();
+    
+    if (searchValue === '') {
+        renderTable(allTalon); 
+        return;
+    }
+
+    const filteredTalon = allTalon.filter(talon => {
+        return (
+            (talon.talon_id && talon.talon_id.toString().toLowerCase().includes(searchValue)) ||
+            (talon.store_id && talon.store_id.toString().toLowerCase().includes(searchValue)) ||
+            (talon.shipment && talon.shipment.toLowerCase().includes(searchValue)) ||
+            (talon.talon_status && talon.talon_status.toLowerCase().includes(searchValue))
+        );
+    });
+
+    renderTable(filteredTalon);
+});
