@@ -163,7 +163,6 @@ async function deleteTalon(talonId) {
 
         if (!response.ok) throw new Error(`Erro ao deletar talão: ${response.statusText}`);
 
-        // Atualiza a tabela após a exclusão
         allTalon = allTalon.filter(talon => talon.talon_id !== talonId);
         renderTable(allTalon);
 
@@ -180,17 +179,14 @@ function showDeleteModal(talonId) {
     const closeModalButton = modal.querySelector('.modal-close');
 
 
-    // Exibe o modal
     modal.style.display = 'block';
 
-    // Adiciona o evento para confirmar a exclusão
     confirmButton.onclick = () => {
-        deleteTalon(talonId); // Chama a função para deletar
-        modal.style.display = 'none'; // Fecha o modal
+        deleteTalon(talonId); 
+        modal.style.display = 'none'; 
     };
 
-    // Fecha o modal ao clicar no botão de cancelar ou no botão de fechar
     cancelButton.onclick = closeModalButton.onclick = () => {
-        modal.style.display = 'none'; // Fecha o modal
+        modal.style.display = 'none';
     };
 }

@@ -79,15 +79,17 @@
     </div>
   </section>
 
-  <div id="deleteModal" class="modal">
-    <div class="modal-content">
-        <span class="modal-close">&times;</span>
-        <h3>ATENÇÃO! AÇÃO DE RISCO!</h3>
-        <p>Ao confirmar todos os registros relacionados à esse Estoque serão apagados permanentemente.</p>
-        <button id="cancelDelete">Cancelar</button>
-        <button id="confirmDelete">Excluir</button>
-    </div>
-  </div>  
+    <!-- Modal de Confirmação -->
+    <div id="deleteModal" class="modal">
+      <div class="modal-content modal__recebimento">
+          <span class="modal-close">&times;</span>
+          <h3>ATENÇÃO! AÇÃO DE RISCO!</h3>
+          <p>Ao confirmar todos os registros relacionados à esse Estoque serão apagados permanentemente.</p>
+          <button id="cancelDelete">Cancelar</button>
+          <button id="confirmDelete">Excluir</button>
+      </div>
+      </div>
+    <div class="overlay"></div>
   <script src="../scripts/menu/menu.js"></script>
   <script src="../scripts/edit/edit.js"></script>
   <script type="module" src="../scripts/logout.js"></script>

@@ -43,7 +43,6 @@ function renderTabelaStores(stores) {
         cepCell.textContent = store.cep || 'CEP não disponível';
 
 
-        // Célula de Ações
         const acoesCell = document.createElement('td');
         const editButton = document.createElement('button');
         editButton.classList.add('btn-tabela__editar');
