@@ -11,13 +11,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (!response.ok) throw new Error('Erro ao buscar lojas');
 
     const result = await response.json();
-    console.log('Resposta do servidor:', result); // Verificar retorno
 
     const stores = result.data || [];
     stores.forEach((store) => {
       const option = document.createElement('option');
       option.value = store.store_id;
-      option.textContent = store.store_id; // Exibe o nome da loja
+      option.textContent = store.store_id; 
       storeSelect.appendChild(option);
     });
   } catch (error) {

@@ -4,7 +4,16 @@
   } 
   
 #loginForm {
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3);
 }
   
-  
+@media(max-width: 640px){
+  .formulario-login h1{
+    margin-top: 1rem;
+  }
+
+  #loginForm {
+    max-width: 90%;
+    border-radius: 10px;
+  }
+}
