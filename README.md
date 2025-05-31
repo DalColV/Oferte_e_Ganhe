@@ -10,6 +10,7 @@ Node.js: Plataforma para execução de JavaScript no servidor.
 Express: Framework para gerenciamento de rotas HTTP.
 Sequelize: ORM para interação com o banco de dados.
 PostgreSQL: Banco de dados relacional utilizado.
+
 Frontend
 
 HTML5: Estruturação das páginas web.
@@ -22,13 +23,18 @@ Backend
 
 Gerenciamento de rotas HTTP:
 npm install express
+
 Reinício automático do servidor:
 npm install nodemon
+
 Conexão com banco de dados:
 npm install pg
+
 Autenticação e criptografia:
 npm install jsonwebtoken body-parser bcrypt
+
 Envio de e-mails e configuração de variáveis de ambiente:
 npm install nodemailer dotenv
+
 Outras dependências:
 npm install cors sequelize
